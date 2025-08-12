@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卒業研究アンケート</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f3f4f6; /* 薄いグレーの背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+            overflow-x: hidden; /* 横スクロールを防ぐ */
+        }
+
+        /* 縦向きの場合のスタイル */
+        @media screen and (orientation: portrait) {
+            #orientation-message {
+                display: flex; /* 縦向きの時のみ表示 */
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9); /* 暗いオーバーレイ */
+                color: white;
+                font-size: 1.5rem;
+                font-weight: bold;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                z-index: 1000; /* 最前面に表示 */
+                padding: 1rem;
+            }
+            #survey-container {
+                display: none; /* 縦向きの時はアンケートを非表示 */
+            }
+        }
+
+        /* 横向きの場合のスタイル */
+        @media screen and (orientation: landscape) {
+            #orientation-message {
+                display: none; /* 横向きの時は非表示 */
+            }
+            #survey-container {
+                display: block; /* 横向きの時はアンケートを表示 */
+                max-width: 800px;
+                width: 100%;
+            }
+        }
+
+        /* カスタムモーダル */
+        .modal {
+            display: none; /* デフォルトで非表示 */
+            position: fixed;
+            z-index: 1001; /* オーバーレイより上 */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4); /* 半透明の黒背景 */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 2rem;
+            border-radius: 0.75rem; /* rounded-lg */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            text-align: center;
+            max-width: 90%;
+            width: 400px;
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 縦画面時のメッセージ -->
+    <div id="orientation-message" class="hidden">
+        <p>回答は<span class="text-yellow-400">横画面</span>で行ってください。<br>デバイスを回転させてください。</p>
+    </div>
+
+    <!-- アンケートコンテナ -->
+    <div id="survey-container" class="bg-white p-8 rounded-lg shadow-xl border border-gray-200">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">卒業研究アンケート</h1>
+        <p class="text-gray-600 mb-8 text-center">ご協力ありがとうございます。以下の質問にご回答ください。</p>
+
+        <form id="survey-form" class="space-y-6">
+            <!-- 質問1: テキスト入力 -->
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">お名前 (任意)</label>
+                <input type="text" id="name" name="名前" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="氏名をご入力ください">
+            </div>
+
+            <!-- 質問2: ラジオボタン -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">性別</label>
+                <div class="mt-2 space-y-2">
+                    <div class="flex items-center">
+                        <input id="gender-male" name="性別" type="radio" value="男性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                        <label for="gender-male" class="ml-3 block text-sm text-gray-700">男性</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="gender-female" name="性別" type="radio" value="女性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                        <label for="gender-female" class="ml-3 block text-sm text-gray-700">女性</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="gender-other" name="性別" type="radio" value="その他" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                        <label for="gender-other" class="ml-3 block text-sm text-gray-700">その他</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="gender-prefer-not-to-say" name="性別" type="radio" value="回答しない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                        <label for="gender-prefer-not-to-say" class="ml-3 block text-sm text-gray-700">回答しない</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 質問3: ドロップダウン -->
+            <div>
+                <label for="age" class="block text-sm font-medium text-gray-700 mb-1">年齢層</label>
+                <select id="age" name="年齢層" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
+                    <option value="">選択してください</option>
+                    <option value="10代">10代</option>
+                    <option value="20代">20代</option>
+                    <option value="30代">30代</option>
+                    <option value="40代">40代</option>
+                    <option value="50代以上">50代以上</option>
+                </select>
+            </div>
+
+            <!-- 質問4: テキストエリア -->
+            <div>
+                <label for="feedback" class="block text-sm font-medium text-gray-700 mb-1">今回のアンケートについてのご意見・ご感想</label>
+                <textarea id="feedback" name="ご意見・ご感想" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
+            </div>
+
+            <!-- 送信ボタン -->
+            <div>
+                <button type="submit" id="submit-button" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    回答を送信
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- ローディングとメッセージ表示用のモーダル -->
+    <div id="statusModal" class="modal">
+        <div class="modal-content">
+            <p id="modal-message" class="text-lg font-semibold text-gray-800"></p>
+            <div id="loading-spinner" class="hidden mt-4">
+                <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+            <button id="modal-close-button" class="mt-6 py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-150 ease-in-out hidden">
+                閉じる
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Google Apps ScriptのWebアプリのURLをここに設定します
+        // デプロイ後にGoogle Apps Scriptから取得したURLに置き換えてください
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz1N2eNGyzA4_8uYok53nmEo-aKTf2gqS6HvGChXqBDg-JowQLw8kMp8gvUCIa3apBb/exec';
+
+        const form = document.getElementById('survey-form');
+        const submitButton = document.getElementById('submit-button');
+        const statusModal = document.getElementById('statusModal');
+        const modalMessage = document.getElementById('modal-message');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const modalCloseButton = document.getElementById('modal-close-button');
+
+        // モーダルを表示する関数
+        function showModal(message, isLoading = false) {
+            modalMessage.textContent = message;
+            if (isLoading) {
+                loadingSpinner.classList.remove('hidden');
+                submitButton.disabled = true; // 送信中はボタンを無効化
+                modalCloseButton.classList.add('hidden'); // ローディング中は閉じるボタンを非表示
+            } else {
+                loadingSpinner.classList.add('hidden');
+                submitButton.disabled = false; // 送信可能にする
+                modalCloseButton.classList.remove('hidden'); // 完了時に閉じるボタンを表示
+            }
+            statusModal.style.display = 'flex'; // flexで表示して中央寄せを有効にする
+        }
+
+        // モーダルを閉じる関数
+        function closeModal() {
+            statusModal.style.display = 'none';
+        }
+
+        // 閉じるボタンにイベントリスナーを追加
+        modalCloseButton.addEventListener('click', closeModal);
+        window.addEventListener('click', (event) => {
+            if (event.target == statusModal) {
+                closeModal();
+            }
+        });
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault(); // フォームのデフォルトの送信動作を停止
+
+            // Google Apps ScriptのURLが設定されているか確認
+            if (GOOGLE_APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE' || !GOOGLE_APPS_SCRIPT_URL) {
+                showModal('エラー: Google Apps ScriptのURLが設定されていません。', false);
+                return;
+            }
+
+            showModal('回答を送信しています...', true); // 送信中にローディングを表示
+
+            const formData = new FormData(form);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+
+            try {
+                // Google Apps Scriptにデータを送信
+                const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // CORSエラーを避けるためにno-corsモードを使用
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                // no-corsモードではレスポンスのステータスコードを直接確認できないため、
+                // 通常はApps Script側でエラー処理を行い、成功メッセージを表示します。
+                // 実際のスプレッドシートへの書き込みはApps Scriptで完結するため、ここでは成功と仮定します。
+                showModal('回答が正常に送信されました！ご協力ありがとうございます。', false);
+                form.reset(); // フォームをリセット
+            } catch (error) {
+                console.error('送信エラー:', error);
+                showModal('送信中にエラーが発生しました。もう一度お試しください。', false);
+            }
+        });
+    </script>
+</body>
+</html>
