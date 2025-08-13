@@ -261,7 +261,7 @@
             </div>
 
             <!-- ページ2 -->
-            <div class="survey-page" data-page="2">
+            <div class="survey-page" data-page="3">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">衣服の購買頻度などの質問</h2>
                 <!-- 質問: インターネット利用頻度 -->
                 <div>
@@ -321,7 +321,7 @@
 
 
             <!-- ページ3 (通常の最終ページ) -->
-            <div class="survey-page" data-page="3">
+            <div class="survey-page" data-page="4">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">ご意見・ご感想</h2>
                 <!-- 質問4: テキストエリア -->
                 <div>
@@ -339,7 +339,7 @@
             </div>
 
             <!-- ページ4 (IT・テクノロジー選択時の専用ページ) -->
-            <div class="survey-page" data-page="4">
+            <div class="survey-page" data-page="5">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">IT・テクノロジーに関するご質問</h2>
                 <div>
                     <label for="it-feedback" class="block text-sm font-medium text-gray-700 mb-1">IT・テクノロジー分野で特に興味のあることや、期待していることについてお聞かせください。</label>
@@ -398,10 +398,6 @@
                     page.classList.remove('active'); // それ以外のページを非表示
                 }
             });
-            // ページステータスを更新 (例: 質問1/3)
-            // surveyPages.lengthは最大ページ数を正確に反映します
-            pageStatus.textContent = `質問${currentPageIndex + 1}/${surveyPages.length}`;
-            window.scrollTo(0, 0); // ページ上部にスクロール
         }
 
         // 次のページへ進む関数 (一般的な遷移)
@@ -420,10 +416,10 @@
                 
                 if (selectedInterest && selectedInterest.value === 'IT・テクノロジー') {
                     // 「IT・テクノロジー」が選択されたらページ4へ (インデックスは3)
-                    currentPageIndex = 3; 
+                    currentPageIndex = 4; 
                 } else {
                     // それ以外の選択肢の場合はページ3へ (インデックスは2)
-                    currentPageIndex = 2;
+                    currentPageIndex = 3;
                 }
             } else {
                 // ページ2以外からの遷移は通常のnextPageと同じ
@@ -436,8 +432,8 @@
         function prevPage() {
             if (currentPageIndex > 0) {
                 // IT・テクノロジー専用ページ (ページ4, インデックス3) から戻る場合、ページ2 (インデックス1) に戻る
-                if (currentPageIndex === 3) {
-                    currentPageIndex = 1; // ページ2へ直接戻る
+                if (currentPageIndex === 4) {
+                    currentPageIndex = 2; // ページ2へ直接戻る
                 } else {
                     currentPageIndex--;
                 }
