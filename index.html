@@ -98,6 +98,17 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* ページ切り替えアニメーション */
+        .survey-page {
+            display: none; /* デフォルトでは全てのページを非表示 */
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .survey-page.active {
+            display: block; /* アクティブなページのみ表示 */
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -110,63 +121,153 @@
     <!-- アンケートコンテナ -->
     <div id="survey-container" class="bg-white p-8 rounded-lg shadow-xl border border-gray-200">
         <h1 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">卒業研究アンケート</h1>
-        <p class="text-gray-600 mb-8 text-center">ご協力ありがとうございます。以下の質問にご回答ください。</p>
+        <p class="text-gray-600 mb-8 text-center" id="page-status">質問1/3</p>
 
         <form id="survey-form" class="space-y-6">
-            <!-- 質問1: テキスト入力 -->
-            <div>
-                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">お名前 (任意)</label>
-                <input type="text" id="name" name="名前" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="氏名をご入力ください">
-            </div>
 
-            <!-- 質問2: ラジオボタン -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">性別</label>
-                <div class="mt-2 space-y-2">
-                    <div class="flex items-center">
-                        <input id="gender-male" name="性別" type="radio" value="男性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                        <label for="gender-male" class="ml-3 block text-sm text-gray-700">男性</label>
+            <!-- ページ1 -->
+            <div class="survey-page active" data-page="1">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">基本情報</h2>
+                <!-- 質問1: テキスト入力 -->
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700 mb-1">お名前 (任意)</label>
+                    <input type="text" id="name" name="名前" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="氏名をご入力ください">
+                </div>
+                <!-- 質問2: ラジオボタン -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">性別</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="gender-male" name="性別" type="radio" value="男性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="gender-male" class="ml-3 block text-sm text-gray-700">男性</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="gender-female" name="性別" type="radio" value="女性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="gender-female" class="ml-3 block text-sm text-gray-700">女性</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="gender-other" name="性別" type="radio" value="その他" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="gender-other" class="ml-3 block text-sm text-gray-700">その他</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="gender-prefer-not-to-say" name="性別" type="radio" value="回答しない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="gender-prefer-not-to-say" class="ml-3 block text-sm text-gray-700">回答しない</label>
+                        </div>
                     </div>
-                    <div class="flex items-center">
-                        <input id="gender-female" name="性別" type="radio" value="女性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                        <label for="gender-female" class="ml-3 block text-sm text-gray-700">女性</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="gender-other" name="性別" type="radio" value="その他" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                        <label for="gender-other" class="ml-3 block text-sm text-gray-700">その他</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="gender-prefer-not-to-say" name="性別" type="radio" value="回答しない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                        <label for="gender-prefer-not-to-say" class="ml-3 block text-sm text-gray-700">回答しない</label>
-                    </div>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        次へ
+                    </button>
                 </div>
             </div>
 
-            <!-- 質問3: ドロップダウン -->
-            <div>
-                <label for="age" class="block text-sm font-medium text-gray-700 mb-1">年齢層</label>
-                <select id="age" name="年齢層" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
-                    <option value="">選択してください</option>
-                    <option value="10代">10代</option>
-                    <option value="20代">20代</option>
-                    <option value="30代">30代</option>
-                    <option value="40代">40代</option>
-                    <option value="50代以上">50代以上</option>
-                </select>
+            <!-- ページ2 -->
+            <div class="survey-page" data-page="2">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">詳細情報</h2>
+                <!-- 質問3: ドロップダウン -->
+                <div>
+                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">年齢層</label>
+                    <select id="age" name="年齢層" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
+                        <option value="">選択してください</option>
+                        <option value="10代">10代</option>
+                        <option value="20代">20代</option>
+                        <option value="30代">30代</option>
+                        <option value="40代">40代</option>
+                        <option value="50代以上">50代以上</option>
+                    </select>
+                </div>
+                <!-- 質問: インターネット利用頻度 -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">普段インターネットをどのくらい利用しますか？</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="internet-usage-daily" name="インターネット利用頻度" type="radio" value="毎日" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-daily" class="ml-3 block text-sm text-gray-700">毎日</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-weekly" name="インターネット利用頻度" type="radio" value="週に数回" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-weekly" class="ml-3 block text-sm text-gray-700">週に数回</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-monthly" name="インターネット利用頻度" type="radio" value="月に数回" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-monthly" class="ml-3 block text-sm text-gray-700">月に数回</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-rarely" name="インターネット利用頻度" type="radio" value="ほとんど利用しない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-rarely" class="ml-3 block text-sm text-gray-700">ほとんど利用しない</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 新しい質問: 興味のある分野 (条件分岐のトリガー) -->
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">特に興味のある分野はありますか？</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="interest-it" name="興味のある分野" type="radio" value="IT・テクノロジー" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="interest-it" class="ml-3 block text-sm text-gray-700">IT・テクノロジー</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="interest-medical" name="興味のある分野" type="radio" value="医療・健康" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="interest-medical" class="ml-3 block text-sm text-gray-700">医療・健康</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="interest-education" name="興味のある分野" type="radio" value="教育" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="interest-education" class="ml-3 block text-sm text-gray-700">教育</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="interest-other" name="興味のある分野" type="radio" value="その他" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="interest-other" class="ml-3 block text-sm text-gray-700">その他</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        戻る
+                    </button>
+                    <button type="button" onclick="nextPageConditional()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        次へ
+                    </button>
+                </div>
             </div>
 
-            <!-- 質問4: テキストエリア -->
-            <div>
-                <label for="feedback" class="block text-sm font-medium text-gray-700 mb-1">今回のアンケートについてのご意見・ご感想</label>
-                <textarea id="feedback" name="ご意見・ご感想" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
+            <!-- ページ3 (通常の最終ページ) -->
+            <div class="survey-page" data-page="3">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">ご意見・ご感想</h2>
+                <!-- 質問4: テキストエリア -->
+                <div>
+                    <label for="feedback" class="block text-sm font-medium text-gray-700 mb-1">今回のアンケートについてのご意見・ご感想</label>
+                    <textarea id="feedback" name="ご意見・ご感想" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        戻る
+                    </button>
+                    <button type="submit" id="submit-button" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        回答を送信
+                    </button>
+                </div>
             </div>
 
-            <!-- 送信ボタン -->
-            <div>
-                <button type="submit" id="submit-button" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                    回答を送信
-                </button>
+            <!-- ページ4 (IT・テクノロジー選択時の専用ページ) -->
+            <div class="survey-page" data-page="4">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">IT・テクノロジーに関するご質問</h2>
+                <div>
+                    <label for="it-feedback" class="block text-sm font-medium text-gray-700 mb-1">IT・テクノロジー分野で特に興味のあることや、期待していることについてお聞かせください。</label>
+                    <textarea id="it-feedback" name="IT・テクノロジーに関するご意見" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        戻る
+                    </button>
+                    <button type="submit" id="submit-button-it" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        回答を送信
+                    </button>
+                </div>
             </div>
+
         </form>
     </div>
 
@@ -189,28 +290,88 @@
     <script>
         // Google Apps ScriptのWebアプリのURLをここに設定します
         // デプロイ後にGoogle Apps Scriptから取得したURLに置き換えてください
-        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_3ELBJPGa11FQPDZ0VOxqQ4iHnOTfP6C0dh32s6y_oWc5NbY6HXo9bhdU2qgrJD09/exec';
+        const GOOGLE_APPS_SCRIPT_URL = 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE'; 
 
         const form = document.getElementById('survey-form');
-        const submitButton = document.getElementById('submit-button');
+        const surveyPages = document.querySelectorAll('.survey-page');
+        const pageStatus = document.getElementById('page-status');
         const statusModal = document.getElementById('statusModal');
         const modalMessage = document.getElementById('modal-message');
         const loadingSpinner = document.getElementById('loading-spinner');
         const modalCloseButton = document.getElementById('modal-close-button');
+
+        let currentPageIndex = 0; // 現在表示されているページのインデックス (0始まり)
+
+        // ページを更新して表示する関数
+        function updatePageDisplay() {
+            surveyPages.forEach((page, index) => {
+                if (index === currentPageIndex) {
+                    page.classList.add('active'); // アクティブなページを表示
+                } else {
+                    page.classList.remove('active'); // それ以外のページを非表示
+                }
+            });
+            // ページステータスを更新 (例: 質問1/3)
+            // surveyPages.lengthは最大ページ数を正確に反映します
+            pageStatus.textContent = `質問${currentPageIndex + 1}/${surveyPages.length}`;
+            window.scrollTo(0, 0); // ページ上部にスクロール
+        }
+
+        // 次のページへ進む関数 (一般的な遷移)
+        function nextPage() {
+            if (currentPageIndex < surveyPages.length - 1) {
+                currentPageIndex++;
+                updatePageDisplay();
+            }
+        }
+
+        // 条件分岐を含む次のページへ進む関数
+        function nextPageConditional() {
+            // 現在のページがページ2の場合に条件分岐を適用
+            if (currentPageIndex === 1) { // ページ2のインデックスは1
+                const selectedInterest = document.querySelector('input[name="興味のある分野"]:checked');
+                
+                if (selectedInterest && selectedInterest.value === 'IT・テクノロジー') {
+                    // 「IT・テクノロジー」が選択されたらページ4へ (インデックスは3)
+                    currentPageIndex = 3; 
+                } else {
+                    // それ以外の選択肢の場合はページ3へ (インデックスは2)
+                    currentPageIndex = 2;
+                }
+            } else {
+                // ページ2以外からの遷移は通常のnextPageと同じ
+                currentPageIndex++;
+            }
+            updatePageDisplay();
+        }
+
+        // 前のページへ戻る関数
+        function prevPage() {
+            if (currentPageIndex > 0) {
+                // IT・テクノロジー専用ページ (ページ4, インデックス3) から戻る場合、ページ2 (インデックス1) に戻る
+                if (currentPageIndex === 3) {
+                    currentPageIndex = 1; // ページ2へ直接戻る
+                } else {
+                    currentPageIndex--;
+                }
+                updatePageDisplay();
+            }
+        }
+
+        // 初期表示
+        updatePageDisplay();
 
         // モーダルを表示する関数
         function showModal(message, isLoading = false) {
             modalMessage.textContent = message;
             if (isLoading) {
                 loadingSpinner.classList.remove('hidden');
-                submitButton.disabled = true; // 送信中はボタンを無効化
-                modalCloseButton.classList.add('hidden'); // ローディング中は閉じるボタンを非表示
+                modalCloseButton.classList.add('hidden'); 
             } else {
                 loadingSpinner.classList.add('hidden');
-                submitButton.disabled = false; // 送信可能にする
-                modalCloseButton.classList.remove('hidden'); // 完了時に閉じるボタンを表示
+                modalCloseButton.classList.remove('hidden');
             }
-            statusModal.style.display = 'flex'; // flexで表示して中央寄せを有効にする
+            statusModal.style.display = 'flex'; 
         }
 
         // モーダルを閉じる関数
@@ -254,11 +415,10 @@
                     body: JSON.stringify(data),
                 });
 
-                // no-corsモードではレスポンスのステータスコードを直接確認できないため、
-                // 通常はApps Script側でエラー処理を行い、成功メッセージを表示します。
-                // 実際のスプレッドシートへの書き込みはApps Scriptで完結するため、ここでは成功と仮定します。
                 showModal('回答が正常に送信されました！ご協力ありがとうございます。', false);
                 form.reset(); // フォームをリセット
+                currentPageIndex = 0; // 最初のページに戻す
+                updatePageDisplay(); // 最初のページを表示
             } catch (error) {
                 console.error('送信エラー:', error);
                 showModal('送信中にエラーが発生しました。もう一度お試しください。', false);
