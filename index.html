@@ -159,23 +159,24 @@
                         </div>
                     </div>
                 </div>
-                 <!-- 質問3: ラジオボタン -->
+                <!-- 質問3: ラジオボタン -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">所属</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
-                            <input id="gender-male" name="所属" type="radio" value="男性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="gender-male" class="ml-3 block text-sm text-gray-700">大学生（専門学生を含む）</label>
+                            <input id="affiliation-univ" name="所属" type="radio" value="大学生（専門学生を含む）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="affiliation-univ" class="ml-3 block text-sm text-gray-700">大学生（専門学生を含む）</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="gender-female" name="所属" type="radio" value="大学院生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="gender-female" class="ml-3 block text-sm text-gray-700">大学院生</label>
+                            <input id="affiliation-grad" name="所属" type="radio" value="大学院生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="affiliation-grad" class="ml-3 block text-sm text-gray-700">大学院生</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="gender-other" name="所属" type="radio" value="大学生ではない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="gender-other" class="ml-3 block text-sm text-gray-700">大学生ではない</label>
+                            <input id="affiliation-other" name="所属" type="radio" value="大学生ではない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="affiliation-other" class="ml-3 block text-sm text-gray-700">大学生ではない</label>
                         </div>
                     </div>
+                </div>
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
@@ -208,7 +209,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                
                 <!-- 新しい質問: 興味のある分野 (条件分岐のトリガー) -->
                 <div class="mt-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">特に興味のある分野はありますか？</label>
@@ -240,7 +241,8 @@
                         次へ
                     </button>
                 </div>
-            </div>
+            </div> <!-- これがページ2の正しい閉じタグの位置です -->
+
 
             <!-- ページ3 (通常の最終ページ) -->
             <div class="survey-page" data-page="3">
@@ -299,7 +301,7 @@
     <script>
         // Google Apps ScriptのWebアプリのURLをここに設定します
         // デプロイ後にGoogle Apps Scriptから取得したURLに置き換えてください
-        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_3ELBJPGa11FQPDZ0VOxqQ4iHnOTfP6C0dh32s6y_oWc5NbY6HXo9bhdU2qgrJD09/exec'; 
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_3ELBJPGa11FQPDZ0VOxqQ4iHnOTfP6C0dh32s6y_oWc5NbY6HXo9bhdU2qgrJD09/exec'; // ★ここに更新する
 
         const form = document.getElementById('survey-form');
         const surveyPages = document.querySelectorAll('.survey-page');
