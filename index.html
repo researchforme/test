@@ -188,6 +188,83 @@
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">衣服の購買頻度などの質問</h2>
                 <!-- 質問: インターネット利用頻度 -->
                 <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">購買頻度</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="internet-usage-daily" name="購買頻度" type="radio" value="1ヶ月に1回より多い" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-daily" class="ml-3 block text-sm text-gray-700">1ヶ月に1回より多い</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-weekly" name="購買頻度" type="radio" value="1ヶ月に1回程度" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-weekly" class="ml-3 block text-sm text-gray-700">1ヶ月に1回程度</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-monthly" name="購買頻度" type="radio" value="2ヶ月に1回程度" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-monthly" class="ml-3 block text-sm text-gray-700">2ヶ月に1回程度</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-rarely" name="購買頻度" type="radio" value="3ヶ月に1回程度" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-rarely" class="ml-3 block text-sm text-gray-700">3ヶ月に1回程度</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-rarely" name="購買頻度" type="radio" value="4か月に1回依程度かそれ以下" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-rarely" class="ml-3 block text-sm text-gray-700">4か月に1回程度かそれ以下</label>
+                        </div>
+                        
+                    </div>
+
+                    <!-- 質問: インターネット利用頻度 -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">一度に使う使用金額</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="internet-usage-daily" name="一度に使う金額" type="radio" value="1" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-daily" class="ml-3 block text-sm text-gray-700">3000円以内</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-daily" name="一度に使う金額" type="radio" value="2" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-daily" class="ml-3 block text-sm text-gray-700">3001円～4000円</label>
+                        </div>
+                    </div>
+
+                    <!-- 質問: インターネット利用頻度 -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">普段インターネットをどのくらい利用しますか？</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="internet-usage-daily" name="インターネット利用頻度" type="radio" value="毎日" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-daily" class="ml-3 block text-sm text-gray-700">毎日</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-weekly" name="インターネット利用頻度" type="radio" value="週に数回" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-weekly" class="ml-3 block text-sm text-gray-700">週に数回</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-monthly" name="インターネット利用頻度" type="radio" value="月に数回" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-monthly" class="ml-3 block text-sm text-gray-700">月に数回</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="internet-usage-rarely" name="インターネット利用頻度" type="radio" value="ほとんど利用しない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="internet-usage-rarely" class="ml-3 block text-sm text-gray-700">ほとんど利用しない</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-6">
+                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        戻る
+                    </button>
+                    <button type="button" onclick="nextPageConditional()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        次へ
+                    </button>
+                </div>
+            </div>
+
+            <!-- ページ2 -->
+            <div class="survey-page" data-page="2">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">衣服の購買頻度などの質問</h2>
+                <!-- 質問: インターネット利用頻度 -->
+                <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">普段インターネットをどのくらい利用しますか？</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
