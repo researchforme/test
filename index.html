@@ -245,7 +245,7 @@
             <!-- ページ3 -->
             <div class="survey-page" data-page="3">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">所属世帯について</h2>
-                <!-- 新しい質問: 所属世帯について (条件分岐のトリガー) -->
+                <!-- 質問: 所属世帯について (条件分岐のトリガー) -->
                 <div class="mt-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">所属世帯について</label>
                     <div class="mt-2 space-y-2">
@@ -293,6 +293,34 @@
                     <label for="alone-living-feedback" class="block text-sm font-medium text-gray-700 mb-1">一人暮らしで衣服の購入に関して、特に感じることはありますか？</label>
                     <textarea id="alone-living-feedback" name="一人暮らしに関するご意見" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
                 </div>
+
+                <!-- 新しい質問: 衣服の購入において、最も重視する点は何ですか？ -->
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">衣服の購入において、最も重視する点は何ですか？</label>
+                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2"> <!-- flexとgap-x-6で横並びと間隔を設定 -->
+                        <div class="flex items-center">
+                            <input id="importance-price" name="重視する点" type="radio" value="価格" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">価格</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="importance-design" name="重視する点" type="radio" value="デザイン" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="importance-design" class="ml-3 block text-sm text-gray-700">デザイン</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="importance-functionality" name="重視する点" type="radio" value="機能性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="importance-functionality" class="ml-3 block text-sm text-gray-700">機能性</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="importance-brand" name="重視する点" type="radio" value="ブランド" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="importance-brand" class="ml-3 block text-sm text-gray-700">ブランド</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="importance-environment" name="重視する点" type="radio" value="環境への配慮" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="importance-environment" class="ml-3 block text-sm text-gray-700">環境への配慮</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex justify-between mt-6">
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         戻る
@@ -347,6 +375,7 @@
                 }
             });
             // ページステータスを更新 (例: 質問1/4)
+            // surveyPages.lengthは現在のDOMに存在するページ数を正確に反映します
             pageStatus.textContent = `質問${currentPageIndex + 1}/${surveyPages.length}`;
             window.scrollTo(0, 0); // ページ上部にスクロール
         }
@@ -362,7 +391,6 @@
         // 条件分岐を含む次のページへ進む関数
         function nextPageConditional() {
             // 現在のページがページ3の場合に条件分岐を適用
-            // ユーザーの質問リストに合わせてページインデックスを調整
             if (currentPageIndex === 2) { // ページ3のインデックスは2
                 const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
                 
@@ -383,17 +411,10 @@
                     // 一人暮らし関連の選択肢が選ばれたらページ4へ (インデックスは3)
                     currentPageIndex = 3; 
                 } else {
-                    // それ以外の選択肢の場合は、このアンケートの最終ページ（ページ3、インデックス2）に留まる
-                    // または、もし別の最終ページがあるならそのインデックスを指定
-                    // 今回はIT・テクノロジーに関する質問を一人暮らしに関する質問に置き換えたので、
-                    // 実家暮らしに戻っている場合はここで送信する形にするか、別の最終ページへ誘導する
-                    // ここでは一旦、次へ進まない（つまり、このページで終わりにする）
-                    // もしくは、さらに別の最終質問ページへ進める
-                    showModal('回答が正常に送信されました！ご協力ありがとうございます。', false);
-                    form.reset(); // フォームをリセット
-                    currentPageIndex = 0; // 最初のページに戻す
-                    updatePageDisplay(); // 最初のページを表示
-                    return; // ここで処理を終了し、フォーム送信の準備をする
+                    // それ以外の選択肢（実家暮らし、一人暮らしから実家暮らしに戻っている）の場合は、
+                    // ここで回答を送信してアンケートを終了させる
+                    submitForm(); // フォーム送信関数を呼び出す
+                    return; // ページ遷移を中止
                 }
             } else {
                 // その他のページからの遷移は通常のnextPageと同じ
@@ -444,9 +465,8 @@
             }
         });
 
-        form.addEventListener('submit', async (event) => {
-            event.preventDefault(); // フォームのデフォルトの送信動作を停止
-
+        // フォーム送信処理を関数化
+        async function submitForm() {
             // Google Apps ScriptのURLが設定されているか確認
             if (GOOGLE_APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE' || !GOOGLE_APPS_SCRIPT_URL) {
                 showModal('エラー: Google Apps ScriptのURLが設定されていません。', false);
@@ -462,10 +482,9 @@
             }
 
             try {
-                // Google Apps Scriptにデータを送信
                 const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', // CORSエラーを避けるためにno-corsモードを使用
+                    mode: 'no-cors', 
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -480,7 +499,10 @@
                 console.error('送信エラー:', error);
                 showModal('送信中にエラーが発生しました。もう一度お試しください。', false);
             }
-        });
+        }
+
+        // フォーム全体のsubmitイベントリスナーを登録
+        form.addEventListener('submit', submitForm);
     </script>
 </body>
 </html>
