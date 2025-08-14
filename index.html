@@ -248,30 +248,30 @@
                 <!-- 質問: 所属世帯について (条件分岐のトリガー) -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">所属世帯について</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="household-home" name="所属世帯" type="radio" value="実家暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-home" class="ml-3 block text-sm text-gray-700">実家暮らし</label>
+                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
+                        <div class="flex flex-col items-center">
+                            <input id="household-live-with-parents" name="所属世帯" type="radio" value="実家暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-live-with-parents" class="mt-1 block text-sm text-gray-700">実家暮らし</label>
                         </div>
-                        <div class="flex items-center">
-                            <input id="household-highschool-alone" name="所属世帯" type="radio" value="高校生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-highschool-alone" class="ml-3 block text-sm text-gray-700">高校生から一人暮らし</label>
+                        <div class="flex flex-col items-center">
+                            <input id="household-live-alone-hs" name="所属世帯" type="radio" value="高校生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-live-alone-hs" class="mt-1 block text-sm text-gray-700">高校生から一人暮らし</label>
                         </div>
-                        <div class="flex items-center">
-                            <input id="household-university-alone" name="所属世帯" type="radio" value="大学生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-university-alone" class="ml-3 block text-sm text-gray-700">大学生から一人暮らし</label>
+                        <div class="flex flex-col items-center">
+                            <input id="household-live-alone-univ" name="所属世帯" type="radio" value="大学生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-live-alone-univ" class="mt-1 block text-sm text-gray-700">大学生から一人暮らし</label>
                         </div>
-                        <div class="flex items-center">
-                            <input id="household-gradschool-alone" name="所属世帯" type="radio" value="大学院生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-gradschool-alone" class="ml-3 block text-sm text-gray-700">大学院生から一人暮らし</label>
+                        <div class="flex flex-col items-center">
+                            <input id="household-live-alone-grad" name="所属世帯" type="radio" value="大学院生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-live-alone-grad" class="mt-1 block text-sm text-gray-700">大学院生から一人暮らし</label>
                         </div>
-                        <div class="flex items-center">
-                            <input id="household-work-alone" name="所属世帯" type="radio" value="就職から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-work-alone" class="ml-3 block text-sm text-gray-700">就職から一人暮らし</label>
+                        <div class="flex flex-col items-center">
+                            <input id="household-live-alone-work" name="所属世帯" type="radio" value="就職から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-live-alone-work" class="mt-1 block text-sm text-gray-700">就職から一人暮らし</label>
                         </div>
-                        <div class="flex items-center">
-                            <input id="household-return-home" name="所属世帯" type="radio" value="一人暮らしから実家暮らしに戻っている" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-return-home" class="ml-3 block text-sm text-gray-700">一人暮らしから実家暮らしに戻っている</label>
+                        <div class="flex flex-col items-center">
+                            <input id="household-returned-home" name="所属世帯" type="radio" value="一人暮らしから実家暮らしに戻っている" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-returned-home" class="mt-1 block text-sm text-gray-700">一人暮らしから実家暮らしに戻っている</label>
                         </div>
                     </div>
                 </div>
@@ -279,6 +279,7 @@
                 <div class="flex justify-between mt-6">
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         戻る
+
                     </button>
                     <button type="button" onclick="nextPageConditional()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
@@ -289,91 +290,106 @@
             <!-- ページ4 (一人暮らし関連選択時の専用ページ - 例) -->
             <div class="survey-page" data-page="4">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">一人暮らしの方への質問</h2>
-                <div>
+                <div class="mb-8"> <!-- mb-6からmb-8に変更 -->
+                    <label for="alone-living-feedback" class="block text-sm font-medium text-gray-700 mb-1">一人暮らしで衣服の購入に関して、特に感じることはありますか？</label>
+                    <textarea id="alone-living-feedback" name="一人暮らしに関するご意見" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
+                </div>
+
+                <!-- 新しい質問: 衣服の購入において、最も重視する点は何ですか？ -->
+                <div class="mb-8"> <!-- mb-6からmb-8に変更 -->
                     <label class="block text-sm font-medium text-gray-700 mb-2">家賃補助を実家から受け取っている</label>
-                    <div class="mt-2 space-y-2 mb-6">
-                        <div class="flex items-center">
-                            <input id="household-home" name="家賃補助" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-home" class="ml-3 block text-sm text-gray-700">はい</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="household-highschool-alone" name="家賃補助" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-highschool-alone" class="ml-3 block text-sm text-gray-700">いいえ</label>
-                    </div>
-
-                    <label class="block text-sm font-medium text-gray-700 mb-2">奨学金を受け取っている</label>
-                    <div class="mt-2 space-y-2 mb-6">
-                        <div class="flex items-center">
-                            <input id="household-home" name="奨学金" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-home" class="ml-3 block text-sm text-gray-700">はい</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="household-highschool-alone" name="奨学金" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="household-highschool-alone" class="ml-3 block text-sm text-gray-700">いいえ</label>
-                    </div>
-
-                    <div class="mb-6">
-                        <label for="single-purchase-amount" class="block text-sm font-medium text-gray-700 mb-1">アルバイトの収入</label>
-                        <select id="single-purchase-amount" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
-                            <option value="">選択してください</option>
-                            <option value="月5万円未満">月5万円未満</option>
-                            <option value="月5～6万円">月5～6万円</option>
-                            <option value="月6～7万円">月6～7万円</option>
-                            <option value="月7～8万円">月7～8万円</option>
-                            <option value="月8万円以上">月8万円以上</option>
-                            <option value="アルバイトをしていない">アルバイトをしていない</option>
-                            <option value="就職している">就職している</option>
-                        </select>
-                    </div>
-                        
-                    <label class="block text-sm font-medium text-gray-700 mb-2">自分の実家は裕福だと感じる</label>
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2 mb-6"> <!-- flexとgap-x-6で横並びと間隔を設定 -->
+                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
                         <div class="flex flex-col items-center">
-                            <input id="importance-price" name="裕福" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">とてもあてはまる</label>
+                            <input id="rent-subsidy-yes" name="家賃補助" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="rent-subsidy-yes" class="mt-1 block text-sm text-gray-700">はい</label>
                         </div>
                         <div class="flex flex-col items-center">
-                            <input id="importance-price" name="裕福" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="importance-price" name="裕福" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="importance-price" name="裕福" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="importance-price" name="裕福" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-
-                    <label class="block text-sm font-medium text-gray-700 mb-2">自分の実家は貧しいと感じる</label>
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2 mb-10"> <!-- flexとgap-x-6で横並びと間隔を設定 -->
-                        <div class="flex flex-col items-center">
-                            <input id="importance-price" name="貧しい" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="importance-price" name="貧しい" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="importance-price" name="貧しい" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="importance-price" name="貧しい" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="importance-price" name="貧しい" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full block mx-auto">
-                            <label for="importance-price" class="ml-3 block text-sm text-gray-700">まったくあてはまらない</label>
+                            <input id="rent-subsidy-no" name="家賃補助" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="rent-subsidy-no" class="mt-1 block text-sm text-gray-700">いいえ</label>
                         </div>
                     </div>
                 </div>
+
+                <div class="mb-8"> <!-- 新しく追加 -->
+                    <label class="block text-sm font-medium text-gray-700 mb-2">奨学金を受け取っている</label>
+                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
+                        <div class="flex flex-col items-center">
+                            <input id="scholarship-yes" name="奨学金" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="scholarship-yes" class="mt-1 block text-sm text-gray-700">はい</label>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <input id="scholarship-no" name="奨学金" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="scholarship-no" class="mt-1 block text-sm text-gray-700">いいえ</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8"> <!-- 新しく追加 -->
+                    <label for="job-income" class="block text-sm font-medium text-gray-700 mb-1">アルバイトの収入</label>
+                    <select id="job-income" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
+                        <option value="">選択してください</option>
+                        <option value="月5万円未満">月5万円未満</option>
+                        <option value="月5～6万円">月5～6万円</option>
+                        <option value="月6～7万円">月6～7万円</option>
+                        <option value="月7～8万円">月7～8万円</option>
+                        <option value="月8万円以上">月8万円以上</option>
+                        <option value="アルバイトをしていない">アルバイトをしていない</option>
+                        <option value="就職している">就職している</option>
+                    </select>
+                </div>
+                
+                <div class="mb-8"> <!-- 新しく追加 -->
+                    <label class="block text-sm font-medium text-gray-700 mb-2">自分の実家は裕福だと感じる</label>
+                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
+                        <div class="flex flex-col items-center">
+                            <input id="wealthy-very-agree" name="裕福" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="wealthy-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <input id="wealthy-agree" name="裕福" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="wealthy-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <input id="wealthy-neutral" name="裕福" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="wealthy-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <input id="wealthy-disagree" name="裕福" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="wealthy-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <input id="wealthy-very-disagree" name="裕福" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="wealthy-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8"> <!-- 新しく追加 -->
+                    <label class="block text-sm font-medium text-gray-700 mb-2">自分の実家は貧しいと感じる</label>
+                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
+                        <div class="flex flex-col items-center">
+                            <input id="poor-very-agree" name="貧しい" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="poor-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <input id="poor-agree" name="貧しい" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="poor-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <input id="poor-neutral" name="貧しい" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="poor-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <input id="poor-disagree" name="貧しい" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="poor-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <input id="poor-very-disagree" name="貧しい" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="poor-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="flex justify-between mt-6">
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
