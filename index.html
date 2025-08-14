@@ -298,7 +298,7 @@
                 </div>
             </div>
 
-            <!-- ページ2 -->
+            <!-- ページ3 -->
             <div class="survey-page" data-page="3">
                 <!-- 新しい質問: 興味のある分野 (条件分岐のトリガー) ここから8/13-->
                 <div class="mt-6">
@@ -453,8 +453,8 @@
         function prevPage() {
             if (currentPageIndex > 0) {
                 // IT・テクノロジー専用ページ (ページ4, インデックス3) から戻る場合、ページ2 (インデックス1) に戻る
-                if (currentPageIndex === 4) {
-                    currentPageIndex = 2; // ページ2へ直接戻る
+                if (currentPageIndex === 3) {
+                    currentPageIndex = 1; // ページ2へ直接戻る
                 } else {
                     currentPageIndex--;
                 }
