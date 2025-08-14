@@ -339,13 +339,12 @@
                         次へ
                     </button>
                 </div>
-            </div> <!-- これがページ2の正しい閉じタグの位置です -->
+            </div>
 
 
             <!-- ページ3 (通常の最終ページ) -->
-            <div class="survey-page" data-page="4">
+            <!-- <div class="survey-page" data-page="4">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">ご意見・ご感想</h2>
-                <!-- 質問4: テキストエリア -->
                 <div>
                     <label for="feedback" class="block text-sm font-medium text-gray-700 mb-1">今回のアンケートについてのご意見・ご感想</label>
                     <textarea id="feedback" name="ご意見・ご感想" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
@@ -360,7 +359,7 @@
                 </div>
             </div>
 
-            <!-- ページ4 (IT・テクノロジー選択時の専用ページ) -->
+            <!-- ページ4 (IT・テクノロジー選択時の専用ページ) --
             <div class="survey-page" data-page="5">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">IT・テクノロジーに関するご質問</h2>
                 <div>
@@ -375,7 +374,7 @@
                         回答を送信
                     </button>
                 </div>
-            </div>
+            </div> -->
 
         </form>
     </div>
@@ -431,7 +430,7 @@
         }
 
         // 条件分岐を含む次のページへ進む関数
-        function nextPageConditional() {
+        /* function nextPageConditional() {
             // 現在のページがページ2の場合に条件分岐を適用
             if (currentPageIndex === 1) { // ページ2のインデックスは1
                 const selectedInterest = document.querySelector('input[name="興味のある分野"]:checked');
@@ -448,7 +447,7 @@
                 currentPageIndex++;
             }
             updatePageDisplay();
-        }
+        } */
 
         // 前のページへ戻る関数
         function prevPage() {
