@@ -120,9 +120,11 @@
 
     <!-- アンケートコンテナ -->
     <div id="survey-container" class="bg-white p-8 rounded-lg shadow-xl border border-gray-200">
-        <h1 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">卒業研究アンケート</h1>
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">衣服の購買における金銭感覚の調査</h1>
+        <p class="text-gray-600 mb-8 text-center" id="page-status">質問1/3</p>
 
         <form id="survey-form" class="space-y-6">
+
             <!-- ページ1 -->
             <div class="survey-page active" data-page="1">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">基本情報</h2>
@@ -188,8 +190,8 @@
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">衣服の購買頻度などの質問</h2>
                 <!-- 質問: 購買頻度 -->
                 <div>
-                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">購買頻度</label>
-                    <select id="age" name="購買頻度" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
+                    <label for="purchase-frequency" class="block text-sm font-medium text-gray-700 mb-1">購買頻度</label>
+                    <select id="purchase-frequency" name="購買頻度" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
                         <option value="">選択してください</option>
                         <option value="1ヶ月に1回より多い">1ヶ月に1回より多い</option>
                         <option value="1ヶ月に1回程度">1ヶ月に1回程度</option>
@@ -198,9 +200,10 @@
                         <option value="4か月に1回程度かそれ以下">4か月に1回程度かそれ以下</option>
                     </select>
                 </div>
+                <!-- 質問: 一度に使う金額 -->
                 <div>
-                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">一度に使う金額</label>
-                    <select id="age" name="一度に使う金額" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
+                    <label for="single-purchase-amount" class="block text-sm font-medium text-gray-700 mb-1">一度に使う金額</label>
+                    <select id="single-purchase-amount" name="一度に使う金額" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
                         <option value="">選択してください</option>
                         <option value="3000円以内">3000円以内</option>
                         <option value="3001～4000円">3001～4000円</option>
@@ -213,9 +216,10 @@
                         <option value="1万円以上">1万円以上</option>
                     </select>
                 </div>
+                <!-- 質問: 1ヶ月の使用金額（平均） -->
                 <div>
-                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">1ヶ月の使用金額（平均）</label>
-                    <select id="age" name="一度に使う金額" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
+                    <label for="monthly-spending" class="block text-sm font-medium text-gray-700 mb-1">1ヶ月の使用金額（平均）</label>
+                    <select id="monthly-spending" name="1ヶ月の使用金額（平均）" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
                         <option value="">選択してください</option>
                         <option value="3000円以内">3000円以内</option>
                         <option value="3001～4000円">3001～4000円</option>
@@ -240,33 +244,34 @@
 
             <!-- ページ3 -->
             <div class="survey-page" data-page="3">
-                <!-- 新しい質問: 興味のある分野 (条件分岐のトリガー) ここから8/13-->
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">所属世帯について</h2>
+                <!-- 新しい質問: 所属世帯について (条件分岐のトリガー) -->
                 <div class="mt-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">所属世帯について</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
-                            <input id="interest-it" name="所属世帯" type="radio" value="実家暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="interest-it" class="ml-3 block text-sm text-gray-700">実家暮らし</label>
+                            <input id="household-home" name="所属世帯" type="radio" value="実家暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-home" class="ml-3 block text-sm text-gray-700">実家暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="interest-medical" name="所属世帯" type="radio" value="高校生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="interest-medical" class="ml-3 block text-sm text-gray-700">高校生から一人暮らし</label>
+                            <input id="household-highschool-alone" name="所属世帯" type="radio" value="高校生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-highschool-alone" class="ml-3 block text-sm text-gray-700">高校生から一人暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="interest-education" name="所属世帯" type="radio" value="大学生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="interest-education" class="ml-3 block text-sm text-gray-700">大学生から一人暮らし</label>
+                            <input id="household-university-alone" name="所属世帯" type="radio" value="大学生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-university-alone" class="ml-3 block text-sm text-gray-700">大学生から一人暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="interest-other" name="所属世帯" type="radio" value="大学院生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="interest-other" class="ml-3 block text-sm text-gray-700">大学院生から一人暮らし</label>
+                            <input id="household-gradschool-alone" name="所属世帯" type="radio" value="大学院生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-gradschool-alone" class="ml-3 block text-sm text-gray-700">大学院生から一人暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="interest-other" name="所属世帯" type="radio" value="就職から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="interest-other" class="ml-3 block text-sm text-gray-700">就職から一人暮らし</label>
+                            <input id="household-work-alone" name="所属世帯" type="radio" value="就職から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-work-alone" class="ml-3 block text-sm text-gray-700">就職から一人暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="interest-other" name="所属世帯" type="radio" value="一人暮らしから実家暮らしに戻っている" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="interest-other" class="ml-3 block text-sm text-gray-700">一人暮らしから実家暮らしに戻っている</label>
+                            <input id="household-return-home" name="所属世帯" type="radio" value="一人暮らしから実家暮らしに戻っている" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <label for="household-return-home" class="ml-3 block text-sm text-gray-700">一人暮らしから実家暮らしに戻っている</label>
                         </div>
                     </div>
                 </div>
@@ -280,43 +285,26 @@
                     </button>
                 </div>
             </div>
-        </form>
-    </div>
 
-            <!-- ページ3 (通常の最終ページ) -->
-            <!-- <div class="survey-page" data-page="4">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">ご意見・ご感想</h2>
+            <!-- ページ4 (一人暮らし関連選択時の専用ページ - 例) -->
+            <div class="survey-page" data-page="4">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">一人暮らしに関する追加質問</h2>
                 <div>
-                    <label for="feedback" class="block text-sm font-medium text-gray-700 mb-1">今回のアンケートについてのご意見・ご感想</label>
-                    <textarea id="feedback" name="ご意見・ご感想" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
+                    <label for="alone-living-feedback" class="block text-sm font-medium text-gray-700 mb-1">一人暮らしで衣服の購入に関して、特に感じることはありますか？</label>
+                    <textarea id="alone-living-feedback" name="一人暮らしに関するご意見" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
                 </div>
                 <div class="flex justify-between mt-6">
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         戻る
                     </button>
-                    <button type="submit" id="submit-button" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    <button type="submit" id="submit-button-alone" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         回答を送信
                     </button>
                 </div>
             </div>
 
-            <!-- ページ4 (IT・テクノロジー選択時の専用ページ) --
-            <div class="survey-page" data-page="5">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">IT・テクノロジーに関するご質問</h2>
-                <div>
-                    <label for="it-feedback" class="block text-sm font-medium text-gray-700 mb-1">IT・テクノロジー分野で特に興味のあることや、期待していることについてお聞かせください。</label>
-                    <textarea id="it-feedback" name="IT・テクノロジーに関するご意見" rows="4" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" placeholder="ご自由にお書きください"></textarea>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="submit" id="submit-button-it" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        回答を送信
-                    </button>
-                </div>
-            </div> -->
-        
+        </form>
+    </div>
 
     <!-- ローディングとメッセージ表示用のモーダル -->
     <div id="statusModal" class="modal">
@@ -337,7 +325,7 @@
     <script>
         // Google Apps ScriptのWebアプリのURLをここに設定します
         // デプロイ後にGoogle Apps Scriptから取得したURLに置き換えてください
-        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_3ELBJPGa11FQPDZ0VOxqQ4iHnOTfP6C0dh32s6y_oWc5NbY6HXo9bhdU2qgrJD09/exec'; // ★ここに更新する
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx_3ELBJPGa11FQPDZ0VOxqQ4iHnOTfP6C0dh32s6y_oWc5NbY6HXo9bhdU2qgrJD09/exec'; 
 
         const form = document.getElementById('survey-form');
         const surveyPages = document.querySelectorAll('.survey-page');
@@ -358,6 +346,9 @@
                     page.classList.remove('active'); // それ以外のページを非表示
                 }
             });
+            // ページステータスを更新 (例: 質問1/4)
+            pageStatus.textContent = `質問${currentPageIndex + 1}/${surveyPages.length}`;
+            window.scrollTo(0, 0); // ページ上部にスクロール
         }
 
         // 次のページへ進む関数 (一般的な遷移)
@@ -369,31 +360,54 @@
         }
 
         // 条件分岐を含む次のページへ進む関数
-        /* function nextPageConditional() {
-            // 現在のページがページ2の場合に条件分岐を適用
-            if (currentPageIndex === 1) { // ページ2のインデックスは1
-                const selectedInterest = document.querySelector('input[name="興味のある分野"]:checked');
+        function nextPageConditional() {
+            // 現在のページがページ3の場合に条件分岐を適用
+            // ユーザーの質問リストに合わせてページインデックスを調整
+            if (currentPageIndex === 2) { // ページ3のインデックスは2
+                const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
                 
-                if (selectedInterest && selectedInterest.value === 'IT・テクノロジー') {
-                    // 「IT・テクノロジー」が選択されたらページ4へ (インデックスは3)
-                    currentPageIndex = 4; 
+                // バリデーション: 所属世帯が選択されているか確認
+                if (!selectedHouseholdType) {
+                    showModal('所属世帯を選択してください。', false);
+                    return; // 選択されていない場合はページ遷移を中止
+                }
+
+                const isAloneLiving = [
+                    '高校生から一人暮らし',
+                    '大学生から一人暮らし',
+                    '大学院生から一人暮らし',
+                    '就職から一人暮らし'
+                ].includes(selectedHouseholdType.value);
+
+                if (isAloneLiving) {
+                    // 一人暮らし関連の選択肢が選ばれたらページ4へ (インデックスは3)
+                    currentPageIndex = 3; 
                 } else {
-                    // それ以外の選択肢の場合はページ3へ (インデックスは2)
-                    currentPageIndex = 3;
+                    // それ以外の選択肢の場合は、このアンケートの最終ページ（ページ3、インデックス2）に留まる
+                    // または、もし別の最終ページがあるならそのインデックスを指定
+                    // 今回はIT・テクノロジーに関する質問を一人暮らしに関する質問に置き換えたので、
+                    // 実家暮らしに戻っている場合はここで送信する形にするか、別の最終ページへ誘導する
+                    // ここでは一旦、次へ進まない（つまり、このページで終わりにする）
+                    // もしくは、さらに別の最終質問ページへ進める
+                    showModal('回答が正常に送信されました！ご協力ありがとうございます。', false);
+                    form.reset(); // フォームをリセット
+                    currentPageIndex = 0; // 最初のページに戻す
+                    updatePageDisplay(); // 最初のページを表示
+                    return; // ここで処理を終了し、フォーム送信の準備をする
                 }
             } else {
-                // ページ2以外からの遷移は通常のnextPageと同じ
+                // その他のページからの遷移は通常のnextPageと同じ
                 currentPageIndex++;
             }
             updatePageDisplay();
-        } */
+        }
 
         // 前のページへ戻る関数
         function prevPage() {
             if (currentPageIndex > 0) {
-                // IT・テクノロジー専用ページ (ページ4, インデックス3) から戻る場合、ページ2 (インデックス1) に戻る
+                // ページ4 (一人暮らし関連の質問、インデックス3) から戻る場合、ページ3 (インデックス2) に戻る
                 if (currentPageIndex === 3) {
-                    currentPageIndex = 1; // ページ2へ直接戻る
+                    currentPageIndex = 2; // ページ3へ直接戻る
                 } else {
                     currentPageIndex--;
                 }
