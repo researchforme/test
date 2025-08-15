@@ -747,12 +747,15 @@
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         戻る
                     </button>
-                    <button type="submit" id="submit-button-alone" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        回答を送信
+                    <button type="button" onclick="nextPageConditional()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        次へ
                     </button>
+                    <!-- <button type="submit" id="submit-button-alone" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        回答を送信
+                    </button> -->
                 </div>
             </div>
-<!-- 8/16　実家暮らし用の質問、回答ボタンを次へボタンに変える、回答送信後の画面作成、質問の間にグレーの線を追加する -->
+<!-- 8/16 回答送信後の画面作成 -->
         </form>
     </div>
 
@@ -912,8 +915,8 @@
 
                 showModal('回答が正常に送信されました！ご協力ありがとうございます。', false);
                 form.reset(); // フォームをリセット
-                currentPageIndex = 0; // 最初のページに戻す
-                updatePageDisplay(); // 最初のページを表示
+                //currentPageIndex = 6; //7ページへ移動
+                //updatePageDisplay(); //画面更新
             } catch (error) {
                 console.error('送信エラー:', error);
                 showModal('送信中にエラーが発生しました。もう一度お試しください。', false);
