@@ -349,7 +349,6 @@
             <!-- ページ5（一人暮らし選択時のページ） -->
             <div class="survey-page" data-page="5">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">一人暮らしの方への質問</h2>
-                <!-- ※テキストエリアは削除済み※ -->
 
                 <div class="mb-8">
                     <label class="block text-sm font-medium text-gray-700 mb-2">家賃補助を実家から受け取っている</label>
@@ -703,11 +702,12 @@
 
             <!-- ページ7 新しい質問パートの説明 -->
             <div class="survey-page" data-page="7">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">ここからは衣服の購買における選択をお聞きします。</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">ここからは衣服の購買における選択をお聞きします。<br>表示される条件を見て、購入するかどうかを選択してください。</h2>
                 <p class="text-gray-600 mb-8">
                     これから衣服の画像と価格が表示されます。<br>
-                    あなたは、その衣服を「買う」か「買わない」かを選択してください。<br>
-                    選択後すぐに表示される条件が変わるので、クリックを連打しないよう注意してください。
+                    あなたは、その衣服を**「買う」か「買わない」か**を選択してください。<br>
+                    「買う」を選択すると価格は1,000円上がり、「買わない」を選択すると価格は500円下がります。<br>
+                    価格の**百の位が「5」**になった時点で、**最後にもう一度選択**するとシミュレーションは終了し、アンケートも完了となります。
                 </p>
                 <div class="flex justify-between mt-6">
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
@@ -734,12 +734,13 @@
                         </button>
                     </div>
                 </div>
+                <!-- ページ8には回答送信ボタンは表示しない -->
             </div>
 
             <!-- ページ9 回答完了画面 -->
             <div class="survey-page" data-page="9">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">調査完了</h2>
-                <p class="text-gray-600 mb-8 text-center text-xl font-bold">調査は以上です。ご協力ありがとうございました。<br>調査実施者をお呼びください。</p>
+                <p class="text-gray-600 mb-8 text-center text-xl font-bold">調査は以上です。ご協力ありがとうございました。</p>
                 <div class="flex justify-center mt-6">
                     <button type="submit" id="submit-button-final" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         回答を送信
@@ -783,12 +784,12 @@
         const currentPriceSpan = document.getElementById('current-price');
         const buyButton = document.getElementById('buy-button');
         const dontBuyButton = document.getElementById('dont-buy-button');
-        const simulationEndMessage = document.getElementById('simulation-end-message'); // これはページ9のメッセージ用になる
         const submitButtonFinal = document.getElementById('submit-button-final'); // ページ9の最終送信ボタン
 
         let currentPageIndex = 0; // 現在表示されているページのインデックス (0始まり)
         let clothingPrice = 1000; // 衣服の初期価格
         let simulationFinalChoiceMade = false; // 百の位が5になった後、最後の選択が行われたか
+        let lastRecordedChoice = ''; // シミュレーションの最後に記録された選択 (買う/買わない)
 
         // ページを更新して表示する関数
         function updatePageDisplay() {
@@ -806,16 +807,6 @@
             // ページ8に移動した際にシミュレーションを開始
             if (currentPageIndex === 7) { // ページ8のインデックスは7
                 startClothingPurchaseSimulation();
-            }
-            
-            // ページ9（回答完了画面）に移動した場合の表示制御
-            if (currentPageIndex === 8) { // ページ9のインデックスは8
-                // シミュレーション終了メッセージと最終送信ボタンを表示
-                // simulationEndMessageはページ9の要素ではないため、ここでは何もしない
-                // submitButtonFinalはページ9にすでに存在し、表示されるように設定されている
-            } else {
-                // シミュレーションページ以外では最終送信ボタンを非表示 (これは元々ページ8の要素だったので不要かも)
-                // しかし、念のためボタンの初期状態は hidden で制御する
             }
         }
 
@@ -908,9 +899,6 @@
             updateClothingPriceDisplay();
             buyButton.disabled = false;
             dontBuyButton.disabled = false;
-            // ページ8には終了メッセージや最終送信ボタンは表示しない
-            // simulationEndMessage.classList.add('hidden');
-            // submitButtonFinal.classList.add('hidden');
         }
 
         // 価格表示を更新する関数
@@ -928,13 +916,14 @@
                 clothingPrice -= 500;
                 choiceText = '買わない';
             }
-            
-            // 選択した内容をフォームデータに追加 (新しい入力要素を動的に作成)
-            const choiceInput = document.createElement('input');
-            choiceInput.type = 'hidden';
-            choiceInput.name = `購買選択_${Math.random().toString(36).substring(2, 9)}`; // ユニークな名前を生成
-            choiceInput.value = `${choiceText} (${clothingPrice - (choice === 'buy' ? 1000 : -500)}円 -> ${clothingPrice}円)`;
-            form.appendChild(choiceInput);
+            lastRecordedChoice = choiceText; // 最後の選択を記録
+
+            // 選択履歴を記録する隠しフィールド（もし必要なら）
+            // const choiceInput = document.createElement('input');
+            // choiceInput.type = 'hidden';
+            // choiceInput.name = `購買選択履歴_${Math.random().toString(36).substring(2, 9)}`; // ユニークな名前を生成
+            // choiceInput.value = `${choiceText} (${clothingPrice - (choice === 'buy' ? 1000 : -500)}円 -> ${clothingPrice}円)`;
+            // form.appendChild(choiceInput);
 
             updateClothingPriceDisplay();
             checkSimulationEnd();
@@ -949,13 +938,25 @@
                 if (simulationFinalChoiceMade) { // 百の位が5で、かつ前回の選択でも5だった場合（つまり2回目の5）
                     buyButton.disabled = true;
                     dontBuyButton.disabled = true;
-                    // シミュレーションを終了し、回答完了画面へ遷移
-                    currentPageIndex = 8; // ページ9のインデックス
+
+                    // 最終結果を記録する隠しフィールドを更新
+                    let finalResultInput = document.getElementById('final-purchase-result');
+                    if (finalResultInput) {
+                        finalResultInput.remove(); // 既存のものを削除
+                    }
+                    
+                    finalResultInput = document.createElement('input');
+                    finalResultInput.type = 'hidden';
+                    finalResultInput.id = 'final-purchase-result'; // IDを付与
+                    finalResultInput.name = '最終購買選択結果'; // スプレッドシートの列名
+                    finalResultInput.value = `${clothingPrice}円で${lastRecordedChoice}`; // 最終価格と最終選択
+                    form.appendChild(finalResultInput);
+
+                    currentPageIndex = 8; // ページ9（回答完了画面）のインデックス
                     updatePageDisplay();
                 } else { // 百の位が5になったのは初めての場合
                     simulationFinalChoiceMade = true;
                     // ボタンはまだ無効化しない（もう一度選択させるため）
-                    // ユーザーに、あと1回選択できることを示すメッセージなどを追加することも検討できます
                 }
             } else {
                 // 百の位が5でなくなった場合、フラグをリセット
@@ -1009,7 +1010,6 @@
 
             const formData = new FormData(form);
             const data = {};
-            // フォームデータをオブジェクトに変換
             for (let [key, value] of formData.entries()) {
                 data[key] = value;
             }
