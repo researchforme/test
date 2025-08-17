@@ -856,7 +856,7 @@
 
         let currentPageIndex = 0; // 現在表示されているページのインデックス (0始まり)
         let clothingPrice = 1000; // 衣服の初期価格
-        let awaitingFinalChoice = false; // 百の位が5になった後、最終選択を待っている状態か
+        let ifPriceAt500Mark = false; // 百の位が5の価格に達しているかどうかのフラグ
         let lastRecordedChoice = ''; // シミュレーションの最後に記録された選択 (買う/買わない)
 
         // ページを更新して表示する関数
@@ -970,7 +970,7 @@
         // シミュレーションを開始する関数
         function startClothingPurchaseSimulation() {
             clothingPrice = 1000; // 価格をリセット
-            awaitingFinalChoice = false; // シミュレーション状態をリセット
+            isPriceAt500Mark = false; //フラグのリセット
             updateClothingPriceDisplay();
             buyButton.disabled = false;
             dontBuyButton.disabled = false;
@@ -982,7 +982,38 @@
         }
 
         // 購買選択を処理する関数
+        // handlePurchaseChoice関数をこの内容に置き換える
         function handlePurchaseChoice(choice) {
+            // シミュレーションが終了すべきかどうかを、現在の選択を適用する前にチェック
+            if (isPriceAt500Mark) {
+                // もし価格がX500円のマークに達していた場合（この選択の直前）、
+                // 今回のクリックが「最後にもう一度選択」となる
+                const finalRecordedPrice = clothingPrice; // この時点で記録すべき価格（X500円）
+                const finalChoiceText = (choice === 'buy') ? '買う' : '買わない';
+
+                // ボタンを無効化し、結果を記録してシミュレーションを終了
+                buyButton.disabled = true;
+                dontBuyButton.disabled = true;
+
+                let finalResultInput = document.getElementById('final-purchase-result');
+                if (finalResultInput) {
+                    finalResultInput.remove();
+                }
+
+                finalResultInput = document.createElement('input');
+                finalResultInput.type = 'hidden';
+                finalResultInput.id = 'final-purchase-result';
+                finalResultInput.name = '最終購買選択結果';
+                finalResultInput.value = `${finalRecordedPrice}円で${finalChoiceText}`; // X500円の価格と選択結果を記録
+                form.appendChild(finalResultInput);
+
+                currentPageIndex = 9; // 回答完了画面へ遷移
+                updatePageDisplay();
+                isPriceAt500Mark = false; // フラグをリセット
+                return; // シミュレーション終了後、関数を抜ける
+            }
+
+            // シミュレーションが終了しない場合、価格変動を適用
             let choiceText = '';
             if (choice === 'buy') {
                 clothingPrice += 1000;
@@ -991,43 +1022,18 @@
                 clothingPrice -= 500;
                 choiceText = '買わない';
             }
-            lastRecordedChoice = choiceText; // 最後の選択を記録
+            lastRecordedChoice = choiceText; // 現在の選択を記録
 
-            updateClothingPriceDisplay();
-            checkSimulationEnd();
-        }
+            updateClothingPriceDisplay(); // 表示価格を更新
 
-        // シミュレーションの終了条件をチェックする関数
-        function checkSimulationEnd() {
-            // 絶対値の百の位が5かどうかをチェック
+            // 価格変動後、現在の価格の百の位が5かどうかをチェック
+            // もし5であれば、次の選択が最終選択となるようフラグを設定
             const currentHundredsDigit = Math.floor(Math.abs(clothingPrice) / 100) % 10;
-            
-            if (awaitingFinalChoice) {
-                // 百の位が5になった後、「もう一度選択」が行われた場合、シミュレーションを終了
-                buyButton.disabled = true;
-                dontBuyButton.disabled = true;
-
-                // 最終結果を記録する隠しフィールドを更新
-                let finalResultInput = document.getElementById('final-purchase-result');
-                if (finalResultInput) {
-                    finalResultInput.remove(); // 既存のものを削除
-                }
-                
-                finalResultInput = document.createElement('input');
-                finalResultInput.type = 'hidden';
-                finalResultInput.id = 'final-purchase-result'; // IDを付与
-                finalResultInput.name = '最終購買選択結果'; // スプレッドシートの列名
-                finalResultInput.value = `${clothingPrice}円で${lastRecordedChoice}`; // 最終価格と最終選択
-                form.appendChild(finalResultInput);
-
-                currentPageIndex = 9; // ページ9（回答完了画面）のインデックス
-                updatePageDisplay();
-            } else if (currentHundredsDigit === 5) {
-                // 百の位が5になったのは初めての場合
-                awaitingFinalChoice = true;
-                // ボタンはまだ無効化しない（もう一度選択させるため）
+            if (currentHundredsDigit === 5) {
+                isPriceAt500Mark = true; 
+            } else {
+                isPriceAt500Mark = false; // 5でなければフラグをリセット
             }
-            // それ以外の場合（百の位が5ではない、かつawaitingFinalChoiceがfalseの場合）は、awaitingFinalChoiceはfalseのまま維持
         }
 
         // 初期表示
