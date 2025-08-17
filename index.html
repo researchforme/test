@@ -349,6 +349,7 @@
             <!-- ページ5（一人暮らし選択時のページ） -->
             <div class="survey-page" data-page="5">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">一人暮らしの方への質問</h2>
+                <!-- ※テキストエリアは削除済み※ -->
 
                 <div class="mb-8">
                     <label class="block text-sm font-medium text-gray-700 mb-2">家賃補助を実家から受け取っている</label>
@@ -391,7 +392,7 @@
                         <option value="月6～7万円">月6～7万円</option>
                         <option value="月7～8万円">月7～8万円</option>
                         <option value="月8万円以上">月8万円以上</option>
-                        <option value="アルバイトをしていない">アルバートをしていない</option>
+                        <option value="アルバイトをしていない">アルバイトをしていない</option>
                         <option value="就職している">就職している</option>
                     </select>
                 </div>
@@ -694,15 +695,20 @@
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         戻る
                     </button>
-                    <button type="submit" id="submit-button-alone" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        回答を送信
+                    <button type="button" onclick="nextPageConditional()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        次へ
                     </button>
                 </div>
             </div>
 
-            <!-- ページ7 以降のページの説明 -->
+            <!-- ページ7 新しい質問パートの説明 -->
             <div class="survey-page" data-page="7">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">ここからは衣服の購買における選択をお聞きします。<br>表示される条件を見て、購入するかどうかを選択してください。</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">ここからは衣服の購買における選択をお聞きします。</h2>
+                <p class="text-gray-600 mb-8">
+                    これから衣服の画像と価格が表示されます。<br>
+                    あなたは、その衣服を「買う」か「買わない」かを選択してください。<br>
+                    選択後すぐに表示される条件が変わるので、クリックを連打しないよう注意してください。
+                </p>
                 <div class="flex justify-between mt-6">
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         戻る
@@ -712,7 +718,35 @@
                     </button>
                 </div>
             </div>
-<!-- 8/16 回答送信後の画面作成 -->
+
+            <!-- ページ8 衣服の購買シミュレーション -->
+            <div class="survey-page" data-page="8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">購買シミュレーション</h2>
+                <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
+                    <img id="clothing-image" src="https://placehold.co/300x300/e0e0e0/555555?text=Clothing+Item" alt="Clothing Item" class="rounded-md shadow-md mb-4">
+                    <p class="text-2xl font-bold text-gray-900 mb-6">価格: <span id="current-price"></span>円</p>
+                    <div class="flex space-x-4">
+                        <button type="button" id="buy-button" onclick="handlePurchaseChoice('buy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
+                            買う
+                        </button>
+                        <button type="button" id="dont-buy-button" onclick="handlePurchaseChoice('donotbuy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-150 ease-in-out">
+                            買わない
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ページ9 回答完了画面 -->
+            <div class="survey-page" data-page="9">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">調査完了</h2>
+                <p class="text-gray-600 mb-8 text-center text-xl font-bold">調査は以上です。ご協力ありがとうございました。<br>調査実施者をお呼びください。</p>
+                <div class="flex justify-center mt-6">
+                    <button type="submit" id="submit-button-final" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        回答を送信
+                    </button>
+                </div>
+            </div>
+
         </form>
     </div>
 
@@ -745,7 +779,16 @@
         const loadingSpinner = document.getElementById('loading-spinner');
         const modalCloseButton = document.getElementById('modal-close-button');
 
+        // シミュレーション関連の要素
+        const currentPriceSpan = document.getElementById('current-price');
+        const buyButton = document.getElementById('buy-button');
+        const dontBuyButton = document.getElementById('dont-buy-button');
+        const simulationEndMessage = document.getElementById('simulation-end-message'); // これはページ9のメッセージ用になる
+        const submitButtonFinal = document.getElementById('submit-button-final'); // ページ9の最終送信ボタン
+
         let currentPageIndex = 0; // 現在表示されているページのインデックス (0始まり)
+        let clothingPrice = 1000; // 衣服の初期価格
+        let simulationFinalChoiceMade = false; // 百の位が5になった後、最後の選択が行われたか
 
         // ページを更新して表示する関数
         function updatePageDisplay() {
@@ -756,10 +799,24 @@
                     page.classList.remove('active'); // それ以外のページを非表示
                 }
             });
-            // ページステータスを更新 (例: 質問1/7)
-            // surveyPages.lengthは現在のDOMに存在するページ数を正確に反映します
+            // ページステータスを更新 (例: 質問1/9)
             pageStatus.textContent = `質問${currentPageIndex + 1}/${surveyPages.length}`;
             window.scrollTo(0, 0); // ページ上部にスクロール
+
+            // ページ8に移動した際にシミュレーションを開始
+            if (currentPageIndex === 7) { // ページ8のインデックスは7
+                startClothingPurchaseSimulation();
+            }
+            
+            // ページ9（回答完了画面）に移動した場合の表示制御
+            if (currentPageIndex === 8) { // ページ9のインデックスは8
+                // シミュレーション終了メッセージと最終送信ボタンを表示
+                // simulationEndMessageはページ9の要素ではないため、ここでは何もしない
+                // submitButtonFinalはページ9にすでに存在し、表示されるように設定されている
+            } else {
+                // シミュレーションページ以外では最終送信ボタンを非表示 (これは元々ページ8の要素だったので不要かも)
+                // しかし、念のためボタンの初期状態は hidden で制御する
+            }
         }
 
         // 次のページへ進む関数 (一般的な遷移)
@@ -801,6 +858,8 @@
                 currentPageIndex = 5; // ページ6へ移動
             } else if (currentPageIndex === 5) { // ページ6からページ7へ
                 currentPageIndex = 6; // ページ7へ移動
+            } else if (currentPageIndex === 6) { // ページ7からページ8（シミュレーション）へ
+                currentPageIndex = 7; // ページ8へ移動
             }
             else {
                 // その他のページからの遷移は通常のnextPageと同じ
@@ -832,11 +891,75 @@
                     } else {
                         currentPageIndex = 3; // ページ4へ戻る
                     }
+                } else if (currentPageIndex === 8) { // ページ9（回答完了画面）から戻る場合、ページ8（シミュレーション）に戻る
+                    currentPageIndex = 7; // ページ8へ戻る
                 }
-                 else {
+                else { // その他のページからの戻る
                     currentPageIndex--;
                 }
                 updatePageDisplay();
+            }
+        }
+
+        // シミュレーションを開始する関数
+        function startClothingPurchaseSimulation() {
+            clothingPrice = 1000; // 価格をリセット
+            simulationFinalChoiceMade = false; // シミュレーション状態をリセット
+            updateClothingPriceDisplay();
+            buyButton.disabled = false;
+            dontBuyButton.disabled = false;
+            // ページ8には終了メッセージや最終送信ボタンは表示しない
+            // simulationEndMessage.classList.add('hidden');
+            // submitButtonFinal.classList.add('hidden');
+        }
+
+        // 価格表示を更新する関数
+        function updateClothingPriceDisplay() {
+            currentPriceSpan.textContent = clothingPrice.toLocaleString();
+        }
+
+        // 購買選択を処理する関数
+        function handlePurchaseChoice(choice) {
+            let choiceText = '';
+            if (choice === 'buy') {
+                clothingPrice += 1000;
+                choiceText = '買う';
+            } else if (choice === 'donotbuy') {
+                clothingPrice -= 500;
+                choiceText = '買わない';
+            }
+            
+            // 選択した内容をフォームデータに追加 (新しい入力要素を動的に作成)
+            const choiceInput = document.createElement('input');
+            choiceInput.type = 'hidden';
+            choiceInput.name = `購買選択_${Math.random().toString(36).substring(2, 9)}`; // ユニークな名前を生成
+            choiceInput.value = `${choiceText} (${clothingPrice - (choice === 'buy' ? 1000 : -500)}円 -> ${clothingPrice}円)`;
+            form.appendChild(choiceInput);
+
+            updateClothingPriceDisplay();
+            checkSimulationEnd();
+        }
+
+        // シミュレーションの終了条件をチェックする関数
+        function checkSimulationEnd() {
+            // 絶対値の百の位が5かどうかをチェック
+            const hundredsDigit = Math.floor(Math.abs(clothingPrice) / 100) % 10;
+            
+            if (hundredsDigit === 5) {
+                if (simulationFinalChoiceMade) { // 百の位が5で、かつ前回の選択でも5だった場合（つまり2回目の5）
+                    buyButton.disabled = true;
+                    dontBuyButton.disabled = true;
+                    // シミュレーションを終了し、回答完了画面へ遷移
+                    currentPageIndex = 8; // ページ9のインデックス
+                    updatePageDisplay();
+                } else { // 百の位が5になったのは初めての場合
+                    simulationFinalChoiceMade = true;
+                    // ボタンはまだ無効化しない（もう一度選択させるため）
+                    // ユーザーに、あと1回選択できることを示すメッセージなどを追加することも検討できます
+                }
+            } else {
+                // 百の位が5でなくなった場合、フラグをリセット
+                simulationFinalChoiceMade = false;
             }
         }
 
@@ -870,7 +993,12 @@
         });
 
         // フォーム送信処理を関数化
-        async function submitForm() {
+        async function submitForm(event) {
+            // submitボタン以外のボタンからのsubmitイベントを防止
+            if (event && event.target.type !== 'submit') {
+                event.preventDefault(); // デフォルトのフォーム送信をキャンセル
+            }
+            
             // Google Apps ScriptのURLが設定されているか確認
             if (GOOGLE_APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxzXJAvHoC8Nw7OqMfKi1W1Q1Yx-E6BhbLQapi41Qgw8OdRKXX1KaCyrLjemCOdXIo9/exec' || !GOOGLE_APPS_SCRIPT_URL) {
                 showModal('エラー: Google Apps ScriptのURLが設定されていません。または初期値のままです。', false);
@@ -881,10 +1009,11 @@
 
             const formData = new FormData(form);
             const data = {};
+            // フォームデータをオブジェクトに変換
             for (let [key, value] of formData.entries()) {
                 data[key] = value;
             }
-
+            
             try {
                 const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
                     method: 'POST',
