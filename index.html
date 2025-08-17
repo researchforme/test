@@ -999,12 +999,11 @@
                 event.preventDefault(); // デフォルトのフォーム送信をキャンセル
             }
             
-            // Google Apps ScriptのURLが設定されているか確認
-            if (GOOGLE_APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbylXU-o-d9G8OdKuGXKcF6Tp-g2zaqdcwVyRDdd2-DYCdRPgod3nXRgeidZ_C8V5UWM/exec' || !GOOGLE_APPS_SCRIPT_URL) {
-                showModal('エラー: Google Apps ScriptのURLが設定されていません。または初期値のままです。', false);
-                return;
-            }
-
+        // 変更後: URLが設定されていない、または空文字列の場合のみエラーを出す
+        if (!GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL === '') {
+            showModal('エラー: Google Apps ScriptのURLが設定されていません。', false);
+            return;
+        }
             showModal('回答を送信しています...', true); // 送信中にローディングを表示
 
             const formData = new FormData(form);
