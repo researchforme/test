@@ -706,8 +706,7 @@
                 <p class="text-gray-600 mb-8">
                     これから衣服の画像と価格が表示されます。<br>
                     あなたは、その衣服を**「買う」か「買わない」か**を選択してください。<br>
-                    「買う」を選択すると価格は1,000円上がり、「買わない」を選択すると価格は500円下がります。<br>
-                    価格の**百の位が「5」**になった時点で、**最後にもう一度選択**するとシミュレーションは終了し、アンケートも完了となります。
+                    選択後すぐに、表示される条件が変わるため、ボタンを連打しないよう注意してください。
                 </p>
                 <div class="flex justify-between mt-6">
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
@@ -770,7 +769,7 @@
     <script>
         // Google Apps ScriptのWebアプリのURLをここに設定します
         // デプロイ後にGoogle Apps Scriptから取得したURLに置き換えてください
-        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzXJAvHoC8Nw7OqMfKi1W1Q1Yx-E6BhbLQapi41Qgw8OdRKXX1KaCyrLjemCOdXIo9/exec'; 
+        const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyI6GMYb3Y5cjVnpLxUmsKDxRMGw_u6AsX4gN-KFcTicOAVC2uJl28S2YSdD3A1bvTh/exec'; 
 
         const form = document.getElementById('survey-form');
         const surveyPages = document.querySelectorAll('.survey-page');
@@ -1001,7 +1000,7 @@
             }
             
             // Google Apps ScriptのURLが設定されているか確認
-            if (GOOGLE_APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxzXJAvHoC8Nw7OqMfKi1W1Q1Yx-E6BhbLQapi41Qgw8OdRKXX1KaCyrLjemCOdXIo9/exec' || !GOOGLE_APPS_SCRIPT_URL) {
+            if (GOOGLE_APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyI6GMYb3Y5cjVnpLxUmsKDxRMGw_u6AsX4gN-KFcTicOAVC2uJl28S2YSdD3A1bvTh/exec' || !GOOGLE_APPS_SCRIPT_URL) {
                 showModal('エラー: Google Apps ScriptのURLが設定されていません。または初期値のままです。', false);
                 return;
             }
