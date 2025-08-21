@@ -129,6 +129,7 @@
             <div class="survey-page active" data-page="0">
                 <p class="text-gray-700 text-lg mb-10 text-center">
                     本調査にご協力いただきありがとうございます。<br>
+                    アンケート対象者は、大学生・大学院生・専門学生、18～22歳です。<br>
                     衣服の購買に関するあなたの金銭感覚についてお伺いします。<br>
                     ご回答いただいた内容は統計的に処理され、<br>
                     個人が特定できる形で公開されることは一切ございません。<br>
@@ -444,32 +445,10 @@
                 </div>
             </div>
 
-            <!-- ページ7: 家庭についての質問 - 裕福 -->
+            <!-- ページ7: 家庭についての質問 (ランダム表示用コンテナ) -->
             <div class="survey-page" data-page="7">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">自分の実家は裕福だと感じる</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="family-wealth-very-agree" name="裕福" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-wealth-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="family-wealth-agree" name="裕福" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-wealth-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="family-wealth-neutral" name="裕福" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-wealth-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="family-wealth-disagree" name="裕福" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-wealth-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="family-wealth-very-disagree" name="裕福" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-wealth-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
+                <div id="random-question-content" class="text-center">
+                    <!-- ランダムな質問がここに挿入されます -->
                 </div>
                 <div class="flex justify-between mt-6">
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
@@ -481,415 +460,8 @@
                 </div>
             </div>
 
-            <!-- ページ8: 家庭についての質問 - 貧しい -->
+            <!-- ページ8: 衣服の購買シミュレーション説明 -->
             <div class="survey-page" data-page="8">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">自分の実家は貧しいと感じる</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="family-poor-very-agree" name="貧しい" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-poor-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="family-poor-agree" name="貧しい" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-poor-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="family-poor-neutral" name="貧しい" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-poor-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="family-poor-disagree" name="貧しい" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-poor-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="family-poor-very-disagree" name="貧しい" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="family-poor-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ9: 家庭についての質問 - 母親は倹約家である -->
-            <div class="survey-page" data-page="9">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">母親は倹約家である</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="mother-frugal-very-agree" name="母親は倹約" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-frugal-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="mother-frugal-agree" name="母親は倹約" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-frugal-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="mother-frugal-neutral" name="母親は倹約" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-frugal-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="mother-frugal-disagree" name="母親は倹約" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-frugal-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="mother-frugal-very-disagree" name="母親は倹約" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-frugal-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ10: 家庭についての質問 - 父親は倹約家である -->
-            <div class="survey-page" data-page="10">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">父親は倹約家である</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="father-frugal-very-agree" name="父親は倹約" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-frugal-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="father-frugal-agree" name="父親は倹約" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-frugal-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="father-frugal-neutral" name="父親は倹約" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-frugal-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="father-frugal-disagree" name="父親は倹約" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-frugal-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="father-frugal-very-disagree" name="父親は倹約" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-frugal-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ11: 家庭についての質問 - 母親はファッションに関心があった -->
-            <div class="survey-page" data-page="11">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">母親はファッションに関心があった</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="mother-fashion-very-agree" name="母親ファッション" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-fashion-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="mother-fashion-agree" name="母親ファッション" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-fashion-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="mother-fashion-neutral" name="母親ファッション" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-fashion-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="mother-fashion-disagree" name="母親ファッション" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-fashion-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="mother-fashion-very-disagree" name="母親ファッション" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="mother-fashion-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ12: 家庭についての質問 - 父親はファッションに関心があった -->
-            <div class="survey-page" data-page="12">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">父親はファッションに関心があった</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="father-fashion-very-agree" name="父親ファッション" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-fashion-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="father-fashion-agree" name="父親ファッション" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-fashion-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="father-fashion-neutral" name="父親ファッション" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-fashion-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="father-fashion-disagree" name="父親ファッション" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-fashion-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="father-fashion-very-disagree" name="父親ファッション" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="father-fashion-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ13: 家庭についての質問 - 子供のころお金を貯金するように教えられた -->
-            <div class="survey-page" data-page="13">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">子供のころお金を貯金するように教えられた</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-saving-very-agree" name="貯金" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-saving-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-saving-agree" name="貯金" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-saving-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-saving-neutral" name="貯金" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-saving-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-saving-disagree" name="貯金" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-saving-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-saving-very-disagree" name="貯金" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-saving-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ14: 家庭についての質問 - 子供のころお金を上手く活用するように教えられた -->
-            <div class="survey-page" data-page="14">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">子供のころお金を上手く活用するように教えられた</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-utilize-money-very-agree" name="活用" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-utilize-money-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-utilize-money-agree" name="活用" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-utilize-money-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-utilize-money-neutral" name="活用" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-utilize-money-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-utilize-money-disagree" name="活用" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-utilize-money-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-utilize-money-very-disagree" name="活用" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-utilize-money-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ15: 家庭についての質問 - 子供のころ欲しいものは何でも買ってもらえた -->
-            <div class="survey-page" data-page="15">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">子供のころ欲しいものは何でも買ってもらえた</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-anything-bought-very-agree" name="欲しいものは何でも" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-anything-bought-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-anything-bought-agree" name="欲しいものは何でも" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-anything-bought-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-anything-bought-neutral" name="欲しいものは何でも" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-anything-bought-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-anything-bought-disagree" name="欲しいものは何でも" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-anything-bought-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-anything-bought-very-disagree" name="欲しいものは何でも" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-anything-bought-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ16: 家庭についての質問 - 子供のころ欲しいものを買ってもらうにはルールがあった -->
-            <div class="survey-page" data-page="16">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">子供のころ欲しいものを買ってもらうにはルールがあった（良い成績を取る、お手伝いをするなど）</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-rules-bought-very-agree" name="ルール" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-rules-bought-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-rules-bought-agree" name="ルール" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-rules-bought-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-rules-bought-neutral" name="ルール" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-rules-bought-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-rules-bought-disagree" name="ルール" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-rules-bought-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-rules-bought-very-disagree" name="ルール" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-rules-bought-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ17: 家庭についての質問 - 子供のころ理由があれば欲しいものを買ってもらえた -->
-            <div class="survey-page" data-page="17">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">子供のころ理由があれば欲しいものを買ってもらえた</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-reason-bought-very-agree" name="理由" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-reason-bought-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-reason-bought-agree" name="理由" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-reason-bought-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-reason-bought-neutral" name="理由" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-reason-bought-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-reason-bought-disagree" name="理由" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-reason-bought-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-reason-bought-very-disagree" name="理由" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-reason-bought-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ18: 家庭についての質問 - 子供のころ自分のお小遣いで買ったものが不要なものだと言われた -->
-            <div class="survey-page" data-page="18">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6">子供のころ自分のお小遣いで買ったものが不要なものだと言われた</h2>
-                <div class="mb-10">
-                    <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4">
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-unnecessary-item-very-agree" name="不要" type="radio" value="とてもあてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-unnecessary-item-very-agree" class="mt-1 block text-sm text-gray-700">とてもあてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-unnecessary-item-agree" name="不要" type="radio" value="あてはまる" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-unnecessary-item-agree" class="mt-1 block text-sm text-gray-700">あてはまる</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-unnecessary-item-neutral" name="不要" type="radio" value="どちらともいえない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-unnecessary-item-neutral" class="mt-1 block text-sm text-gray-700">どちらともいえない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-unnecessary-item-disagree" name="不要" type="radio" value="あてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-unnecessary-item-disagree" class="mt-1 block text-sm text-gray-700">あてはまらない</label>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <input id="childhood-unnecessary-item-very-disagree" name="不要" type="radio" value="まったくあてはまらない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                            <label for="childhood-unnecessary-item-very-disagree" class="mt-1 block text-sm text-gray-700">まったくあてはまらない</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPageConditional()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ19: 衣服の購買シミュレーション説明 -->
-            <div class="survey-page" data-page="19">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">衣服の購買シミュレーション説明</h2>
                 <p class="text-gray-600 mb-8">
                     これから衣服の画像と価格、その他の情報が表示されます。<br>
@@ -906,8 +478,8 @@
                 </div>
             </div>
 
-            <!-- ページ20: 衣服の購買シミュレーション -->
-            <div class="survey-page" data-page="20">
+            <!-- ページ9: 衣服の購買シミュレーション -->
+            <div class="survey-page" data-page="9">
                 <!-- h2タグは削除済み -->
                 <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
                     <img id="clothing-image" src="https://placehold.co/300x300/e0e0e0/555555?text=Clothing+Item" alt="Clothing Item" class="rounded-md shadow-md mb-4">
@@ -921,11 +493,11 @@
                         </button>
                     </div>
                 </div>
-                <!-- ページ20には回答送信ボタンは表示しない -->
+                <!-- ページ9には回答送信ボタンは表示しない -->
             </div>
 
-            <!-- ページ21: 回答完了画面 -->
-            <div class="survey-page" data-page="21">
+            <!-- ページ10: 回答完了画面 -->
+            <div class="survey-page" data-page="10">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">調査完了</h2>
                 <p class="text-gray-600 mb-8 text-center text-xl font-bold">調査は以上です。ご協力ありがとうございました。</p>
                 <div class="flex justify-center mt-6">
@@ -971,12 +543,114 @@
         const currentPriceSpan = document.getElementById('current-price');
         const buyButton = document.getElementById('buy-button');
         const dontBuyButton = document.getElementById('dont-buy-button');
-        const submitButtonFinal = document.getElementById('submit-button-final'); // ページ21の最終送信ボタン
+        const submitButtonFinal = document.getElementById('submit-button-final'); // ページ10の最終送信ボタン
+        
+        // ランダム化する家庭についての質問データ
+        const familyQuestionsData = [
+            {
+                title: "自分の実家は裕福だと感じる",
+                name: "裕福",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "自分の実家は貧しいと感じる",
+                name: "貧しい",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "母親は倹約家である",
+                name: "母親は倹約",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "父親は倹約家である",
+                name: "父親は倹約",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "母親はファッションに関心があった",
+                name: "母親ファッション",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "父親はファッションに関心があった",
+                name: "父親ファッション",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "子供のころお金を貯金するように教えられた",
+                name: "貯金",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "子供のころお金を上手く活用するように教えられた",
+                name: "活用",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "子供のころ欲しいものは何でも買ってもらえた",
+                name: "欲しいものは何でも",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "子供のころ欲しいものを買ってもらうにはルールがあった（良い成績を取る、お手伝いをするなど）",
+                name: "ルール",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "子供のころ理由があれば欲しいものを買ってもらえた",
+                name: "理由",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            },
+            {
+                title: "子供のころ自分のお小遣いで買ったものが不要なものだと言われた",
+                name: "不要",
+                options: [
+                    "とてもあてはまる", "あてはまる", "どちらともいえない", "あてはまらない", "まったくあてはまらない"
+                ]
+            }
+        ];
 
         let currentPageIndex = 0; // 現在表示されているページのインデックス (0始まり)
         let clothingPrice = 1000; // 衣服の初期価格
         let isPriceAt500Mark = false; // 百の位が5の価格に達しているかどうかのフラグ
         let lastRecordedChoice = ''; // シミュレーションの最後に記録された選択 (買う/買わない)
+        let surveyAnswers = {}; // 全てのアンケート回答を保存するオブジェクト
+
+        let shuffledFamilyQuestionIndices = []; // ランダム化された質問の順序を格納
+        let currentFamilyQuestionIndexInShuffledOrder = 0; // ランダム化された質問ブロック内の現在の質問インデックス
+
+        const randomQuestionContainer = document.getElementById('random-question-content');
+
+        // Fisher-Yates シャッフルアルゴリズム
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
 
         // ページを更新して表示する関数
         function updatePageDisplay() {
@@ -995,26 +669,83 @@
                 mainSurveyTitle.classList.add('hidden');
             }
 
+            // 家庭についての質問ページ (data-page="7") の特殊処理
+            if (currentPageIndex === 7) {
+                // 初めてこのセクションに入る場合、または前回のセッションから再開する場合
+                if (shuffledFamilyQuestionIndices.length === 0 || currentFamilyQuestionIndexInShuffledOrder >= familyQuestionsData.length) {
+                    shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
+                    shuffleArray(shuffledFamilyQuestionIndices);
+                    currentFamilyQuestionIndexInShuffledOrder = 0;
+                }
+
+                const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
+                const questionData = familyQuestionsData[originalQuestionIndex];
+                
+                // 質問のHTMLを動的に生成して挿入
+                randomQuestionContainer.innerHTML = `
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6">${questionData.title}</h2>
+                    <div class="mb-10">
+                        <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4 justify-center">
+                            ${questionData.options.map((option, idx) => `
+                                <div class="flex flex-col items-center">
+                                    <input id="${questionData.name}-${idx}" name="${questionData.name}_${originalQuestionIndex}" type="radio" value="${option}" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                                    <label for="${questionData.name}-${idx}" class="mt-1 block text-sm text-gray-700">${option}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                // 以前に選択された回答があれば復元
+                const storedAnswerKey = `${questionData.name}_${originalQuestionIndex}`;
+                if (surveyAnswers[storedAnswerKey]) {
+                    const radio = randomQuestionContainer.querySelector(`input[name="${storedAnswerKey}"][value="${surveyAnswers[storedAnswerKey]}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                    }
+                }
+            } else {
+                // 家庭についての質問ページ以外では内容をクリア
+                if (randomQuestionContainer) {
+                    randomQuestionContainer.innerHTML = '';
+                }
+            }
+
             window.scrollTo(0, 0); // ページ上部にスクロール
 
-            // ページ20に移動した際にシミュレーションを開始 (インデックスは20)
-            if (currentPageIndex === 20) { 
+            // ページ9に移動した際にシミュレーションを開始 (インデックスは9)
+            if (currentPageIndex === 9) { 
                 startClothingPurchaseSimulation();
             }
         }
 
         // 次のページへ進む関数 (一般的な遷移)
         function nextPage() {
-            if (currentPageIndex < surveyPages.length - 1) {
-                // 家庭についての質問 (ページ7からページ18) は順次遷移
-                if (currentPageIndex >= 7 && currentPageIndex < 18) {
-                    currentPageIndex++;
-                } 
-                // その他の特殊な条件分岐がないページは単純に次へ
-                else if (currentPageIndex !== 4) { // 所属世帯以外
-                    currentPageIndex++;
+            // 家庭についての質問のランダム化されたページ内での遷移
+            if (currentPageIndex === 7) {
+                const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
+                const questionData = familyQuestionsData[originalQuestionIndex];
+                const selectedAnswer = document.querySelector(`input[name="${questionData.name}_${originalQuestionIndex}"]:checked`);
+                
+                if (!selectedAnswer) {
+                    showModal('選択肢を選んでください。', false);
+                    return;
                 }
-                 // nextPageConditionalが呼ばれるべきページでは何もしない
+                // 回答を保存
+                surveyAnswers[`${questionData.name}_${originalQuestionIndex}`] = selectedAnswer.value;
+
+                if (currentFamilyQuestionIndexInShuffledOrder < familyQuestionsData.length - 1) {
+                    currentFamilyQuestionIndexInShuffledOrder++;
+                } else {
+                    // 全てのランダム質問が完了したら、次のメインセクションへ
+                    currentPageIndex = 8; // シミュレーション説明ページへ
+                    // ランダム質問関連のインデックスをリセット
+                    shuffledFamilyQuestionIndices = [];
+                    currentFamilyQuestionIndexInShuffledOrder = 0;
+                }
+            } 
+            // その他のページは単純に次へ
+            else if (currentPageIndex < surveyPages.length - 1) {
+                currentPageIndex++;
             }
             updatePageDisplay();
         }
@@ -1047,15 +778,11 @@
             else if (currentPageIndex === 5 || currentPageIndex === 6) {
                 currentPageIndex = 7; // 家庭についての質問の最初のページ7へ
             }
-            // 最後の家庭についての質問 (ページ18) からシミュレーション説明 (ページ19) へ
-            else if (currentPageIndex === 18) {
-                currentPageIndex = 19;
+            // シミュレーション説明 (ページ8) からシミュレーション本体 (ページ9) へ
+            else if (currentPageIndex === 8) {
+                currentPageIndex = 9; // ページ9へ移動
             }
-            // シミュレーション説明 (ページ19) からシミュレーション本体 (ページ20) へ
-            else if (currentPageIndex === 19) {
-                currentPageIndex = 20;
-            }
-            // シミュレーション終了時 (handlePurchaseChoiceから呼ばれる) は直接ページ21へ遷移
+            // シミュレーション終了時 (handlePurchaseChoiceから呼ばれる) は直接ページ10へ遷移
             // ここでは他のページで誤って呼ばれないように空のelseとしておく
             else {
                 currentPageIndex++; // 念のため、予期しないケースでは次のページへ進む
@@ -1066,36 +793,41 @@
         // 前のページへ戻る関数
         function prevPage() {
             if (currentPageIndex > 0) {
-                // シミュレーション完了画面 (ページ21) からシミュレーション本体 (ページ20) へ
-                if (currentPageIndex === 21) {
-                    currentPageIndex = 20;
+                // 回答完了画面 (ページ10) からシミュレーション本体 (ページ9) へ
+                if (currentPageIndex === 10) {
+                    currentPageIndex = 9;
                 }
-                // シミュレーション本体 (ページ20) からシミュレーション説明 (ページ19) へ
-                else if (currentPageIndex === 20) {
-                    currentPageIndex = 19;
+                // シミュレーション本体 (ページ9) からシミュレーション説明 (ページ8) へ
+                else if (currentPageIndex === 9) {
+                    currentPageIndex = 8;
                 }
-                // シミュレーション説明 (ページ19) から最後の家庭についての質問 (ページ18) へ
-                else if (currentPageIndex === 19) {
-                    currentPageIndex = 18;
+                // シミュレーション説明 (ページ8) から家庭についての質問の最後のページ (ページ7) へ
+                else if (currentPageIndex === 8) {
+                    currentPageIndex = 7;
+                    currentFamilyQuestionIndexInShuffledOrder = familyQuestionsData.length - 1; // ランダム質問の最後の質問に戻る
                 }
-                // 家庭についての質問 (ページ7からページ18) は順次戻る
-                else if (currentPageIndex >= 8 && currentPageIndex <= 18) {
-                    currentPageIndex--;
-                }
-                // 家庭についての質問の最初のページ (ページ7) から実家暮らし/一人暮らしの質問ページへ
+                // 家庭についての質問のランダム化されたページ内での戻る
                 else if (currentPageIndex === 7) {
-                    const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
-                    const isAloneLiving = [
-                        '高校生から一人暮らし',
-                        '大学生から一人暮らし',
-                        '大学院生から一人暮らし',
-                        '就職から一人暮らし'
-                    ].includes(selectedHouseholdType ? selectedHouseholdType.value : '');
-
-                    if (isAloneLiving) {
-                        currentPageIndex = 6; // 一人暮らしの方への質問 (ページ6)
+                    if (currentFamilyQuestionIndexInShuffledOrder > 0) {
+                        currentFamilyQuestionIndexInShuffledOrder--;
                     } else {
-                        currentPageIndex = 5; // 実家暮らしの方への質問 (ページ5)
+                        // ランダム質問の最初の質問から戻る場合、所属世帯タイプに応じてページ5または6へ
+                        const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
+                        const isAloneLiving = [
+                            '高校生から一人暮らし',
+                            '大学生から一人暮らし',
+                            '大学院生から一人暮らし',
+                            '就職から一人暮らし'
+                        ].includes(selectedHouseholdType ? selectedHouseholdType.value : '');
+
+                        if (isAloneLiving) {
+                            currentPageIndex = 6; // 一人暮らしの方への質問 (ページ6)
+                        } else {
+                            currentPageIndex = 5; // 実家暮らしの方への質問 (ページ5)
+                        }
+                        // ランダム質問関連のインデックスをリセット
+                        shuffledFamilyQuestionIndices = [];
+                        currentFamilyQuestionIndexInShuffledOrder = 0;
                     }
                 }
                 // 実家暮らしまたは一人暮らしの質問ページ (ページ5またはページ6) から所属世帯 (ページ4) へ
@@ -1137,19 +869,10 @@
                 buyButton.disabled = true;
                 dontBuyButton.disabled = true;
 
-                let finalResultInput = document.getElementById('final-purchase-result');
-                if (finalResultInput) {
-                    finalResultInput.remove();
-                }
-                
-                finalResultInput = document.createElement('input');
-                finalResultInput.type = 'hidden';
-                finalResultInput.id = 'final-purchase-result';
-                finalResultInput.name = '最終購買選択結果';
-                finalResultInput.value = `${finalRecordedPrice}円で${finalChoiceText}`; // X500円の価格と選択結果を記録
-                form.appendChild(finalResultInput);
+                // 最終結果を surveyAnswers に追加
+                surveyAnswers['最終購買選択結果'] = `${finalRecordedPrice}円で${finalChoiceText}`; 
 
-                currentPageIndex = 21; // 回答完了画面へ遷移
+                currentPageIndex = 10; // 回答完了画面へ遷移
                 updatePageDisplay();
                 isPriceAt500Mark = false; // フラグをリセット
                 return; // シミュレーション終了後、関数を抜ける
@@ -1209,10 +932,7 @@
 
         // フォーム送信処理を関数化
         async function submitForm(event) {
-            // submitボタン以外のボタンからのsubmitイベントを防止
-            if (event && event.target.type !== 'submit') {
-                event.preventDefault(); // デフォルトのフォーム送信をキャンセル
-            }
+            event.preventDefault(); // デフォルトのフォーム送信をキャンセル
             
             // Google Apps ScriptのURLが設定されているか確認
             if (!GOOGLE_APPS_SCRIPT_URL) { 
@@ -1222,26 +942,45 @@
 
             showModal('回答を送信しています...', true); // 送信中にローディングを表示
 
-            const formData = new FormData(form);
-            const data = {};
-            for (let [key, value] of formData.entries()) {
-                data[key] = value;
+            // surveyAnswers オブジェクトから FormData を構築
+            const formDataToSend = new FormData();
+            for (const key in surveyAnswers) {
+                formDataToSend.append(key, surveyAnswers[key]);
             }
-            
+            // フォームの残りの要素も追加（隠しフィールドなど）
+            const formElements = form.elements;
+            for (let i = 0; i < formElements.length; i++) {
+                const element = formElements[i];
+                if (element.name && !surveyAnswers.hasOwnProperty(element.name) && element.type !== 'submit' && element.type !== 'button') {
+                     // ラジオボタンやチェックボックスはname属性が重複するため、valueが空でないもののみ追加
+                    if ((element.type === 'radio' || element.type === 'checkbox') && !element.checked) {
+                        continue;
+                    }
+                    if (element.value) { // 空の値は送信しない
+                         formDataToSend.append(element.name, element.value);
+                    }
+                }
+            }
+
+
             try {
+                // FormDataをURLSearchParamsに変換（GASのPOST形式に合わせるため）
+                const urlEncodedData = new URLSearchParams(formDataToSend).toString();
+
                 const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors', 
+                    mode: 'no-cors', // CORSエラーを避けるためにno-corsを使用
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded', // URLエンコード形式を指定
                     },
-                    body: JSON.stringify(data),
+                    body: urlEncodedData,
                 });
 
                 showModal('回答が正常に送信されました！ご協力ありがとうございます。', false);
                 form.reset(); // フォームをリセット
                 currentPageIndex = 0; // 最初のページに戻す
                 updatePageDisplay(); // 最初のページを表示
+                surveyAnswers = {}; // 回答データをリセット
             } catch (error) {
                 console.error('送信エラー:', error);
                 showModal('送信中にエラーが発生しました。もう一度お試しください。', false);
