@@ -764,7 +764,7 @@
             } 
     
             // ページ8: 衣服の購買シミュレーション説明 のラジオボタンの選択をチェック
-            else if (currentPageIndex === 8) {
+            if (currentPageIndex === 8) {
                 const confirmationRadio = document.querySelector('input[name="確認"]:checked');
                 // ラジオボタンが選択されていない場合
                 if (!confirmationRadio) {
