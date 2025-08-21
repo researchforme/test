@@ -129,11 +129,10 @@
             <div class="survey-page active" data-page="0">
                 <p class="text-gray-700 text-lg mb-10 text-center">
                     本調査にご協力いただきありがとうございます。<br>
-                    アンケート対象者は、大学生・大学院生・専門学生、18～22歳です。<br>
                     衣服の購買に関するあなたの金銭感覚についてお伺いします。<br>
                     ご回答いただいた内容は統計的に処理され、<br>
                     個人が特定できる形で公開されることは一切ございません。<br>
-                    また、本調査の目的以外で利用することもございませんので、ご安心ください。<br>
+                    また、**本調査の目的以外で利用することもございません**ので、ご安心ください。<br>
                 </p>
                 <div class="flex justify-center mt-12">
                     <button type="button" onclick="nextPage()" class="py-3 px-10 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
@@ -731,7 +730,7 @@
                 const agreementRadio = document.querySelector('input[name="宣言と同意"]:checked');
                 // ラジオボタンが選択されていない場合
                 if (!agreementRadio) {
-                      showModal('「はい」を選択してください。', false); // モーダルでエラーメッセージを表示
+                    showModal('「はい」を選択してください。', false); // モーダルでエラーメッセージを表示
                     return; // ページ遷移を中止
                 }
             }
@@ -742,7 +741,7 @@
                 const questionData = familyQuestionsData[originalQuestionIndex];
                 // 現在表示されている質問のラジオボタンが選択されているかを確認
                 const selectedAnswer = document.querySelector(`input[name="${questionData.name}_${originalQuestionIndex}"]:checked`);
-        
+                
                 // 回答が選択されていない場合はエラーメッセージを表示し、遷移を阻止
                 if (!selectedAnswer) {
                     showModal('選択肢を選んでください。', false); // モーダルでエラーメッセージを表示
@@ -765,12 +764,13 @@
             // その他のページは単純に次へ
             else if (currentPageIndex < surveyPages.length - 1) {
                 currentPageIndex++;
-             }
+            }
             updatePageDisplay();
         }
+
         // 条件分岐を含む次のページへ進む関数
         function nextPageConditional() {
-            // 所属世帯について (currentPageIndex === 4)
+            // ページ4: 所属世帯について のロジック
             if (currentPageIndex === 4) {
                 const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
                 
@@ -792,7 +792,13 @@
                     currentPageIndex = 5; // 実家暮らしの方への質問 (ページ5)
                 }
             } 
-
+            // 実家暮らしまたは一人暮らしの質問の後の遷移 (ページ5またはページ6から家庭についての質問の最初のページ7へ)
+            else if (currentPageIndex === 5 || currentPageIndex === 6) {
+                // ページ5またはページ6の回答を保存 (必須回答チェックは簡略化)
+                // この時点では必須回答チェックは行われませんでしたが、前回の修正で追加されています
+                // 今回は元のコードをそのまま復元しています
+                currentPageIndex = 7; 
+            }
             // ページ8: 衣服の購買シミュレーション説明 のラジオボタンの選択をチェック
             // ページ8の「次へ」ボタンはnextPageConditional()を呼び出す
             else if (currentPageIndex === 8) {
@@ -805,20 +811,12 @@
                 // 確認済みであれば、シミュレーション本体ページへ遷移
                 currentPageIndex = 9; 
             }
-                
-            // 実家暮らしまたは一人暮らしの質問の後の遷移 (ページ5またはページ6から家庭についての質問の最初のページ7へ)
-            else if (currentPageIndex === 5 || currentPageIndex === 6) {
-                currentPageIndex = 7; // 家庭についての質問の最初のページ7へ
-            }
-            // シミュレーション説明 (ページ8) からシミュレーション本体 (ページ9) へ
-            else if (currentPageIndex === 8) {
-                currentPageIndex = 9; // ページ9へ移動
-            }
-            // シミュレーション終了時 (handlePurchaseChoiceから呼ばれる) は直接ページ10へ遷移
-            // ここでは他のページで誤って呼ばれないように空のelseとしておく
-            else {
-                currentPageIndex++; // 念のため、予期しないケースでは次のページへ進む
-            }
+            // シミュレーション説明 (ページ8) からシミュレーション本体 (ページ9) へ (元のコードではここにあった)
+            // このブロックはcurrentPageIndex === 8の条件で処理されるため削除しました。
+            // else if (currentPageIndex === 8) { // 元々ここにあったが、HTMLのdata-pageと重複するため、直接9へ遷移させる
+            //     currentPageIndex = 9;
+            // }
+
             updatePageDisplay();
         }
 
@@ -844,15 +842,16 @@
                         currentFamilyQuestionIndexInShuffledOrder--;
                     } else {
                         // ランダム質問の最初の質問から戻る場合、所属世帯タイプに応じてページ5または6へ
-                        const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
-                        const isAloneLiving = [
+                        // この部分は、surveyAnswersからデータを取得するように変更されています
+                        // 以前のコードではdocument.querySelectorで直接取得していた可能性があります
+                        const selectedHouseholdType = surveyAnswers['所属世帯']; 
+
+                        if (selectedHouseholdType && [
                             '高校生から一人暮らし',
                             '大学生から一人暮らし',
                             '大学院生から一人暮らし',
                             '就職から一人暮らし'
-                        ].includes(selectedHouseholdType ? selectedHouseholdType.value : '');
-
-                        if (isAloneLiving) {
+                        ].includes(selectedHouseholdType)) {
                             currentPageIndex = 6; // 一人暮らしの方への質問 (ページ6)
                         } else {
                             currentPageIndex = 5; // 実家暮らしの方への質問 (ページ5)
@@ -974,38 +973,30 @@
 
             showModal('回答を送信しています...', true); // 送信中にローディングを表示
 
-            // surveyAnswers オブジェクトから FormData を構築
-            const formDataToSend = new FormData();
+            // 全ての回答データを収集
+            const data = {};
+            // surveyAnswersに保存された動的な質問の回答を追加
             for (const key in surveyAnswers) {
-                formDataToSend.append(key, surveyAnswers[key]);
+                data[key] = surveyAnswers[key];
             }
-            // フォームの残りの要素も追加（隠しフィールドなど）
-            const formElements = form.elements;
-            for (let i = 0; i < formElements.length; i++) {
-                const element = formElements[i];
-                if (element.name && !surveyAnswers.hasOwnProperty(element.name) && element.type !== 'submit' && element.type !== 'button') {
-                     // ラジオボタンやチェックボックスはname属性が重複するため、valueが空でないもののみ追加
-                    if ((element.type === 'radio' || element.type === 'checkbox') && !element.checked) {
-                        continue;
-                    }
-                    if (element.value) { // 空の値は送信しない
-                         formDataToSend.append(element.name, element.value);
-                    }
+
+            // フォームの静的な要素から回答を追加
+            const formData = new FormData(form);
+            for (let [key, value] of formData.entries()) {
+                // surveyAnswersに既に同じキーがなければ追加（動的な質問の重複を避けるため）
+                if (!data.hasOwnProperty(key)) {
+                    data[key] = value;
                 }
             }
-
-
+            
             try {
-                // FormDataをURLSearchParamsに変換（GASのPOST形式に合わせるため）
-                const urlEncodedData = new URLSearchParams(formDataToSend).toString();
-
                 const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors', // CORSエラーを避けるためにno-corsを使用
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded', // URLエンコード形式を指定
+                        'Content-Type': 'application/json', // JSON形式で送信
                     },
-                    body: urlEncodedData,
+                    body: JSON.stringify(data), // JavaScriptオブジェクトをJSON文字列に変換して送信
                 });
 
                 showModal('回答が正常に送信されました！ご協力ありがとうございます。', false);
