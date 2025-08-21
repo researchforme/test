@@ -726,15 +726,6 @@
 
         // 次のページへ進む関数 (一般的な遷移)
         function nextPage() {
-            // ページ1の場合のみ、ラジオボタンの選択をチェック
-            if (currentPageIndex === 1) {
-                const agreementRadio = document.querySelector('input[name="宣言と同意"]:checked');
-                if (!agreementRadio) {
-                    showModal('「はい」を選択してください。', false); // モーダルでエラーメッセージを表示
-                    return; // ページ遷移を中止
-                }
-            }
-            
             // 家庭についての質問のランダム化されたページ内での遷移
             if (currentPageIndex === 7) {
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
@@ -758,15 +749,7 @@
                     currentFamilyQuestionIndexInShuffledOrder = 0;
                 }
             } 
-            
-            if (currentPageIndex === 8) {
-                const agreementRadio = document.querySelector('input[name="確認"]:checked');
-                if (!agreementRadio) {
-                    showModal('「確認しました」を選択してください。', false); // モーダルでエラーメッセージを表示
-                    return; // ページ遷移を中止
-                }
-            }
-            
+                
             // その他のページは単純に次へ
             else if (currentPageIndex < surveyPages.length - 1) {
                 currentPageIndex++;
