@@ -485,9 +485,9 @@
 
             <!-- ページ9: 衣服の購買シミュレーション -->
             <div class="survey-page" data-page="9">
-                <!-- h2タグは削除済み -->
                 <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
-                    <img id="clothing-image" src="https://placehold.co/300x300/e0e0e0/555555?text=Clothing+Item" alt="Clothing Item" class="rounded-md shadow-md mb-4">
+                    <!-- ここに画像タグを挿入または修正します -->
+                    <img id="clothing-image" src="https://placehold.co/300x300/e0e0e0/555555?text=Loading..." alt="Clothing Item" class="rounded-md shadow-md mb-4">
                     <p class="text-2xl font-bold text-gray-900 mb-6">価格: <span id="current-price"></span>円</p>
                     <div class="flex space-x-4">
                         <button type="button" id="buy-button" onclick="handlePurchaseChoice('buy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
@@ -498,7 +498,6 @@
                         </button>
                     </div>
                 </div>
-                <!-- ページ9には回答送信ボタンは表示しない -->
             </div>
 
             <!-- ページ10: 回答完了画面 -->
@@ -550,6 +549,14 @@
         const dontBuyButton = document.getElementById('dont-buy-button');
         const submitButtonFinal = document.getElementById('submit-button-final'); // ページ10の最終送信ボタン
         
+        // 衣服の画像URLリスト
+        const clothingImageUrls = [
+            "https://github.com/researchforme/my_survey_img/blob/main/T%E3%82%B7%E3%83%A3%E3%83%84.jpg?raw=true",
+
+        ];
+        let currentImageIndex = 0; // 現在表示中の画像のインデックス
+
+
         // ランダム化する家庭についての質問データ
         const familyQuestionsData = [
             {
@@ -917,14 +924,21 @@
         function startClothingPurchaseSimulation() {
             clothingPrice = 1000; // 価格をリセット
             isPriceAt500Mark = false; // シミュレーション状態をリセット
-            updateClothingPriceDisplay();
+            currentImageIndex = 0; // 画像インデックスをリセット
+            updateClothingPriceAndImage();
             buyButton.disabled = false;
             dontBuyButton.disabled = false;
         }
 
         // 価格表示を更新する関数
-        function updateClothingPriceDisplay() {
+        function updateClothingPriceAndImage() {
             currentPriceSpan.textContent = clothingPrice.toLocaleString();
+            if (clothingImage && clothingImageUrls[currentImageIndex]);
+            //画像がロードできない場合のフォールバック
+            clothingImage.onerror = () => {
+                clothingImage.src = "https://placehold.co/300x300/ff0000/ffffff?text=Error"; // エラー画像
+                "Error loading image";
+            }
         }
 
         // 購買選択を処理する関数
@@ -959,8 +973,13 @@
                 choiceText = '買わない';
             }
             lastRecordedChoice = choiceText; // 現在の選択を記録
+            
+            //次の画像へ進む
+            currentImageIndex = (currentImageIndex + 1) % clothingImageUrls.length;
 
-            updateClothingPriceDisplay(); // 表示価格を更新
+            updateClothingPriceAndImage();
+
+            updateClothingPriceAndImage(); // 表示価格を更新
 
             // 価格変動後、現在の価格の百の位が5かどうかをチェック
             // もし5であれば、次の選択が最終選択となるようフラグを設定
