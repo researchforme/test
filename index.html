@@ -942,11 +942,17 @@
         // 価格表示を更新する関数
         function updateClothingPriceAndImage() {
             currentPriceSpan.textContent = clothingPrice.toLocaleString();
-            if (clothingImage && clothingImageUrls[currentImageIndex]);
-            //画像がロードできない場合のフォールバック
-            clothingImage.onerror = () => {
-                clothingImage.src = "https://placehold.co/300x300/ff0000/ffffff?text=Error"; // エラー画像
-                "Error loading image";
+            if (clothingImage && clothingImageUrls.length > 0) { // 配列に画像があるか確認
+                clothingImage.src = clothingImageUrls[currentImageIndex]; // 画像ソースをセット
+                //画像がロードできない場合のフォールバック
+                clothingImage.onerror = () => {
+                    clothingImage.src = "https://placehold.co/300x300/ff0000/ffffff?text=Error"; // エラー画像
+                    clothingImage.alt = "Error loading image"; // alt属性も設定
+                };
+            } else {
+                // 画像URLが設定されていない、または配列が空の場合のフォールバック
+                clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Image";
+                clothingImage.alt = "No image available";
             }
         }
 
@@ -985,8 +991,6 @@
             
             //次の画像へ進む
             currentImageIndex = (currentImageIndex + 1) % clothingImageUrls.length;
-
-            updateClothingPriceAndImage();
 
             updateClothingPriceAndImage(); // 表示価格を更新
 
