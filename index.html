@@ -276,7 +276,7 @@
                     <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         戻る
                     </button>
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                    <button type="button" onclick="nextPageConditional()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
                     </button>
                 </div>
@@ -469,7 +469,7 @@
                 </p>
                 <div class="mb-6">
                     <div class="flex items-center">
-                        <input id="confirmation" name="確認" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                        <input id="confirmation" name="シミュレーション説明確認" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
                         <label for="confirmation" class="ml-3 block text-sm text-gray-700">確認しました</label>
                     </div>
                 </div>
@@ -486,8 +486,9 @@
             <!-- ページ9: 衣服の購買シミュレーション -->
             <div class="survey-page" data-page="9">
                 <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
-                    <!-- ここに画像タグを挿入または修正します -->
                     <img id="clothing-image" src="https://placehold.co/300x300/e0e0e0/555555?text=Loading..." alt="Clothing Item" class="rounded-md shadow-md mb-4">
+                    <p class="text-xl font-medium text-gray-700 mb-2">デザイン: <span id="clothing-design" class="font-semibold text-gray-900"></span></p>
+                    <p class="text-xl font-medium text-gray-700 mb-4">ブランド: <span id="clothing-brand" class="font-semibold text-gray-900"></span></p>
                     <p class="text-2xl font-bold text-gray-900 mb-6">価格: <span id="current-price"></span>円</p>
                     <div class="flex space-x-4">
                         <button type="button" id="buy-button" onclick="handlePurchaseChoice('buy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
@@ -497,7 +498,12 @@
                             買わない
                         </button>
                     </div>
+                    <!-- 次のシミュレーションへ進むボタン (非表示) -->
+                    <button type="button" id="next-simulation-button" onclick="goToNextSimulation()" class="py-3 px-10 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out mt-6 hidden">
+                        次へ進む
+                    </button>
                 </div>
+                <!-- ページ9には回答送信ボタンは表示しない -->
             </div>
 
             <!-- ページ10: 回答完了画面 -->
@@ -548,111 +554,31 @@
         const buyButton = document.getElementById('buy-button');
         const dontBuyButton = document.getElementById('dont-buy-button');
         const submitButtonFinal = document.getElementById('submit-button-final'); // ページ10の最終送信ボタン
-        const clothingImage = document.getElementById('clothing-image'); // 画像要素を追加
-        
-        // 衣服の画像URLリスト
-        const clothingImageUrls = [
-            "https://github.com/researchforme/my_survey_img/blob/main/%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true",
+        const clothingImage = document.getElementById('clothing-image'); // 画像要素
+        const clothingDesignSpan = document.getElementById('clothing-design'); // デザイン表示要素
+        const clothingBrandSpan = document.getElementById('clothing-brand');   // ブランド表示要素
+        const nextSimulationButton = document.getElementById('next-simulation-button'); // 次のシミュレーションボタン
 
+        // 衣服の画像URLリスト (ベース画像)
+        // **ここにあなたの画像URLを挿入してください**
+        const formalJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true"; // フォーマルなジャケットのURL
+        const casualJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%82%AB%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true"; // カジュアルなジャケットのURL
+
+        // 全8種類の購買シミュレーションデータ
+        const allClothingSimulationsData = [
+            { id: "sim_formal_liked_famous", imageUrl: formalJacketUrl, design: "気に入った", brand: "有名" },
+            { id: "sim_formal_liked_notfamous", imageUrl: formalJacketUrl, design: "気に入った", brand: "有名でない" },
+            { id: "sim_formal_neutral_famous", imageUrl: formalJacketUrl, design: "無難な", brand: "有名" },
+            { id: "sim_formal_neutral_notfamous", imageUrl: formalJacketUrl, design: "無難な", brand: "有名でない" },
+            { id: "sim_casual_liked_famous", imageUrl: casualJacketUrl, design: "気に入った", brand: "有名" },
+            { id: "sim_casual_liked_notfamous", imageUrl: casualJacketUrl, design: "気に入った", brand: "有名でない" },
+            { id: "sim_casual_neutral_famous", imageUrl: casualJacketUrl, design: "無難な", brand: "有名" },
+            { id: "sim_casual_neutral_notfamous", imageUrl: casualJacketUrl, design: "無難な", brand: "有名でない" },
         ];
-        let currentImageIndex = 0; // 現在表示中の画像のインデックス
 
-
-        // ランダム化する家庭についての質問データ
-        const familyQuestionsData = [
-            {
-                title: "自分の実家は裕福だと感じる",
-                name: "裕福",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "自分の実家は貧しいと感じる",
-                name: "貧しい",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "母親は倹約家である",
-                name: "母親は倹約",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "父親は倹約家である",
-                name: "父親は倹約",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "母親はファッションに関心があった",
-                name: "母親ファッション",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "父親はファッションに関心があった",
-                name: "父親ファッション",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "子供のころお金を貯金するように教えられた",
-                name: "貯金",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "子供のころお金を上手く活用するように教えられた",
-                name: "活用",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "子供のころ欲しいものは何でも買ってもらえた",
-                name: "欲しいものは何でも",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "子供のころ欲しいものを買ってもらうにはルールがあった<br>（良い成績を取る、お手伝いをするなど）",
-                name: "ルール",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "子供のころ理由があれば欲しいものを買ってもらえた",
-                name: "理由",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "子供のころ自分のお小遣いで買ったものが不要なものだと言われた",
-                name: "不要",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                ]
-            },
-            {
-                title: "「あてはまる」を選択してください",
-                name: "トラップ1",
-                options: [
-                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
-                    ]
-            }
-
-        ];
+        let shuffledClothingSimulations = []; // ランダム化されたシミュレーション順序
+        let currentSimulationRoundIndex = 0; // 現在のシミュレーションのラウンド (0から始まり、全シミュレーション数-1まで)
+        let currentSimulationData = null; // 現在のシミュレーションのデータオブジェクト
 
         let currentPageIndex = 0; // 現在表示されているページのインデックス (0始まり)
         let clothingPrice = 1000; // 衣服の初期価格
@@ -777,8 +703,9 @@
                     currentFamilyQuestionIndexInShuffledOrder = 0;
                 }
             } 
-            // その他のページは単純に次へ
-            else if (currentPageIndex < surveyPages.length - 1) {
+            // 上記以外のページは単純に次へ
+            // ただし、nextPageConditional()が呼ばれるページは除く (ページ4, 5, 6, 8)
+            else if (currentPageIndex !== 4 && currentPageIndex !== 5 && currentPageIndex !== 6 && currentPageIndex !== 8) { 
                 currentPageIndex++;
             }
             updatePageDisplay();
@@ -806,7 +733,7 @@
             // ページ4: 所属世帯について のロジック
             else if (currentPageIndex === 4) {
                 const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
-        
+                
                 if (!selectedHouseholdType) {
                     showModal('所属世帯を選択してください。', false);
                     return;
@@ -824,7 +751,7 @@
 
                 if (isAloneLiving) {
                     currentPageIndex = 6; // 一人暮らしの方への質問 (ページ6)
-                    } else {
+                } else {
                     currentPageIndex = 5; // 実家暮らしの方への質問 (ページ5)
                 }
             } 
@@ -861,7 +788,7 @@
             }
             // ページ8: 衣服の購買シミュレーション説明 のラジオボタンの選択をチェック
             else if (currentPageIndex === 8) {
-                const confirmationRadio = document.querySelector('input[name="確認"]:checked');
+                const confirmationRadio = document.querySelector('input[name="シミュレーション説明確認"]:checked'); // name属性を修正
                 // ラジオボタンが選択されていない場合
                 if (!confirmationRadio) {
                     showModal('「確認しました」を選択してください。', false); // モーダルでエラーメッセージを表示
@@ -885,7 +812,19 @@
                 }
                 // シミュレーション本体 (ページ9) からシミュレーション説明 (ページ8) へ
                 else if (currentPageIndex === 9) {
-                    currentPageIndex = 8;
+                    // もし現在アクティブなシミュレーションの最初のラウンドなら、ページ8に戻る
+                    if (currentSimulationRoundIndex === 0) {
+                        currentPageIndex = 8;
+                        // シミュレーションデータをリセット
+                        shuffledClothingSimulations = [];
+                        currentSimulationRoundIndex = 0;
+                        currentSimulationData = null;
+                    } else {
+                        // 途中のシミュレーションから戻る場合、前のシミュレーションラウンドに戻る
+                        currentSimulationRoundIndex--;
+                        startClothingPurchaseSimulation(); // 前のシミュレーションを再開
+                        return; // ここで関数を終了し、updatePageDisplay()はstartClothingPurchaseSimulation()内で呼ばれる
+                    }
                 }
                 // シミュレーション説明 (ページ8) から家庭についての質問の最後のページ (ページ7) へ
                 else if (currentPageIndex === 8) {
@@ -898,9 +837,7 @@
                         currentFamilyQuestionIndexInShuffledOrder--;
                     } else {
                         // ランダム質問の最初の質問から戻る場合、所属世帯タイプに応じてページ5または6へ
-                        // この部分は、surveyAnswersからデータを取得するように変更されています
-                        // 以前のコードではdocument.querySelectorで直接取得していた可能性があります
-                        const selectedHouseholdType = surveyAnswers['所属世帯']; 
+                        const selectedHouseholdType = surveyAnswers['所属世帯']; // surveyAnswersから取得
 
                         if (selectedHouseholdType && [
                             '高校生から一人暮らし',
@@ -931,28 +868,45 @@
 
         // シミュレーションを開始する関数
         function startClothingPurchaseSimulation() {
+            // シミュレーションがまだシャッフルされていない、または全シミュレーションが完了している場合
+            if (shuffledClothingSimulations.length === 0 || currentSimulationRoundIndex >= allClothingSimulationsData.length) {
+                shuffledClothingSimulations = [...allClothingSimulationsData]; // 元のデータをコピー
+                shuffleArray(shuffledClothingSimulations); // ランダムにシャッフル
+                currentSimulationRoundIndex = 0; // 最初から開始
+            }
+
+            currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
+
             clothingPrice = 1000; // 価格をリセット
             isPriceAt500Mark = false; // シミュレーション状態をリセット
-            currentImageIndex = 0; // 画像インデックスをリセット
-            updateClothingPriceAndImage();
+            
+            // UIを更新
+            updateClothingPriceAndImage(); // 価格と画像、デザイン、ブランドを更新
             buyButton.disabled = false;
             dontBuyButton.disabled = false;
+            nextSimulationButton.classList.add('hidden'); // 次へ進むボタンは非表示
+            buyButton.classList.remove('hidden'); // 買うボタンを表示
+            dontBuyButton.classList.remove('hidden'); // 買わないボタンを表示
         }
 
-        // 価格表示を更新する関数
+        // 価格表示、画像、デザイン、ブランド表示を更新する関数
         function updateClothingPriceAndImage() {
             currentPriceSpan.textContent = clothingPrice.toLocaleString();
-            if (clothingImage && clothingImageUrls.length > 0) { // 配列に画像があるか確認
-                clothingImage.src = clothingImageUrls[currentImageIndex]; // 画像ソースをセット
-                //画像がロードできない場合のフォールバック
+            if (currentSimulationData) { // 現在のシミュレーションデータがあるか確認
+                clothingImage.src = currentSimulationData.imageUrl;
+                clothingDesignSpan.textContent = currentSimulationData.design;
+                clothingBrandSpan.textContent = currentSimulationData.brand;
+                // 画像がロードできない場合のフォールバック
                 clothingImage.onerror = () => {
                     clothingImage.src = "https://placehold.co/300x300/ff0000/ffffff?text=Error"; // エラー画像
-                    clothingImage.alt = "Error loading image"; // alt属性も設定
+                    clothingImage.alt = "Error loading image";
                 };
             } else {
-                // 画像URLが設定されていない、または配列が空の場合のフォールバック
-                clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Image";
-                clothingImage.alt = "No image available";
+                // シミュレーションデータがない場合
+                clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Data";
+                clothingImage.alt = "No simulation data";
+                clothingDesignSpan.textContent = "N/A";
+                clothingBrandSpan.textContent = "N/A";
             }
         }
 
@@ -965,15 +919,25 @@
                 const finalRecordedPrice = clothingPrice; // この時点で記録すべき価格（X500円）
                 const finalChoiceText = (choice === 'buy') ? '買う' : '買わない';
 
-                // ボタンを無効化し、結果を記録してシミュレーションを終了
+                // ボタンを無効化
                 buyButton.disabled = true;
                 dontBuyButton.disabled = true;
+                buyButton.classList.add('hidden'); // 買うボタンを非表示
+                dontBuyButton.classList.add('hidden'); // 買わないボタンを非表示
 
-                // 最終結果を surveyAnswers に追加
-                surveyAnswers['最終購買選択結果'] = `${finalRecordedPrice}円で${finalChoiceText}`; 
+                // 最終結果を surveyAnswers に追加 (シミュレーションIDを含める)
+                surveyAnswers[`${currentSimulationData.id}_最終購買価格`] = finalRecordedPrice; 
+                surveyAnswers[`${currentSimulationData.id}_最終購買選択`] = finalChoiceText; 
 
-                currentPageIndex = 10; // 回答完了画面へ遷移
-                updatePageDisplay();
+                // 次のシミュレーションがあるかチェック
+                if (currentSimulationRoundIndex < allClothingSimulationsData.length - 1) {
+                    // 次のシミュレーションへ進むボタンを表示
+                    nextSimulationButton.classList.remove('hidden');
+                } else {
+                    // 全てのシミュレーションが完了したら、回答完了画面へ
+                    currentPageIndex = 10; // 回答完了画面へ遷移
+                    updatePageDisplay();
+                }
                 isPriceAt500Mark = false; // フラグをリセット
                 return; // シミュレーション終了後、関数を抜ける
             }
@@ -989,10 +953,7 @@
             }
             lastRecordedChoice = choiceText; // 現在の選択を記録
             
-            //次の画像へ進む
-            currentImageIndex = (currentImageIndex + 1) % clothingImageUrls.length;
-
-            updateClothingPriceAndImage(); // 表示価格を更新
+            updateClothingPriceAndImage(); // 価格、画像、デザイン、ブランドを更新
 
             // 価格変動後、現在の価格の百の位が5かどうかをチェック
             // もし5であれば、次の選択が最終選択となるようフラグを設定
@@ -1001,6 +962,18 @@
                 isPriceAt500Mark = true; 
             } else {
                 isPriceAt500Mark = false; // 5でなければフラグをリセット
+            }
+        }
+
+        // 次のシミュレーションに進む関数
+        function goToNextSimulation() {
+            currentSimulationRoundIndex++; // 次のシミュレーションラウンドへ
+            if (currentSimulationRoundIndex < allClothingSimulationsData.length) {
+                startClothingPurchaseSimulation(); // 次のシミュレーションを開始
+            } else {
+                // これは予期しないパスだが、念のため
+                currentPageIndex = 10;
+                updatePageDisplay();
             }
         }
 
@@ -1057,7 +1030,14 @@
             for (let [key, value] of formData.entries()) {
                 // surveyAnswersに既に同じキーがなければ追加（動的な質問の重複を避けるため）
                 if (!data.hasOwnProperty(key)) {
-                    data[key] = value;
+                    // ラジオボタンやチェックボックスはname属性が重複するため、チェックされているもののみ追加
+                    if ((form.elements[key] && (form.elements[key].type === 'radio' || form.elements[key].type === 'checkbox'))) {
+                        if (form.elements[key].checked) { // checked状態のラジオボタン/チェックボックスの値のみ取得
+                            data[key] = value;
+                        }
+                    } else {
+                        data[key] = value;
+                    }
                 }
             }
             
@@ -1076,6 +1056,10 @@
                 currentPageIndex = 0; // 最初のページに戻す
                 updatePageDisplay(); // 最初のページを表示
                 surveyAnswers = {}; // 回答データをリセット
+                // シミュレーションの状態もリセット
+                shuffledClothingSimulations = [];
+                currentSimulationRoundIndex = 0;
+                currentSimulationData = null;
             } catch (error) {
                 console.error('送信エラー:', error);
                 showModal('送信中にエラーが発生しました。もう一度お試しください。', false);
