@@ -487,6 +487,7 @@
             <div class="survey-page" data-page="9">
                 <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
                     <img id="clothing-image" src="https://placehold.co/300x300/e0e0e0/555555?text=Loading..." alt="Clothing Item" class="rounded-md shadow-md mb-4">
+                    <p class="text-xl font-medium text-gray-700 mb-2">種類: <span id="clothing-item-type" class="font-semibold text-gray-900"></span></p>
                     <p class="text-xl font-medium text-gray-700 mb-2">デザイン: <span id="clothing-design" class="font-semibold text-gray-900"></span></p>
                     <p class="text-xl font-medium text-gray-700 mb-4">ブランド: <span id="clothing-brand" class="font-semibold text-gray-900"></span></p>
                     <p class="text-2xl font-bold text-gray-900 mb-6">価格: <span id="current-price"></span>円</p>
@@ -555,6 +556,7 @@
         const dontBuyButton = document.getElementById('dont-buy-button');
         const submitButtonFinal = document.getElementById('submit-button-final'); // ページ10の最終送信ボタン
         const clothingImage = document.getElementById('clothing-image'); // 画像要素
+        const clothingItemTypeSpan = document.getElementById('clothing-item-type'); // 衣服の種類表示要素を新しく追加
         const clothingDesignSpan = document.getElementById('clothing-design'); // デザイン表示要素
         const clothingBrandSpan = document.getElementById('clothing-brand');   // ブランド表示要素
         const nextSimulationButton = document.getElementById('next-simulation-button'); // 次のシミュレーションボタン
@@ -566,14 +568,110 @@
 
         // 全8種類の購買シミュレーションデータ
         const allClothingSimulationsData = [
-            { id: "sim_formal_liked_famous", imageUrl: formalJacketUrl, design: "気に入った", brand: "有名" },
-            { id: "sim_formal_liked_notfamous", imageUrl: formalJacketUrl, design: "気に入った", brand: "有名でない" },
-            { id: "sim_formal_neutral_famous", imageUrl: formalJacketUrl, design: "無難な", brand: "有名" },
-            { id: "sim_formal_neutral_notfamous", imageUrl: formalJacketUrl, design: "無難な", brand: "有名でない" },
-            { id: "sim_casual_liked_famous", imageUrl: casualJacketUrl, design: "気に入った", brand: "有名" },
-            { id: "sim_casual_liked_notfamous", imageUrl: casualJacketUrl, design: "気に入った", brand: "有名でない" },
-            { id: "sim_casual_neutral_famous", imageUrl: casualJacketUrl, design: "無難な", brand: "有名" },
-            { id: "sim_casual_neutral_notfamous", imageUrl: casualJacketUrl, design: "無難な", brand: "有名でない" },
+            { id: "sim_formal_liked_famous", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", design: "気に入った", brand: "有名" },
+            { id: "sim_formal_liked_notfamous", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", design: "気に入った", brand: "有名でない" },
+            { id: "sim_formal_neutral_famous", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", design: "無難な", brand: "有名" },
+            { id: "sim_formal_neutral_notfamous", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", design: "無難な", brand: "有名でない" },
+            { id: "sim_casual_liked_famous", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", design: "気に入った", brand: "有名" },
+            { id: "sim_casual_liked_notfamous", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", design: "気に入った", brand: "有名でない" },
+            { id: "sim_casual_neutral_famous", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", design: "無難な", brand: "有名" },
+            { id: "sim_casual_neutral_notfamous", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", design: "無難な", brand: "有名でない" },
+        ];
+        
+        // ランダム化する家庭についての質問データ
+        const familyQuestionsData = [
+            {
+                title: "自分の実家は裕福だと感じる",
+                name: "裕福",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "自分の実家は貧しいと感じる",
+                name: "貧しい",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "母親は倹約家である",
+                name: "母親は倹約",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "父親は倹約家である",
+                name: "父親は倹約",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "母親はファッションに関心があった",
+                name: "母親ファッション",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "父親はファッションに関心があった",
+                name: "父親ファッション",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "子供のころお金を貯金するように教えられた",
+                name: "貯金",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "子供のころお金を上手く活用するように教えられた",
+                name: "活用",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "子供のころ欲しいものは何でも買ってもらえた",
+                name: "欲しいものは何でも",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "子供のころ欲しいものを買ってもらうにはルールがあった<br>（良い成績を取る、お手伝いをするなど）",
+                name: "ルール",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "子供のころ理由があれば欲しいものを買ってもらえた",
+                name: "理由",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "子供のころ自分のお小遣いで買ったものが不要なものだと言われた",
+                name: "不要",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                ]
+            },
+            {
+                title: "「あてはまる」を選択してください",
+                name: "トラップ1",
+                options: [
+                    "まったくあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    ]
+            }
+
         ];
 
         let shuffledClothingSimulations = []; // ランダム化されたシミュレーション順序
@@ -894,6 +992,7 @@
             currentPriceSpan.textContent = clothingPrice.toLocaleString();
             if (currentSimulationData) { // 現在のシミュレーションデータがあるか確認
                 clothingImage.src = currentSimulationData.imageUrl;
+                clothingItemTypeSpan.textContent = currentSimulationData.itemType; // 衣服の種類を設定
                 clothingDesignSpan.textContent = currentSimulationData.design;
                 clothingBrandSpan.textContent = currentSimulationData.brand;
                 // 画像がロードできない場合のフォールバック
@@ -905,6 +1004,7 @@
                 // シミュレーションデータがない場合
                 clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Data";
                 clothingImage.alt = "No simulation data";
+                clothingItemTypeSpan.textContent = "N/A"; // 衣服の種類もN/Aに設定
                 clothingDesignSpan.textContent = "N/A";
                 clothingBrandSpan.textContent = "N/A";
             }
