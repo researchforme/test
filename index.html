@@ -520,8 +520,8 @@
                 <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
                     <img id="clothing-image" src="https://github.com/researchforme/my_survey_img/blob/main/%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true" alt="Clothing Item" class="rounded-md shadow-md mb-4">
                     <p class="text-xl font-medium text-gray-700 mb-2">種類: <span id="clothing-item-type" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-xl font-medium text-gray-700 mb-2">デザイン: <span id="clothing-design" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-xl font-medium text-gray-700 mb-4">ブランド: <span id="clothing-brand" class="font-semibold text-gray-900"></span></p>
+                    <p class="text-xl font-medium text-gray-700 mb-2">すでに持っている服との組み合わせ: <span id="clothing-combination" class="font-semibold text-gray-900"></span></p>
+                    <p class="text-xl font-medium text-gray-700 mb-4">利用場面: <span id="clothing-situation" class="font-semibold text-gray-900"></span></p>
                     <p class="text-2xl font-bold text-gray-900 mb-6">価格: <span id="current-price"></span>円</p>
                     <div class="flex space-x-4">
                         <button type="button" id="buy-button" onclick="handlePurchaseChoice('buy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
@@ -589,8 +589,8 @@
         const submitButtonFinal = document.getElementById('submit-button-final'); // ページ10の最終送信ボタン
         const clothingImage = document.getElementById('clothing-image'); // 画像要素
         const clothingItemTypeSpan = document.getElementById('clothing-item-type'); // 衣服の種類表示要素を新しく追加
-        const clothingDesignSpan = document.getElementById('clothing-design'); // デザイン表示要素
-        const clothingBrandSpan = document.getElementById('clothing-brand');   // ブランド表示要素
+        const clothingCombinationSpan = document.getElementById('clothing-combination'); // デザイン表示要素
+        const clothingSituationSpan = document.getElementById('clothing-sItuation');   // ブランド表示要素
         const nextSimulationButton = document.getElementById('next-simulation-button'); // 次のシミュレーションボタン
 
         // 衣服の画像URLリスト (ベース画像)
@@ -600,14 +600,14 @@
 
         // 全8種類の購買シミュレーションデータ
         const allClothingSimulationsData = [
-            { id: "sim_formal_liked_famous", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", design: "気に入った", brand: "有名" },
-            { id: "sim_formal_liked_notfamous", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", design: "気に入った", brand: "有名でない" },
-            { id: "sim_formal_neutral_famous", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", design: "無難な", brand: "有名" },
-            { id: "sim_formal_neutral_notfamous", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", design: "無難な", brand: "有名でない" },
-            { id: "sim_casual_liked_famous", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", design: "気に入った", brand: "有名" },
-            { id: "sim_casual_liked_notfamous", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", design: "気に入った", brand: "有名でない" },
-            { id: "sim_casual_neutral_famous", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", design: "無難な", brand: "有名" },
-            { id: "sim_casual_neutral_notfamous", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", design: "無難な", brand: "有名でない" },
+            { id: "sim_formal_good_lunch", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "良い", situation: "友人と食事" },
+            { id: "sim_formal_good_date", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "良い", situation: "デート" },
+            { id: "sim_formal_bad_lunch", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "悪い", situation: "友人と食事" },
+            { id: "sim_formal_bad_date", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "悪い", situation: "デート" },
+            { id: "sim_casual_good_lunch", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "良い", situation: "友人と食事" },
+            { id: "sim_casual_good_date", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "良い", situation: "デート" },
+            { id: "sim_casual_bad_lunch", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "悪い", situation: "友人と食事" },
+            { id: "sim_casual_bad_date", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "悪い", situation: "デート" },
         ];
         
         // ランダム化する家庭についての質問データ
@@ -1025,8 +1025,8 @@
             if (currentSimulationData) { // 現在のシミュレーションデータがあるか確認
                 clothingImage.src = currentSimulationData.imageUrl;
                 clothingItemTypeSpan.textContent = currentSimulationData.itemType; // 衣服の種類を設定
-                clothingDesignSpan.textContent = currentSimulationData.design;
-                clothingBrandSpan.textContent = currentSimulationData.brand;
+                clothingCombinationSpan.textContent = currentSimulationData.combination;
+                clothingSituationSpan.textContent = currentSimulationData.situation;
                 // 画像がロードできない場合のフォールバック
                 clothingImage.onerror = () => {
                     clothingImage.src = "https://placehold.co/300x300/ff0000/ffffff?text=Error"; // エラー画像
@@ -1037,8 +1037,8 @@
                 clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Data";
                 clothingImage.alt = "No simulation data";
                 clothingItemTypeSpan.textContent = "N/A"; // 衣服の種類もN/Aに設定
-                clothingDesignSpan.textContent = "N/A";
-                clothingBrandSpan.textContent = "N/A";
+                clothingCombinationSpan.textContent = "N/A";
+                clothingSituationSpan.textContent = "N/A";
             }
         }
 
