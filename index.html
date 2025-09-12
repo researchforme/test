@@ -1099,7 +1099,7 @@
 
         // モーダルを表示する関数
         function showModal(message, isLoading = false) {
-            modalMessage.textContent = message;
+            modalMessage.innerHTML = message;
             if (isLoading) {
                 loadingSpinner.classList.remove('hidden');
                 modalCloseButton.classList.add('hidden'); 
