@@ -128,11 +128,14 @@
             <!-- ページ0: 表紙ページ -->
             <div class="survey-page active" data-page="0">
                 <p class="text-gray-700 text-lg mb-10 text-center">
-                    本調査にご協力いただきありがとうございます。<br>
-                    衣服の購買に関するあなたの金銭感覚についてお伺いします。<br>
-                    ご回答いただいた内容は統計的に処理され、<br>
-                    個人が特定できる形で公開されることは一切ございません。<br>
-                    また、本調査の目的以外で利用することもございませんので、ご安心ください。<br>
+                    この度は、調査にご協力いただき、ありがとうございます。<br>
+                    私は現在、みなさんの「衣服の購買に関する金銭感覚」について調査を行っています。<br>
+                    貴重なお時間を頂戴し、誠に恐縮ですが、なにとぞ、研究の趣旨をご理解の上、調査への回答にご協力いただけますよう、お願い申し上げます。<br>
+                     <br>
+                    【研究代表者】<br>
+                    静岡県立大学　経営情報学部　4年　野村優介<br>
+                    e-mail:b22091@u-shizuoka-ken.ac.jp
+
                 </p>
                 <div class="flex justify-center mt-12">
                     <button type="button" onclick="nextPage()" class="py-3 px-10 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
@@ -143,16 +146,26 @@
 
             <!-- ページ1: 宣言と同意 -->
             <div class="survey-page" data-page="1">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">宣言と同意</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">研究参加への同意</h2>
                 <p class="text-gray-700 mb-8">
-                    <br>
-                    私は前ページの内容を確認しました。<br>
-                    また、私は以下の質問をきちんと読んで、まじめに回答します。
+                    この調査は卒業研究の一環で行われます。<br>
+                    この調査では、あなたの幼少期の経験が、衣服の購買における現在の金銭的な価値観に影響を与えるのかどうかを明らかにすることを目的としています。<br>
+                    この調査には、正しい回答や間違った回答、社会的に望ましい回答などはありません。<br>
+                    あなたの経験や考えに沿って、素直にお答えください。<br>
+                    また収集するデータは、個人が特定されることはなく、統計的に分析されます。<br>
+                    調査へご参加いただける方は「同意する」、参加しない方は「同意しない」を選択し、「次へ」を押してください。<br>
+                    何かご不明な点等ございましたら、下記へご連絡ください。<br>
+                     <br>
+                    【お問い合わせ先】<br>
+                    静岡県立大学　経営情報学部　4年　野村優介<br>
+                    e-mail:b22091@u-shizuoka-ken.ac.jp
                 </p>
                 <div class="mb-6">
                     <div class="flex items-center">
-                        <input id="declaration-and-agreemant" name="宣言と同意" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
-                        <label for="declaration-and-agreemant" class="ml-3 block text-sm text-gray-700">はい</label>
+                        <input id="agreement" name="同意" type="radio" value="同意する" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                        <label for="agreement" class="ml-3 block text-sm text-gray-700">同意する</label>
+                        <input id="agreement" name="同意" type="radio" value="同意しない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                        <label for="agreement" class="ml-3 block text-sm text-gray-700">同意しない</label>
                     </div>
                 </div>
                 <div class="flex justify-between mt-6">
@@ -160,7 +173,7 @@
                         戻る
                     </button>
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        アンケートを開始
+                        次へ
                     </button>
                 </div>
             </div>
@@ -430,7 +443,7 @@
                     <!-- 質問の説明 -->
                     次のセクションでは、<br>
                     あなたの幼少期から現在における「家庭の環境やお金の教育」についてお聞きします。<br>
-                    「まったくあてはまらない～とてもあてはまる」の<br>
+                    「まったくあてはまらない」～「とてもあてはまる」の<br>
                     5つの選択肢から該当するものを選択してください。
                 </p>
                 <div class="mb-6">
@@ -751,10 +764,10 @@
         function nextPage() {
             // ページ1: 宣言と同意 のラジオボタンの選択をチェック
             if (currentPageIndex === 1) {
-                const agreementRadio = document.querySelector('input[name="宣言と同意"]:checked');
+                const agreementRadio = document.querySelector('input[name="同意"]:checked');
                 // ラジオボタンが選択されていない場合
                 if (!agreementRadio) {
-                    showModal('「はい」を選択してください。', false); // モーダルでエラーメッセージを表示
+                    showModal('選択肢を選んでください。', false); // モーダルでエラーメッセージを表示
                     return; // ページ遷移を中止
                 }
             }
