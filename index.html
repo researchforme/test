@@ -170,11 +170,11 @@
                 <div class="mb-6">
                     <div class="flex items-center space-x-6">
                         <div class="flex items-center">
-                            <input id="agree-radio" name="同意" type="radio" value="同意する" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="agree-radio" name="同意" type="radio" value="同意する" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="agree-radio" class="ml-3 block text-sm text-gray-700">同意する</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="disagree-radio" name="同意" type="radio" value="同意しない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="disagree-radio" name="同意" type="radio" value="同意しない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="disagree-radio" class="ml-3 block text-sm text-gray-700">同意しない</label>
                         </div>
                     </div>
@@ -195,22 +195,22 @@
                 <!-- 質問1: 年齢 -->
                 <div class="mb-6">
                     <label for="age" class="block text-sm font-medium text-gray-700 mb-1">あなたの年齢を入力してください（半角数字）</label>
-                    <input type="number" id="age" name="年齢" class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    <input type="number" id="age" name="年齢" class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
                 </div>
                 <!-- 質問2: 性別 -->
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">あなたの性別を選択してください</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
-                            <input id="gender-male" name="性別" type="radio" value="男性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="gender-male" name="性別" type="radio" value="男性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="gender-male" class="ml-3 block text-sm text-gray-700">男性</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="gender-female" name="性別" type="radio" value="女性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="gender-female" name="性別" type="radio" value="女性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="gender-female" class="ml-3 block text-sm text-gray-700">女性</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="gender-other" name="性別" type="radio" value="その他" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="gender-other" name="性別" type="radio" value="その他" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="gender-other" class="ml-3 block text-sm text-gray-700">その他</label>
                         </div>
                     </div>
@@ -220,23 +220,23 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">あなたの現在の所属を教えてください</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
-                            <input id="affiliation-spec-college" name="所属" type="radio" value="専門学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="affiliation-spec-college" name="所属" type="radio" value="専門学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="affiliation-spec-college" class="ml-3 block text-sm text-gray-700">専門学生</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="affiliation-jr-college" name="所属" type="radio" value="短期大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="affiliation-jr-college" name="所属" type="radio" value="短期大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="affiliation-jr-college" class="ml-3 block text-sm text-gray-700">短期大学生</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="affiliation-university" name="所属" type="radio" value="大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="affiliation-university" name="所属" type="radio" value="大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="affiliation-university" class="ml-3 block text-sm text-gray-700">大学生</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="affiliation-grad" name="所属" type="radio" value="大学院生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="affiliation-grad" name="所属" type="radio" value="大学院生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="affiliation-grad" class="ml-3 block text-sm text-gray-700">大学院生</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="affiliation-other" name="所属" type="radio" value="学生ではない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="affiliation-other" name="所属" type="radio" value="学生ではない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="affiliation-other" class="ml-3 block text-sm text-gray-700">学生ではない</label>
                         </div>
                     </div>
@@ -261,7 +261,7 @@
                 <!-- 質問: 購買頻度 -->
                 <div class="mb-6">
                     <label for="purchase-frequency" class="block text-sm font-medium text-gray-700 mb-1">あなたは普段どれくらいの頻度で衣服を購入していますか</label>
-                    <select id="purchase-frequency" name="購買頻度" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
+                    <select id="purchase-frequency" name="購買頻度" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
                         <option value="">選択してください</option>
                         <option value="1ヶ月に1回より多い">1ヶ月に1回より多い</option>
                         <option value="1ヶ月に1回程度">1ヶ月に1回程度</option>
@@ -273,7 +273,7 @@
                 <!-- 質問: 一度に使う金額 -->
                 <div class="mb-6">
                     <label for="single-purchase-amount" class="block text-sm font-medium text-gray-700 mb-1">あなたは一度の衣服の購入で、どれくらいの金額を使いますか</label>
-                    <select id="single-purchase-amount" name="一度に使う金額" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
+                    <select id="single-purchase-amount" name="一度に使う金額" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
                         <option value="">選択してください</option>
                         <option value="3000円以内">3000円以内</option>
                         <option value="3001～4000円">3001～4000円</option>
@@ -305,27 +305,27 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">所属世帯について</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
-                            <input id="household-live-with-parents" name="所属世帯" type="radio" value="実家暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="household-live-with-parents" name="所属世帯" type="radio" value="実家暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="household-live-with-parents" class="mt-1 block text-sm text-gray-700">幼少期からずっと実家暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="household-live-alone-hs" name="所属世帯" type="radio" value="高校生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="household-live-alone-hs" name="所属世帯" type="radio" value="高校生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="household-live-alone-hs" class="mt-1 block text-sm text-gray-700">高校生から一人暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="household-live-alone-univ" name="所属世帯" type="radio" value="大学生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="household-live-alone-univ" name="所属世帯" type="radio" value="大学生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="household-live-alone-univ" class="mt-1 block text-sm text-gray-700">大学生から一人暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="household-live-alone-grad" name="所属世帯" type="radio" value="大学院生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="household-live-alone-grad" name="所属世帯" type="radio" value="大学院生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="household-live-alone-grad" class="mt-1 block text-sm text-gray-700">大学院生から一人暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="household-live-alone-work" name="所属世帯" type="radio" value="就職から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="household-live-alone-work" name="所属世帯" type="radio" value="就職から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="household-live-alone-work" class="mt-1 block text-sm text-gray-700">就職してから一人暮らし</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="household-returned-home" name="所属世帯" type="radio" value="一人暮らしから実家暮らしに戻っている" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="household-returned-home" name="所属世帯" type="radio" value="一人暮らしから実家暮らしに戻っている" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="household-returned-home" class="mt-1 block text-sm text-gray-700">一人暮らしの時期があったが、現在は実家暮らしに戻っている</label>
                         </div>
                     </div>
@@ -348,11 +348,11 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">家庭にお金を入れている</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
-                            <input id="household-contribute-yes" name="家庭にお金を入れている" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="household-contribute-yes" name="家庭にお金を入れている" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="household-contribute-yes" class="mt-1 block text-sm text-gray-700">はい</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="household-contribute-no" name="家庭にお金を入れている" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="household-contribute-no" name="家庭にお金を入れている" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="household-contribute-no" class="mt-1 block text-sm text-gray-700">いいえ</label>
                         </div>
                     </div>
@@ -362,15 +362,15 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">家賃補助を実家から受け取っている</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
-                            <input id="rent-subsidy-yes-alone" name="家賃補助" type="radio" value="はい（一人暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="rent-subsidy-yes-alone" name="家賃補助" type="radio" value="はい（一人暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full"> required
                             <label for="rent-subsidy-yes-alone" class="mt-1 block text-sm text-gray-700">はい（一人暮らし）</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="rent-subsidy-no-alone" name="家賃補助" type="radio" value="いいえ（一人暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="rent-subsidy-no-alone" name="家賃補助" type="radio" value="いいえ（一人暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="rent-subsidy-no-alone" class="mt-1 block text-sm text-gray-700">いいえ（一人暮らし）</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="rent-subsidy-no-home" name="家賃補助" type="radio" value="実家暮らしであり受け取っていない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="rent-subsidy-no-home" name="家賃補助" type="radio" value="実家暮らしであり受け取っていない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="rent-subsidy-no-home" class="mt-1 block text-sm text-gray-700">実家暮らしであり受け取っていない</label>
                         </div>
                     </div>
@@ -382,15 +382,15 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">奨学金や学費の減額などの支援を受けている</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
-                            <input id="scholarship-yes" name="奨学金" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="scholarship-yes" name="奨学金" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="scholarship-yes" class="mt-1 block text-sm text-gray-700">はい</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="scholarship-no" name="奨学金" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="scholarship-no" name="奨学金" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="scholarship-no" class="mt-1 block text-sm text-gray-700">いいえ</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="scholarship-was-received" name="奨学金" type="radio" value="以前受けていた" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                            <input id="scholarship-was-received" name="奨学金" type="radio" value="以前受けていた" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                             <label for="scholarship-was-received" class="mt-1 block text-sm text-gray-700">受けていた時期があるが、今は受けていない</label>
                         </div>
                     </div>
@@ -400,7 +400,7 @@
 
                 <div class="mb-8">
                     <label for="part-time-income-home" class="block text-sm font-medium text-gray-700 mb-1">アルバイトの収入</label>
-                    <select id="part-time-income-home" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm">
+                    <select id="part-time-income-home" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
                         <option value="">選択してください</option>
                         <option value="月5万円未満">月5万円未満</option>
                         <option value="月5～6万円">月5～6万円</option>
@@ -434,7 +434,7 @@
                 </p>
                 <div class="mb-6">
                     <div class="flex items-center">
-                        <input id="illustration" name="質問の説明" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                        <input id="illustration" name="質問の説明" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                         <label for="illustration" class="ml-3 block text-sm text-gray-700">確認しました</label>
                     </div>
                 </div>
@@ -474,7 +474,7 @@
                 </p>
                 <div class="mb-6">
                     <div class="flex items-center">
-                        <input id="confirmation" name="シミュレーション説明確認" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full">
+                        <input id="confirmation" name="シミュレーション説明確認" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
                         <label for="confirmation" class="ml-3 block text-sm text-gray-700">確認しました</label>
                     </div>
                 </div>
