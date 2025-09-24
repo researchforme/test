@@ -686,7 +686,7 @@
             }
 
             // 家庭についての質問ページ (data-page="8") の特殊処理
-            if (currentPageIndex === 8) {
+            if (currentPageIndex === 7) {
                 if (shuffledFamilyQuestionIndices.length === 0) {
                     shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
                     shuffleArray(shuffledFamilyQuestionIndices);
@@ -1024,7 +1024,7 @@
                     body: JSON.stringify(data),
                 });
 
-                showModal('回答が正常に送信されました。<br>お知り合いにも共有して頂けると幸いです。<br>ご協力ありがとうございました。', false);
+                showModal('回答が正常に送信されました。<br>お知り合いにも共有して頂けるとC幸いです。<br>ご協力ありがとうございました。', false);
                 form.reset();
                 currentPageIndex = 0;
                 updatePageDisplay();
