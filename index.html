@@ -142,7 +142,6 @@
                     <br>
                     【研究代表者】<br>
                     静岡県立大学　経営情報学部　4年　野村優介<br>
-                    e-mail: b22091@u-shizuoka-ken.ac.jp
                 </p>
                 <div class="flex justify-center mt-12">
                     <button type="button" onclick="nextPage()" class="py-3 px-10 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
@@ -685,7 +684,7 @@
                 mainSurveyTitle.classList.add('hidden');
             }
 
-            // 家庭についての質問ページ (data-page="8") の特殊処理
+            // 家庭についての質問ページ (data-page="7") の特殊処理
             if (currentPageIndex === 7) {
                 if (shuffledFamilyQuestionIndices.length === 0) {
                     shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
@@ -762,7 +761,7 @@
                 return;
             }
             // ページ8 (家庭に関する質問) の特殊な遷移
-            if (currentPageIndex === 7) {
+            if (currentPageIndex === 6) {
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
                 const questionData = familyQuestionsData[originalQuestionIndex];
                 const selectedAnswer = document.querySelector(`input[name="${questionData.name}_${originalQuestionIndex}"]:checked`);
@@ -771,7 +770,7 @@
                 if (currentFamilyQuestionIndexInShuffledOrder < familyQuestionsData.length - 1) {
                     currentFamilyQuestionIndexInShuffledOrder++;
                 } else {
-                    currentPageIndex = 7;
+                    currentPageIndex = 6;
                     shuffledFamilyQuestionIndices = [];
                     currentFamilyQuestionIndexInShuffledOrder = 0;
                 }
@@ -787,6 +786,8 @@
                 showModal('すべての質問に回答してください。', false);
                 return;
             }
+            if (currentPageIndex === 1){
+                
             // ページ4: 所属世帯について のロジック
             if (currentPageIndex === 4) {
                 const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
