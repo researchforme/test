@@ -685,7 +685,7 @@
             }
 
             // 家庭についての質問ページ (data-page="7") の特殊処理
-            if (currentPageIndex === 7) {
+            if (currentPageIndex === 6) {
                 if (shuffledFamilyQuestionIndices.length === 0) {
                     shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
                     shuffleArray(shuffledFamilyQuestionIndices);
@@ -786,8 +786,6 @@
                 showModal('すべての質問に回答してください。', false);
                 return;
             }
-            //if (currentPageIndex === 1){
-                
             // ページ4: 所属世帯について のロジック
             if (currentPageIndex === 4) {
                 const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
