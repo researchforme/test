@@ -645,7 +645,7 @@
         let currentSimulationRoundIndex = 0;
         let currentSimulationData = null;
 
-        let currentPageIndex = 0;
+        let currentPageIndex = 1;
         let clothingPrice = 1000;
         let isPriceAt500Mark = false;
         let lastRecordedChoice = '';
@@ -675,7 +675,7 @@
             });
 
             // ページ番号の更新 (表紙と完了画面は非表示)
-            if (currentPageIndex === 0 || currentPageIndex === 11) {
+            if (currentPageIndex === 1 || currentPageIndex === 12) {
                 pageNumberElement.classList.add('hidden');
                 mainSurveyTitle.classList.remove('hidden');
             } else {
@@ -685,7 +685,7 @@
             }
 
             // 家庭についての質問ページ (data-page="7") の特殊処理
-            if (currentPageIndex === 6) {
+            if (currentPageIndex === 8) {
                 if (shuffledFamilyQuestionIndices.length === 0) {
                     shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
                     shuffleArray(shuffledFamilyQuestionIndices);
@@ -724,7 +724,7 @@
             }
             window.scrollTo(0, 0);
 
-            if (currentPageIndex === 10) {
+            if (currentPageIndex === 11) {
                 startClothingPurchaseSimulation();
             }
         }
@@ -787,7 +787,7 @@
                 return;
             }
             // ページ4: 所属世帯について のロジック
-            if (currentPageIndex === 4) {
+            if (currentPageIndex === 5) {
                 const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
                 surveyAnswers['所属世帯'] = selectedHouseholdType.value;
                 const isAloneLiving = [
@@ -798,14 +798,14 @@
                 ].includes(selectedHouseholdType.value);
                 
                 if (isAloneLiving) {
-                    currentPageIndex = 6;
+                    currentPageIndex = 7;
                 } else {
-                    currentPageIndex = 5;
+                    currentPageIndex = 6;
                 }
             }
             // ページ5または6からの遷移
-            else if (currentPageIndex === 5 || currentPageIndex === 6) {
-                if (currentPageIndex === 5) {
+            else if (currentPageIndex === 6 || currentPageIndex === 7) {
+                if (currentPageIndex === 6) {
                     const householdContribute = document.querySelector('input[name="家庭にお金を入れている"]:checked');
                     const scholarshipReceived = document.querySelector('input[name="奨学金"]:checked');
                     const partTimeIncome = document.getElementById('part-time-income-home');
@@ -929,7 +929,7 @@
                     nextSimulationButton.classList.remove('hidden');
                     currentSimulationRoundIndex++;
                 } else {
-                    currentPageIndex = 11;
+                    currentPageIndex = 12;
                     updatePageDisplay();
                 }
                 isPriceAt500Mark = false;
@@ -1025,7 +1025,7 @@
 
                 showModal('回答が正常に送信されました。<br>お知り合いにも共有して頂けるとC幸いです。<br>ご協力ありがとうございました。', false);
                 form.reset();
-                currentPageIndex = 0;
+                currentPageIndex = 1;
                 updatePageDisplay();
                 surveyAnswers = {};
                 shuffledClothingSimulations = [];
