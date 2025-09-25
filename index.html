@@ -761,7 +761,7 @@
                 return;
             }
             // ページ8 (家庭に関する質問) の特殊な遷移
-            if (currentPageIndex === 6) {
+            if (currentPageIndex === 8) {
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
                 const questionData = familyQuestionsData[originalQuestionIndex];
                 const selectedAnswer = document.querySelector(`input[name="${questionData.name}_${originalQuestionIndex}"]:checked`);
@@ -770,7 +770,7 @@
                 if (currentFamilyQuestionIndexInShuffledOrder < familyQuestionsData.length - 1) {
                     currentFamilyQuestionIndexInShuffledOrder++;
                 } else {
-                    currentPageIndex = 7;
+                    currentPageIndex = 9;
                     shuffledFamilyQuestionIndices = [];
                     currentFamilyQuestionIndexInShuffledOrder = 0;
                 }
