@@ -685,7 +685,7 @@
             }
 
             // 家庭についての質問ページ (data-page="7") の特殊処理
-            if (currentPageIndex === 7) {
+            if (currentPageIndex === 6) {
                 if (shuffledFamilyQuestionIndices.length === 0) {
                     shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
                     shuffleArray(shuffledFamilyQuestionIndices);
@@ -761,7 +761,7 @@
                 return;
             }
             // ページ8 (家庭に関する質問) の特殊な遷移
-            if (currentPageIndex === 7) {
+            if (currentPageIndex === 6) {
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
                 const questionData = familyQuestionsData[originalQuestionIndex];
                 const selectedAnswer = document.querySelector(`input[name="${questionData.name}_${originalQuestionIndex}"]:checked`);
