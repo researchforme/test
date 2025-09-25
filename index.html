@@ -150,7 +150,7 @@
                 </div>
             </div>
 
-            <!-- ページ1: 宣言と同意 -->
+            <!-- ページ1: 同意 -->
             <div class="survey-page" data-page="1">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">研究参加への同意</h2>
                 <p class="text-gray-700 mb-8">
@@ -786,6 +786,22 @@
                 showModal('すべての質問に回答してください。', false);
                 return;
             }
+            
+            const consentRadio = document.querySelector('input[name="consent"]:checked');
+            if (!consentRadio) {
+                showModal('「同意する」か「同意しない」のどちらかを選択してください。', false);
+                return;
+            }
+            
+            saveAnswer(currentPageIndex);
+
+            // 選択された値に応じて次のページを決定
+            if (consentRadio.value === '同意する') {
+                currentPageIndex++; // 次のページ（ページ2）へ
+            } else if (consentRadio.value === '同意しない') {
+                currentPageIndex = 10; // 回答完了ページ（ページ10）へ
+            }
+            
             // ページ4: 所属世帯について のロジック
             if (currentPageIndex === 5) {
                 const selectedHouseholdType = document.querySelector('input[name="所属世帯"]:checked');
