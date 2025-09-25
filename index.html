@@ -675,7 +675,7 @@
             });
 
             // ページ番号の更新 (表紙と完了画面は非表示)
-            if (currentPageIndex === 0 || currentPageIndex === 11) {
+            if (currentPageIndex === 0 || currentPageIndex === 10) {
                 pageNumberElement.classList.add('hidden');
                 mainSurveyTitle.classList.remove('hidden');
             } else {
@@ -724,7 +724,7 @@
             }
             window.scrollTo(0, 0);
 
-            if (currentPageIndex === 11) {
+            if (currentPageIndex === 10) {
                 startClothingPurchaseSimulation();
             }
         }
@@ -929,7 +929,7 @@
                     nextSimulationButton.classList.remove('hidden');
                     currentSimulationRoundIndex++;
                 } else {
-                    currentPageIndex = 12;
+                    currentPageIndex = 10;
                     updatePageDisplay();
                 }
                 isPriceAt500Mark = false;
