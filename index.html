@@ -774,7 +774,7 @@
                     shuffledFamilyQuestionIndices = [];
                     currentFamilyQuestionIndexInShuffledOrder = 0;
                 }
-            } else {
+            } else if (currentPageIndex !== 1) {
                 currentPageIndex++;
             }
             updatePageDisplay();
