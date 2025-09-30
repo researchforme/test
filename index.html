@@ -813,7 +813,7 @@
         // 条件分岐を含む次のページへ進む関数
         function nextPageConditional() {
             // "同意する" のラジオボタンの値を取得 (name="consent")
-            const consentValue = document.querySelector('input[name="consent"]:checked')?.value;
+            const consentValue = document.querySelector('input[name="同意"]:checked')?.value;
 
             if (!consentValue) {
                 showModal('研究参加への同意を選択してください。', false);
