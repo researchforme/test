@@ -778,6 +778,12 @@
                 showModal('すべての質問に回答してください。', false);
                 return;
             }
+
+            // ページ1（同意ページ）の場合のみ、nextPageConditional() を呼び出す
+            if (currentPageIndex === 1) {
+                nextPageConditional();
+                return;
+            }
     
             // ページ7 (家庭に関する質問) の特殊な遷移
             if (currentPageIndex === 7) {
@@ -805,24 +811,37 @@
         }
         // 条件分岐を含む次のページへ進む関数
         function nextPageConditional() {
-            if (!validatePage()) {
-                showModal('すべての質問に回答してください。', false);
-                return;
-            }
-            
-            const consentRadio = document.querySelector('input[name="同意"]:checked');
-            if (!consentRadio) {
-                showModal('「同意する」か「同意しない」のどちらかを選択してください。', false);
-                return;
-            }
-            
-            saveAnswer(currentPageIndex);
+            // "同意する" のラジオボタンの値を取得 (name="consent")
+            const consentValue = document.querySelector('input[name="consent"]:checked')?.value;
 
-            // 選択された値に応じて次のページを決定
-            if (consentRadio.value === '同意する') {
-                currentPageIndex++; // 次のページ（ページ2）へ
-            } else if (consentRadio.value === '同意しない') {
-                currentPageIndex = 10; // 回答完了ページ（ページ10）へ
+            if (!consentValue) {
+                showModal('研究参加への同意を選択してください。', false);
+                return;
+            }
+
+            // 'yes' (同意する) が選択された場合
+            if (consentValue === 'yes') {
+                // 次のページ（属性情報: page-2）へ移動
+                currentPageIndex = 2;
+                updatePageDisplay();
+            } 
+            // 'no' (同意しない) が選択された場合
+            else if (consentValue === 'no') {
+                // 回答完了ページ（page-10）へ移動
+                currentPageIndex = 10;
+                // 強制的に完了ページを表示するため、送信処理は行わない
+                // ただし、ナビゲーション表示を更新
+                updatePageDisplay(); 
+                
+                // モーダルでメッセージを表示
+                showModal('ご協力ありがとうございました。回答を終了します。', false);
+
+                // フォームのボタンを隠す（もし表示されていた場合）
+                document.getElementById('navigation-buttons').classList.add('hidden');
+                
+            } else {
+                 // 想定外の値の場合（保険）
+                showModal('選択肢に問題があります。再度お試しください。', false);
             }
             updatePageDisplay();
         }
