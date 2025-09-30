@@ -504,15 +504,6 @@
                     </button>
                 </div>
             </div>
-                <!-- ページ11: 参加に同意しない場合の終了画面 -->
-            <div class="survey-page" data-page="11">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">調査完了</h2>
-                <p class="text-gray-700 mb-8 text-center text-xl font-bold">
-                    調査は以上です。<br>
-                    もしよろしければ、お知り合いにも共有して頂けると幸いです。<br>
-                    ご協力ありがとうございました。<br>
-                    ブラウザを閉じてください。</p>
-            </div>
         </form>
     </div>
 
@@ -843,13 +834,13 @@
             // 'no' (同意しない) が選択された場合
             else if (consentValue === '同意しない') {
                 // 回答完了ページ（page-10）へ移動
-                currentPageIndex = 11;
+                currentPageIndex = 0;
                 // 強制的に完了ページを表示するため、送信処理は行わない
                 // ただし、ナビゲーション表示を更新
                 updatePageDisplay(); 
                 
                 // モーダルでメッセージを表示
-                showModal('ご協力ありがとうございました。回答を終了します。', false);
+                showModal('ご協力ありがとうございました。<br>お知り合いにも共有して頂けると幸いです。<br>ご協力ありがとうございました。', false);
 
                 // フォームのボタンを隠す（もし表示されていた場合）
                 document.getElementById('navigation-buttons').classList.add('hidden');
