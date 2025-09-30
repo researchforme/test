@@ -809,6 +809,7 @@
             }
             updatePageDisplay();
         }
+        
         // 条件分岐を含む次のページへ進む関数
         function nextPageConditional() {
             // "同意する" のラジオボタンの値を取得 (name="consent")
@@ -820,13 +821,13 @@
             }
 
             // 'yes' (同意する) が選択された場合
-            if (consentValue === 'yes') {
+            if (consentValue === '同意する') {
                 // 次のページ（属性情報: page-2）へ移動
                 currentPageIndex = 2;
                 updatePageDisplay();
             } 
             // 'no' (同意しない) が選択された場合
-            else if (consentValue === 'no') {
+            else if (consentValue === '同意しない') {
                 // 回答完了ページ（page-10）へ移動
                 currentPageIndex = 10;
                 // 強制的に完了ページを表示するため、送信処理は行わない
