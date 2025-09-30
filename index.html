@@ -723,7 +723,6 @@
             if (surveyContainer) {
                 surveyContainer.scrollTop = 0;
             }
-        }
 
             // 家庭についての質問ページ (data-page="7") の特殊処理
             if (currentPageIndex === 7) {
@@ -758,12 +757,12 @@
                         radio.checked = true;
                     }
                 }
-            } else {
-                if (randomQuestionContainer) {
-                    randomQuestionContainer.innerHTML = '';
+                else {
+                    if (randomQuestionContainer) {
+                        randomQuestionContainer.innerHTML = '';
+                 }
                 }
-            }
-            window.scrollTo(0, 0);
+                window.scrollTo(0, 0);
 
             if (currentPageIndex === 10) {
                 startClothingPurchaseSimulation();
