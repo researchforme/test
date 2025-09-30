@@ -299,7 +299,7 @@
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
                             <input id="household-live-with-parents" name="所属世帯" type="radio" value="実家暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="household-live-with-parents" class="mt-1 block text-sm text-gray-700">幼少期からずっと実家暮らし</label>
+                            <label for="household-live-with-parents" class="mt-1 block text-sm text-gray-700">出生から今日まで実家暮らし</label>
                         </div>
                         <div class="flex items-center">
                             <input id="household-live-alone-hs" name="所属世帯" type="radio" value="高校生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
@@ -338,12 +338,19 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">家庭にお金を入れている</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
-                            <input id="household-contribute-yes" name="家庭にお金を入れている" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="household-contribute-yes" class="mt-1 block text-sm text-gray-700">はい</label>
+                            <input id="household-contribute-yes" name="家庭にお金を入れている" type="radio" value="はい（一人暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="household-contribute-yes" class="mt-1 block text-sm text-gray-700">はい（現在一人暮らし）</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="household-contribute-no" name="家庭にお金を入れている" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="household-contribute-no" class="mt-1 block text-sm text-gray-700">いいえ</label>
+                            <input id="household-contribute-no" name="家庭にお金を入れている" type="radio" value="いいえ（一人暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="household-contribute-no" class="mt-1 block text-sm text-gray-700">いいえ（現在一人暮らし）</label>
+                        <div class="flex items-center">
+                            <input id="household-contribute-yes" name="家庭にお金を入れている" type="radio" value="はい（実家暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="household-contribute-yes" class="mt-1 block text-sm text-gray-700">はい（現在実家暮らし）</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="household-contribute-no" name="家庭にお金を入れている" type="radio" value="いいえ（実家暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="household-contribute-no" class="mt-1 block text-sm text-gray-700">いいえ（現在実家暮らし）</label>
                         </div>
                     </div>
                 </div>
@@ -353,11 +360,11 @@
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
                             <input id="rent-subsidy-yes-alone" name="家賃補助" type="radio" value="はい（一人暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="rent-subsidy-yes-alone" class="mt-1 block text-sm text-gray-700">はい（一人暮らし）</label>
+                            <label for="rent-subsidy-yes-alone" class="mt-1 block text-sm text-gray-700">はい（現在一人暮らし）</label>
                         </div>
                         <div class="flex items-center">
                             <input id="rent-subsidy-no-alone" name="家賃補助" type="radio" value="いいえ（一人暮らし）" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="rent-subsidy-no-alone" class="mt-1 block text-sm text-gray-700">いいえ（一人暮らし）</label>
+                            <label for="rent-subsidy-no-alone" class="mt-1 block text-sm text-gray-700">いいえ（現在一人暮らし）</label>
                         </div>
                         <div class="flex items-center">
                             <input id="rent-subsidy-no-home" name="家賃補助" type="radio" value="実家暮らしであり受け取っていない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
@@ -434,7 +441,6 @@
 
             <!-- ページ7: 家庭についての質問 (ランダム表示用コンテナ) -->
             <div class="survey-page" data-page="7">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">家庭についての質問</h2>
                 <div id="random-question-content" class="text-center">
                 </div>
                 <div class="flex justify-between mt-6">
@@ -498,7 +504,15 @@
                     </button>
                 </div>
             </div>
-
+                <!-- ページ11: 参加に同意しない場合の終了画面 -->
+            <div class="survey-page" data-page="11">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">調査完了</h2>
+                <p class="text-gray-700 mb-8 text-center text-xl font-bold">
+                    調査は以上です。<br>
+                    もしよろしければ、お知り合いにも共有して頂けると幸いです。<br>
+                    ご協力ありがとうございました。<br>
+                    ブラウザを閉じてください。</p>
+            </div>
         </form>
     </div>
 
@@ -829,7 +843,7 @@
             // 'no' (同意しない) が選択された場合
             else if (consentValue === '同意しない') {
                 // 回答完了ページ（page-10）へ移動
-                currentPageIndex = 10;
+                currentPageIndex = 11;
                 // 強制的に完了ページを表示するため、送信処理は行わない
                 // ただし、ナビゲーション表示を更新
                 updatePageDisplay(); 
@@ -1021,7 +1035,7 @@
                     body: JSON.stringify(data),
                 });
 
-                showModal('回答が正常に送信されました。<br>お知り合いにも共有して頂けるとC幸いです。<br>ご協力ありがとうございました。', false);
+                showModal('回答が正常に送信されました。<br>お知り合いにも共有して頂けると幸いです。<br>ご協力ありがとうございました。', false);
                 form.reset();
                 currentPageIndex = 1;
                 updatePageDisplay();
