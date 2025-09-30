@@ -840,7 +840,7 @@
                 updatePageDisplay(); 
                 
                 // モーダルでメッセージを表示
-                showModal('ご協力ありがとうございました。<br>お知り合いにも共有して頂けると幸いです。<br>ご協力ありがとうございました。', false);
+                showModal('調査以上です。<br>もしよろしければ、お知り合いにもアンケートを共有して頂けると幸いです。<br>ご協力ありがとうございました。<br>【アンケートフォームURL】<br>https://researchforme.github.io/test/', false);
 
                 // フォームのボタンを隠す（もし表示されていた場合）
                 document.getElementById('navigation-buttons').classList.add('hidden');
@@ -1026,7 +1026,7 @@
                     body: JSON.stringify(data),
                 });
 
-                showModal('回答が正常に送信されました。<br>お知り合いにも共有して頂けると幸いです。<br>ご協力ありがとうございました。', false);
+                showModal('回答が正常に送信されました。<br>もしよろしければ、お知り合いにもアンケートを共有して頂けると幸いです。<br>ご協力ありがとうございました。<br>【アンケートフォームURL】<br>https://researchforme.github.io/test/'', false);
                 form.reset();
                 currentPageIndex = 1;
                 updatePageDisplay();
