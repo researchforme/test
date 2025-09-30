@@ -686,24 +686,6 @@
             // ページ番号表示はページ1（同意）から開始し、アンケート本体の質問ページ数を表示するのが一般的です
             // 総ページ数は11 (0-10)
             const displayPageCount = surveyPages.length - 2; // 質問ページは11-2 = 9ページ(2-10) + 1ページ(1:同意)
-
-            if (currentPageIndex === 0 || currentPageIndex === 10) {
-                // 表紙(0)と完了(10)ではページナビゲーションとボタンを隠す
-                pageNumberElement.classList.add('hidden');
-                // 修正点: ページ0と10ではナビゲーションボタンを非表示
-                navigationButtons.classList.add('hidden'); 
-                mainSurveyTitle.classList.remove('hidden');
-            } else {
-                pageNumberElement.classList.remove('hidden');
-                mainSurveyTitle.classList.add('hidden');
-                
-                // 修正点: ページ1以降はナビゲーションボタンを表示
-                navigationButtons.classList.remove('hidden'); 
-                
-                // 表示ページ番号: 同意(1) -> 1, 属性(2) -> 2, ..., 最終確認(9) -> 9
-                currentPageNumberElement.textContent = currentPageIndex;
-                totalPagesElement.textContent = displayPageCount;
-            }
     
             if (currentPageIndex === 0 || currentPageIndex === 10) {
                 // 表紙(0)と完了(10)ではページナビゲーションを隠す
