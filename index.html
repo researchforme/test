@@ -705,7 +705,7 @@
                 totalPagesElement.textContent = displayPageCount;
             }
     
-            /* if (currentPageIndex === 0 || currentPageIndex === 10) {
+            if (currentPageIndex === 0 || currentPageIndex === 10) {
                 // 表紙(0)と完了(10)ではページナビゲーションを隠す
                 pageNumberElement.classList.add('hidden');
                 mainSurveyTitle.classList.remove('hidden');
@@ -715,7 +715,7 @@
                 currentPageNumberElement.textContent = currentPageIndex;
                 totalPagesElement.textContent = displayPageCount; // 10 / 10 のように表示するなら 10 をセット
                 mainSurveyTitle.classList.add('hidden');
-            } */
+            }
 
             // 家庭についての質問ページ (data-page="7") の特殊処理
             if (currentPageIndex === 7) {
