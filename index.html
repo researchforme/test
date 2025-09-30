@@ -672,32 +672,58 @@
             }
         }
 
-        // ページを更新して表示する関数
+        // ページ表示を更新する関数
         function updatePageDisplay() {
-            surveyPages.forEach((page, index) => {
-                if (index === currentPageIndex) {
-                    page.classList.add('active');
-                } else {
-                    page.classList.remove('active');
-                }
-            });
-
-            // ページ番号の更新 (表紙: 0, 完了画面: 10, ページ1: 同意)
-            // ページ番号表示はページ1（同意）から開始し、アンケート本体の質問ページ数を表示するのが一般的です
-            // 総ページ数は11 (0-10)
-            const displayPageCount = surveyPages.length - 2; // 質問ページは11-2 = 9ページ(2-10) + 1ページ(1:同意)
+            const totalPages = 11; // ページ総数
+            const surveyContainer = document.getElementById('survey-container');
     
-            if (currentPageIndex === 0 || currentPageIndex === 10) {
-                // 表紙(0)と完了(10)ではページナビゲーションを隠す
-                pageNumberElement.classList.add('hidden');
-                mainSurveyTitle.classList.remove('hidden');
-            } else {
-                pageNumberElement.classList.remove('hidden');
-                // 現在の表示ページ番号は currentPageIndex
-                currentPageNumberElement.textContent = currentPageIndex;
-                totalPagesElement.textContent = displayPageCount; // 10 / 10 のように表示するなら 10 をセット
-                mainSurveyTitle.classList.add('hidden');
+            // 全ページを一旦非表示にする
+            for (let i = 0; i < totalPages; i++) {
+                const pageElement = document.getElementById(`page-${i}`);
+                if (pageElement) {
+                    pageElement.classList.add('hidden');
+                }
             }
+
+            // 現在のページを表示
+            const currentPageElement = document.getElementById(`page-${currentPageIndex}`);
+            if (currentPageElement) {
+                currentPageElement.classList.remove('hidden');
+            }
+
+            // プログレスバーの更新
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) {
+                const progressPercentage = Math.min(100, Math.round((currentPageIndex / (totalPages - 1)) * 100));
+                progressBar.style.width = `${progressPercentage}%`;
+                progressBar.textContent = `${progressPercentage}%`;
+            }
+
+            // ページ番号の更新 (ページ 0, 1, 10 は除外)
+            const pageNumberDisplay = document.getElementById('page-number-display');
+            if (pageNumberDisplay) {
+                if (currentPageIndex > 1 && currentPageIndex < 10) {
+                    pageNumberDisplay.classList.remove('hidden');
+                    pageNumberDisplay.textContent = `(${currentPageIndex} / 9)`; // ページ2からページ9の表示
+                } else {
+                    pageNumberDisplay.classList.add('hidden');
+                }
+            }
+
+            //特殊なページ処理の呼び出しを厳密に制御
+            if (currentPageIndex === 7) {
+                // ページ7 (家族に関する質問) のレンダリングは、ページ7でのみ行う
+                renderFamilyQuestion();
+            } else if (currentPageIndex === 9) {
+                // ページ9 (シミュレーション) の開始は、ページ9でのみ行う
+                startClothingPurchaseSimulation(); 
+            }
+
+            // スクロールをトップに戻す
+            if (surveyContainer) {
+                surveyContainer.scrollTop = 0;
+            }
+        }
 
             // 家庭についての質問ページ (data-page="7") の特殊処理
             if (currentPageIndex === 7) {
