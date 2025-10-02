@@ -798,7 +798,7 @@
         function nextPage() {
             // ページ0（表紙）は検証をスキップし、ページ1に強制的に遷移させる
             if (currentPageIndex === 0) {
-                currentPageIndex = 1;
+                currentPageIndex ++;
                 updatePageDisplay();
                 return;
             }
