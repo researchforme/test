@@ -12,7 +12,7 @@
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background-color: #f3f4f6; /* 薄いグレーの背景 */
+            background-color: #f3f4f6;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -20,116 +20,96 @@
             margin: 0;
             padding: 1rem;
             box-sizing: border-box;
-            overflow-x: hidden; /* 横スクロールを防ぐ */
+            overflow-x: hidden;
         }
-
-        /* 縦向きの場合のスタイル */
         @media screen and (orientation: portrait) {
             #orientation-message {
-                display: flex; /* 縦向きの時のみ表示 */
+                display: flex;
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background-color: rgba(0, 0, 0, 0.9); /* 暗いオーバーレイ */
+                background-color: rgba(0, 0, 0, 0.9);
                 color: white;
                 font-size: 1.5rem;
                 font-weight: bold;
                 justify-content: center;
                 align-items: center;
                 text-align: center;
-                z-index: 1000; /* 最前面に表示 */
+                z-index: 1000;
                 padding: 1rem;
             }
             #survey-container {
-                display: none; /* 縦向きの時はアンケートを非表示 */
+                display: none;
             }
         }
-
-        /* 横向きの場合のスタイル */
         @media screen and (orientation: landscape) {
             #orientation-message {
-                display: none; /* 横向きの時は非表示 */
+                display: none;
             }
             #survey-container {
-                display: block; /* 横向きの時はアンケートを表示 */
+                display: block;
                 max-width: 800px;
                 width: 100%;
             }
         }
-
-        /* カスタムモーダル */
         .modal {
-            display: none; /* デフォルトで非表示 */
+            display: none;
             position: fixed;
-            z-index: 1001; /* オーバーレイより上 */
+            z-index: 1001;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.4); /* 半透明の黒背景 */
+            background-color: rgba(0,0,0,0.4);
             justify-content: center;
             align-items: center;
         }
-
         .modal-content {
             background-color: #ffffff;
             margin: auto;
             padding: 2rem;
-            border-radius: 0.75rem; /* rounded-lg */
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             text-align: center;
             max-width: 90%;
             width: 400px;
         }
-
         .close-button {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
-
         .close-button:hover,
         .close-button:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
         }
-
-        /* ページ切り替えアニメーション */
         .survey-page {
-            display: none; /* デフォルトでは全てのページを非表示 */
+            display: none;
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
         }
         .survey-page.active {
-            display: block; /* アクティブなページのみ表示 */
+            display: block;
             opacity: 1;
         }
     </style>
 </head>
 <body>
-
-    <!-- 縦画面時のメッセージ -->
     <div id="orientation-message" class="hidden">
         <p>回答は<span class="text-yellow-400">横画面</span>で行ってください。<br>デバイスを回転させてください。</p>
     </div>
-
-    <!-- アンケートコンテナ -->
     <div id="survey-container" class="bg-white p-8 rounded-lg shadow-xl border border-gray-200 max-w-2xl w-full">
-        <!-- ページナビゲーション -->
         <div id="page-nav" class="mb-6 text-center text-gray-500 font-medium">
             <span id="current-page-number">1</span> / <span id="total-pages">11</span>
         </div>
-
-        <!-- メインタイトル（表紙ページでのみ表示） -->
         <h1 id="main-survey-title" class="text-4xl font-extrabold text-gray-900 mb-8 text-center">衣服の購買における金銭感覚の調査</h1>
-
         <form id="survey-form" class="space-y-6">
-
             <!-- ページ0: 表紙ページ -->
             <div class="survey-page active" data-page="0">
                 <p class="text-gray-700 text-lg mb-10 text-center">
@@ -506,8 +486,6 @@
             </div>
         </form>
     </div>
-
-    <!-- ローディングとメッセージ表示用のモーダル -->
     <div id="statusModal" class="modal">
         <div class="modal-content">
             <p id="modal-message" class="text-lg font-semibold text-gray-800"></p>
@@ -522,41 +500,34 @@
             </button>
         </div>
     </div>
-
     <script>
-        // Google Apps ScriptのWebアプリのURLをここに設定します
-        // デプロイ後にGoogle Apps Scriptから取得したURLに置き換えてください
         const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx-eu-h9B5aFMiPpR2nOGF1gOUVc-IqPHlFUp0qJyFuuVcr7WjQCh-A5QySKPc35c94/exec';
 
         const form = document.getElementById('survey-form');
         const surveyPages = document.querySelectorAll('.survey-page');
         const mainSurveyTitle = document.getElementById('main-survey-title');
-        //const pageNumberElement = document.getElementById('page-number');
-        const pageNumberElement = document.getElementById('page-nav'); // 修正：page-number -> page-nav (コンテナIDを使用)
-        const totalPagesElement = document.getElementById('total-pages'); // 追加：総ページ数表示用
-        const currentPageNumberElement = document.getElementById('current-page-number'); // 追加：現在ページ番号表示用
+        const pageNumberElement = document.getElementById('page-nav');
+        const totalPagesElement = document.getElementById('total-pages');
+        const currentPageNumberElement = document.getElementById('current-page-number');
         const statusModal = document.getElementById('statusModal');
         const modalMessage = document.getElementById('modal-message');
         const loadingSpinner = document.getElementById('loading-spinner');
         const modalCloseButton = document.getElementById('modal-close-button');
 
-        // シミュレーション関連の要素
         const currentPriceSpan = document.getElementById('current-price');
         const buyButton = document.getElementById('buy-button');
         const dontBuyButton = document.getElementById('dont-buy-button');
-        const submitButtonFinal = document.getElementById('submit-button-final'); // ページ10の最終送信ボタン
+        const submitButtonFinal = document.getElementById('submit-button-final');
         const clothingImage = document.getElementById('clothing-image');
         const clothingItemTypeSpan = document.getElementById('clothing-item-type');
         const clothingCombinationSpan = document.getElementById('clothing-combination');
         const clothingSituationSpan = document.getElementById('clothing-situation');
-        const nextSimulationButton = document.getElementById('next-simulation-button');
+        // ページ9の「次のシミュレーションへ進む」ボタンがなければこの行はコメントアウトでもOK
+        // const nextSimulationButton = document.getElementById('next-simulation-button');
 
-        // 衣服の画像URLリスト (ベース画像)
-        // **ここにあなたの画像URLを挿入してください**
         const formalJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true";
         const casualJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%82%AB%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true";
 
-        // 全8種類の購買シミュレーションデータ
         const allClothingSimulationsData = [
             { id: "sim_formal_good_lunch", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "良い", situation: "友人と食事" },
             { id: "sim_formal_good_date", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "良い", situation: "デート" },
@@ -567,8 +538,7 @@
             { id: "sim_casual_bad_lunch", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "悪い", situation: "友人と食事" },
             { id: "sim_casual_bad_date", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "悪い", situation: "デート" },
         ];
-        
-        // ランダム化する家庭についての質問データ
+
         const familyQuestionsData = [
             {
                 title: "自分の実家は裕福だと感じる",
@@ -664,7 +634,6 @@
 
         const randomQuestionContainer = document.getElementById('random-question-content');
 
-        // Fisher-Yates シャッフルアルゴリズム
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -672,59 +641,28 @@
             }
         }
 
-        // ページ表示を更新する関数
         function updatePageDisplay() {
-            const totalPages = 11; // ページ総数
-            const surveyContainer = document.getElementById('survey-container');
-    
-            // 全ページを一旦非表示にする
-            for (let i = 0; i < totalPages; i++) {
-                const pageElement = document.getElementById(`page-${i}`);
-                if (pageElement) {
-                    pageElement.classList.add('hidden');
-                }
-            }
-
-            // 現在のページを表示
-            const currentPageElement = document.getElementById(`page-${currentPageIndex}`);
-            if (currentPageElement) {
-                currentPageElement.classList.remove('hidden');
-            }
-
-            // プログレスバーの更新
-            const progressBar = document.getElementById('progress-bar');
-            if (progressBar) {
-                const progressPercentage = Math.min(100, Math.round((currentPageIndex / (totalPages - 1)) * 100));
-                progressBar.style.width = `${progressPercentage}%`;
-                progressBar.textContent = `${progressPercentage}%`;
-            }
-
-            // ページ番号の更新 (ページ 0, 1, 10 は除外)
-            const pageNumberDisplay = document.getElementById('page-number-display');
-            if (pageNumberDisplay) {
-                if (currentPageIndex > 1 && currentPageIndex < 10) {
-                    pageNumberDisplay.classList.remove('hidden');
-                    pageNumberDisplay.textContent = `(${currentPageIndex} / 9)`; // ページ2からページ9の表示
+            surveyPages.forEach((page, index) => {
+                if (index === currentPageIndex) {
+                    page.classList.add('active');
                 } else {
-                    pageNumberDisplay.classList.add('hidden');
+                    page.classList.remove('active');
                 }
+            });
+
+            // ページ番号の更新
+            const displayPageCount = surveyPages.length - 2;
+            if (currentPageIndex === 0 || currentPageIndex === 10) {
+                pageNumberElement.classList.add('hidden');
+                mainSurveyTitle.classList.remove('hidden');
+            } else {
+                pageNumberElement.classList.remove('hidden');
+                currentPageNumberElement.textContent = currentPageIndex;
+                totalPagesElement.textContent = displayPageCount;
+                mainSurveyTitle.classList.add('hidden');
             }
 
-            //特殊なページ処理の呼び出しを厳密に制御
-            if (currentPageIndex === 7) {
-                // ページ7 (家族に関する質問) のレンダリングは、ページ7でのみ行う
-                renderFamilyQuestion();
-            } else if (currentPageIndex === 9) {
-                // ページ9 (シミュレーション) の開始は、ページ9でのみ行う
-                startClothingPurchaseSimulation(); 
-            }
-
-            // スクロールをトップに戻す
-            if (surveyContainer) {
-                surveyContainer.scrollTop = 0;
-            }
-
-            // 家庭についての質問ページ (data-page="7") の特殊処理
+            // 家庭についての質問ページ
             if (currentPageIndex === 7) {
                 if (shuffledFamilyQuestionIndices.length === 0) {
                     shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
@@ -734,8 +672,7 @@
 
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
                 const questionData = familyQuestionsData[originalQuestionIndex];
-                
-                // 質問のHTMLを動的に生成して挿入
+
                 randomQuestionContainer.innerHTML = `
                     <h2 class="text-2xl font-semibold text-gray-800 mb-6">${questionData.title}</h2>
                     <div class="mb-10">
@@ -749,34 +686,24 @@
                         </div>
                     </div>
                 `;
-                // 以前に選択された回答があれば復元
                 const storedAnswerKey = `${questionData.name}_${originalQuestionIndex}`;
                 if (surveyAnswers[storedAnswerKey]) {
                     const radio = randomQuestionContainer.querySelector(`input[name="${storedAnswerKey}"][value="${surveyAnswers[storedAnswerKey]}"]`);
-                    if (radio) {
-                        radio.checked = true;
-                    }
+                    if (radio) radio.checked = true;
                 }
-                else {
-                    if (randomQuestionContainer) {
-                        randomQuestionContainer.innerHTML = '';
-                 }
+            } else {
+                if (randomQuestionContainer) {
+                    randomQuestionContainer.innerHTML = '';
                 }
-                window.scrollTo(0, 0);
-
-            if (currentPageIndex === 10) {
-                startClothingPurchaseSimulation();
             }
+            window.scrollTo(0, 0);
         }
 
-        // 必須項目をチェックする汎用関数
         function validatePage() {
             let isValid = true;
             const currentPage = surveyPages[currentPageIndex];
             const requiredElements = currentPage.querySelectorAll('[required]');
-            
             for (const element of requiredElements) {
-                // ラジオボタンのグループをチェック
                 if (element.type === 'radio') {
                     const radioGroup = currentPage.querySelectorAll(`input[name="${element.name}"]`);
                     const isGroupChecked = Array.from(radioGroup).some(radio => radio.checked);
@@ -794,114 +721,66 @@
             return isValid;
         }
 
-        // 次のページへ進む関数 (一般的な遷移)
         function nextPage() {
-            // ページ0（表紙）は検証をスキップし、ページ1に強制的に遷移させる
             if (currentPageIndex === 0) {
-                currentPageIndex ++;
+                currentPageIndex = 1;
                 updatePageDisplay();
                 return;
             }
-
-            // ページ1（同意ページ）は nextpageConditional() で処理するため、ここでは何もしない
             if (currentPageIndex === 1) {
-                return; 
+                nextPageConditional();
+                return;
             }
-
-            // ページ0, 1 以外のページ（質問ページ）は検証
             if (!validatePage()) {
                 showModal('すべての質問に回答してください。', false);
                 return;
             }
-
-            // ページ7 (家庭に関する質問) の特殊な遷移
             if (currentPageIndex === 7) {
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
                 const questionData = familyQuestionsData[originalQuestionIndex];
                 const selectedAnswer = document.querySelector(`input[name="${questionData.name}_${originalQuestionIndex}"]:checked`);
-
-                // 回答を保存
                 if (selectedAnswer) {
                     surveyAnswers[`${questionData.name}_${originalQuestionIndex}`] = selectedAnswer.value;
                 }
-
-                // 次の質問または次のページへ
                 if (currentFamilyQuestionIndexInShuffledOrder < familyQuestionsData.length - 1) {
                     currentFamilyQuestionIndexInShuffledOrder++;
                 } else {
                     currentPageIndex = 8;
-                    shuffledFamilyQuestionIndices = []; // リセット
-                    currentFamilyQuestionIndexInShuffledOrder = 0; // リセット
+                    shuffledFamilyQuestionIndices = [];
+                    currentFamilyQuestionIndexInShuffledOrder = 0;
                 }
-            } else { // ページ2, 3, 4, 5, 6, 8, 9, 10 の一般的な遷移
+            } else {
                 currentPageIndex++;
             }
-    
             updatePageDisplay();
         }
-        
-        // 条件分岐を含む次のページへ進む関数
-        function nextPageConditional() {
-            // "同意する" のラジオボタンの値を取得 (name="consent")
-            const consentValue = document.querySelector('input[name="同意"]:checked')?.value;
 
+        function nextPageConditional() {
+            const consentValue = document.querySelector('input[name="同意"]:checked')?.value;
             if (!consentValue) {
                 showModal('研究参加への同意を選択してください。', false);
                 return;
             }
-
-            // 'yes' (同意する) が選択された場合
             if (consentValue === '同意する') {
-                // 次のページ（属性情報: page-2）へ移動
                 currentPageIndex = 2;
                 updatePageDisplay();
-            } 
-            // 'no' (同意しない) が選択された場合
+            }
             else if (consentValue === '同意しない') {
-                // 回答完了ページ（page-10）へ移動
-                currentPageIndex = 10;
-                // 強制的に完了ページを表示するため、送信処理は行わない
-                // ただし、ナビゲーション表示を更新
-                updatePageDisplay(); 
-                
-                // モーダルでメッセージを表示
+                currentPageIndex = 0;
+                updatePageDisplay();
                 showModal('調査以上です。<br>もしよろしければ、お知り合いにもアンケートを共有して頂けると幸いです。<br>ご協力ありがとうございました。<br>【アンケートフォームURL】<br>https://researchforme.github.io/test/', false);
-
-                // フォームのボタンを隠す（もし表示されていた場合）
-                document.getElementById('navigation-buttons').classList.add('hidden');
-                
             } else {
-                 // 想定外の値の場合（保険）
                 showModal('選択肢に問題があります。再度お試しください。', false);
             }
-            updatePageDisplay();
         }
 
-        // 前のページへ戻る関数
         function prevPage() {
             if (currentPageIndex > 0) {
-                if (currentPageIndex === 11) {
-                    currentPageIndex = 10;
-                } else if (currentPageIndex === 10) {
-                    if (currentSimulationRoundIndex === 0) {
-                        currentPageIndex = 9;
-                        shuffledClothingSimulations = [];
-                        currentSimulationRoundIndex = 0;
-                        currentSimulationData = null;
-                    } else {
-                        currentSimulationRoundIndex--;
-                        startClothingPurchaseSimulation();
-                        return;
-                    } 
-                } 
-                else {
-                    currentPageIndex--;
-                }
+                currentPageIndex--;
                 updatePageDisplay();
             }
         }
 
-        // シミュレーションを開始する関数
         function startClothingPurchaseSimulation() {
             if (shuffledClothingSimulations.length === 0) {
                 shuffledClothingSimulations = [...allClothingSimulationsData];
@@ -911,16 +790,14 @@
             currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
             clothingPrice = 1000;
             isPriceAt500Mark = false;
-            
             updateClothingPriceAndImage();
             buyButton.disabled = false;
             dontBuyButton.disabled = false;
-            nextSimulationButton.classList.add('hidden');
+            // if (nextSimulationButton) nextSimulationButton.classList.add('hidden');
             buyButton.classList.remove('hidden');
             dontBuyButton.classList.remove('hidden');
         }
 
-        // 価格表示、画像、デザイン、ブランド表示を更新する関数
         function updateClothingPriceAndImage() {
             currentPriceSpan.textContent = clothingPrice.toLocaleString();
             if (currentSimulationData) {
@@ -941,7 +818,6 @@
             }
         }
 
-        // 購買選択を処理する関数
         function handlePurchaseChoice(choice) {
             if (isPriceAt500Mark) {
                 const finalRecordedPrice = clothingPrice;
@@ -954,8 +830,9 @@
                 dontBuyButton.classList.add('hidden');
 
                 if (currentSimulationRoundIndex < allClothingSimulationsData.length - 1) {
-                    nextSimulationButton.classList.remove('hidden');
+                    // if (nextSimulationButton) nextSimulationButton.classList.remove('hidden');
                     currentSimulationRoundIndex++;
+                    startClothingPurchaseSimulation();
                 } else {
                     currentPageIndex = 10;
                     updatePageDisplay();
@@ -973,21 +850,14 @@
                 choiceText = '買わない';
             }
             lastRecordedChoice = choiceText;
-            
             updateClothingPriceAndImage();
 
             const currentHundredsDigit = Math.floor(Math.abs(clothingPrice) / 100) % 10;
-            if (currentHundredsDigit === 5) {
-                isPriceAt500Mark = true;
-            } else {
-                isPriceAt500Mark = false;
-            }
+            isPriceAt500Mark = (currentHundredsDigit === 5);
         }
 
-        // 初期表示
         updatePageDisplay();
 
-        // モーダルを表示する関数
         function showModal(message, isLoading = false) {
             modalMessage.innerHTML = message;
             if (isLoading) {
@@ -1000,12 +870,10 @@
             statusModal.style.display = 'flex';
         }
 
-        // モーダルを閉じる関数
         function closeModal() {
             statusModal.style.display = 'none';
         }
 
-        // 閉じるボタンにイベントリスナーを追加
         modalCloseButton.addEventListener('click', closeModal);
         window.addEventListener('click', (event) => {
             if (event.target == statusModal) {
@@ -1013,11 +881,10 @@
             }
         });
 
-        // フォーム送信処理を関数化
         async function submitForm(event) {
             event.preventDefault();
-            
-            if (GOOGLE_APPS_SCRIPT_URL === 'YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE' || !GOOGLE_APPS_SCRIPT_URL) {
+
+            if (!GOOGLE_APPS_SCRIPT_URL) {
                 showModal('エラー: Google Apps ScriptのURLが設定されていません。', false);
                 return;
             }
@@ -1040,9 +907,8 @@
                     }
                 }
             }
-            
             try {
-                const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                await fetch(GOOGLE_APPS_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     headers: {
@@ -1065,13 +931,9 @@
             }
         }
 
-        // イベントリスナー
         form.addEventListener('submit', submitForm);
-        nextSimulationButton.addEventListener('click', () => {
-             // 次のシミュレーションへ進む
-             startClothingPurchaseSimulation();
-        });
-
+        // ページ9の「次へ」ボタンがnextSimulationButtonであれば下記を有効化
+        // if (nextSimulationButton) nextSimulationButton.addEventListener('click', startClothingPurchaseSimulation);
     </script>
 </body>
 </html>
