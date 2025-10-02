@@ -105,9 +105,6 @@
         <p>回答は<span class="text-yellow-400">横画面</span>で行ってください。<br>デバイスを回転させてください。</p>
     </div>
     <div id="survey-container" class="bg-white p-8 rounded-lg shadow-xl border border-gray-200 max-w-2xl w-full">
-        <div id="page-nav" class="mb-6 text-center text-gray-500 font-medium">
-            <span id="current-page-number">1</span> / <span id="total-pages">11</span>
-        </div>
         <h1 id="main-survey-title" class="text-4xl font-extrabold text-gray-900 mb-8 text-center">衣服の購買における金銭感覚の調査</h1>
         <form id="survey-form" class="space-y-6">
             <!-- ページ0: 表紙ページ -->
@@ -221,7 +218,7 @@
                     </div>
                 </div>
                 
-                <div class="flex justify-between mt-6">
+                <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
                     </button>
@@ -263,7 +260,7 @@
                     </select>
                 </div>
                 
-                <div class="flex justify-between mt-6">
+                <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
                     </button>
@@ -304,7 +301,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between mt-6">
+                <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
                     </button>
@@ -393,7 +390,7 @@
                     </select>
                 </div>
                 
-                <div class="flex justify-between mt-6">
+                <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
                     </button>
@@ -416,7 +413,7 @@
                         <label for="illustration" class="ml-3 block text-sm text-gray-700">確認しました</label>
                     </div>
                 </div>
-                <div class="flex justify-between mt-6">
+                <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
                     </button>
@@ -427,7 +424,7 @@
             <div class="survey-page" data-page="7">
                 <div id="random-question-content" class="text-center">
                 </div>
-                <div class="flex justify-between mt-6">
+                <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
                     </button>
@@ -448,7 +445,7 @@
                         <label for="confirmation" class="ml-3 block text-sm text-gray-700">確認しました</label>
                     </div>
                 </div>
-                <div class="flex justify-between mt-6">
+                <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
                     </button>
@@ -510,9 +507,6 @@
         const form = document.getElementById('survey-form');
         const surveyPages = document.querySelectorAll('.survey-page');
         const mainSurveyTitle = document.getElementById('main-survey-title');
-        const pageNumberElement = document.getElementById('page-nav');
-        const totalPagesElement = document.getElementById('total-pages');
-        const currentPageNumberElement = document.getElementById('current-page-number');
         const statusModal = document.getElementById('statusModal');
         const modalMessage = document.getElementById('modal-message');
         const loadingSpinner = document.getElementById('loading-spinner');
@@ -655,9 +649,7 @@
             });
 
             // ページ番号の更新
-            const displayPageCount = surveyPages.length - 2;
             if (currentPageIndex === 0 || currentPageIndex === 10) {
-                pageNumberElement.classList.add('hidden');
                 mainSurveyTitle.classList.remove('hidden');
             } else {
                 pageNumberElement.classList.remove('hidden');
