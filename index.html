@@ -132,13 +132,14 @@
             flex: 1;
             min-width: 0; /* これを指定しないと長いテキストで押し返しが発生します */
             position: relative;
-            padding: 0 16px;
+            padding: 0 8px;
         }
         .custom-radio-item label {
             text-align: center;
             width: 100%;
             display: block;
             white-space: normal; /* 改行可、はみ出し防止 */
+            word-break: keep-all; /* 日本語の単語分割を避ける場合 */
         }
     </style>
 </head>
