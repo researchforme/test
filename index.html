@@ -653,12 +653,11 @@
         let currentFamilyQuestionIndexInShuffledOrder = 0;
 
         let initialPrice = 0;
-        let priceHistory = [];
-        let firstChoice = null; // "buy" or "donotbuy"
-        let lastChoice = null;  // 直近の選択
-        let prevPrice = null;   // 直前価格
+        let lowerBound = 0;
+        let upperBound = 0;
+        let clothingPrice = 0;
         let finished = false;
-
+        let firstChoice = null;
 
         const randomQuestionContainer = document.getElementById('random-question-content');
 
@@ -810,27 +809,14 @@
         }
 
         function startClothingPurchaseSimulation() {
-            if (shuffledClothingSimulations.length === 0) {
-                shuffledClothingSimulations = [...allClothingSimulationsData];
-                shuffleArray(shuffledClothingSimulations);
-                currentSimulationRoundIndex = 0;
-            }
-            currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
-            // 初期価格分岐
-            if (currentSimulationData.itemType === "カジュアルなジャケット") {
-                initialPrice = 5000;
-            } else if (currentSimulationData.itemType === "フォーマルなジャケット") {
-                initialPrice = 10000;
-            } else {
-                initialPrice = 1000;
-            }
-
+            // ...ジャケット種別ごとの初期価格分岐...
+            initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 5000 :
+                           (currentSimulationData.itemType === "フォーマルなジャケット") ? 10000 : 1000;
             clothingPrice = initialPrice;
-            priceHistory = [clothingPrice];
-            firstChoice = null;
-            lastChoice = null;
-            prevPrice = null;
+            lowerBound = 0;    // 最低価格
+            upperBound = 0;    // 最高価格
             finished = false;
+            firstChoice = null;
             updateClothingPriceAndImage();
             buyButton.disabled = false;
             dontBuyButton.disabled = false;
@@ -859,7 +845,9 @@
         }
 
         function handlePurchaseChoice(choice) {
-            // 終了条件：百の位が5
+            if (finished) return;
+
+            // 終了判定
             const currentHundredsDigit = Math.floor(Math.abs(clothingPrice) / 100) % 10;
             if (currentHundredsDigit === 5) {
                 const finalChoiceText = (choice === 'buy') ? '買う' : '買わない';
@@ -879,45 +867,29 @@
                 return;
             }
 
-            // 初回選択
+            // 初回
             if (firstChoice === null) {
                 firstChoice = choice;
-                lastChoice = choice;
-                prevPrice = clothingPrice;
                 if (choice === 'buy') {
-                    clothingPrice = initialPrice * 2;
+                    lowerBound = clothingPrice;
+                    upperBound = clothingPrice * 2;
                 } else {
-                    clothingPrice = Math.floor(initialPrice / 2);
+                    lowerBound = Math.floor(clothingPrice / 2);
+                    upperBound = clothingPrice;
                 }
-                priceHistory.push(clothingPrice);
+                clothingPrice = Math.floor((lowerBound + upperBound) / 2);
                 updateClothingPriceAndImage();
                 return;
             }
-
+        
             // 2回目以降
-            if (lastChoice === choice) {
-                // 方向が同じ（増加/減少）
-                prevPrice = clothingPrice;
-                if (choice === 'buy') {
-                    clothingPrice = clothingPrice * 2;
-                } else {
-                    clothingPrice = Math.floor(clothingPrice / 2);
-                }
-                priceHistory.push(clothingPrice);
-                lastChoice = choice;
-                updateClothingPriceAndImage();
-                return;
+            if (choice === 'buy') {
+                lowerBound = clothingPrice; // 下限を更新
             } else {
-                // 方向転換（中央値へ）
-                // 直前価格(prevPrice)と現在価格(clothingPrice)の間
-                let midPrice = Math.floor((prevPrice + clothingPrice) / 2);
-                prevPrice = clothingPrice;
-                clothingPrice = midPrice;
-                priceHistory.push(clothingPrice);
-                lastChoice = choice;
-                updateClothingPriceAndImage();
-                return;
+                upperBound = clothingPrice; // 上限を更新
             }
+            clothingPrice = Math.floor((lowerBound + upperBound) / 2);
+            updateClothingPriceAndImage();
         }
 
         updatePageDisplay();
