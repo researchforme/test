@@ -717,8 +717,14 @@
                     randomQuestionContainer.innerHTML = '';
                 }
             }
-            
+            // ページ9表示時の処理
             if (currentPageIndex === 9) {
+                // ページ9に初めて来たときだけ初期化
+                if (shuffledClothingSimulations.length === 0) {
+                    shuffledClothingSimulations = [...allClothingSimulationsData];
+                    shuffleArray(shuffledClothingSimulations);
+                    currentSimulationRoundIndex = 0;
+                }
                 startClothingPurchaseSimulation();
             }
             
@@ -806,17 +812,28 @@
                 updatePageDisplay();
             }
         }
-
+        
         function startClothingPurchaseSimulation() {
-            // ...ジャケット種別ごとの初期価格分岐...
+            currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
+        
+            if (!currentSimulationData) {
+                // データがなければ終了
+                clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Data";
+                clothingImage.alt = "No simulation data";
+                clothingItemTypeSpan.textContent = "N/A";
+                clothingCombinationSpan.textContent = "N/A";
+                clothingSituationSpan.textContent = "N/A";
+                return;
+            }
+        
+            // 初期価格分岐
             initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 5000 :
                            (currentSimulationData.itemType === "フォーマルなジャケット") ? 10000 : 1000;
             clothingPrice = initialPrice;
-            lowerBound = 0;    // 最低価格
-            upperBound = 0;    // 最高価格
+            lowerBound = 0;
+            upperBound = 0;
             finished = false;
             firstChoice = null;
-            currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
             updateClothingPriceAndImage();
             buyButton.disabled = false;
             dontBuyButton.disabled = false;
