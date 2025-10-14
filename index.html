@@ -659,6 +659,11 @@
         let finished = false;
         let priceHistory = [];
 
+        let lastAction = null;          // 直前のアクション ("buy" or "donotbuy")
+        let lastActionPrice = 0;        // 直前のアクションの価格
+        let lastSwitchPrice = 0;        // 直前に切り替えが発生した時の価格
+        let actionCount = 0;            // アクション連続回数
+
         const randomQuestionContainer = document.getElementById('random-question-content');
 
         function shuffleArray(array) {
@@ -826,6 +831,10 @@
             initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 5000 :
                            (currentSimulationData.itemType === "フォーマルなジャケット") ? 10000 : 1000;
             clothingPrice = initialPrice;
+            lastAction = null;
+            lastActionPrice = 0;
+            lastSwitchPrice = 0;
+            actionCount = 0;
             // 区間は初回のみ初期値を中心に下限/上限を設定
             lowerBound = initialPrice;
             upperBound = initialPrice * 2;
@@ -858,28 +867,19 @@
             }
         }
 
-        function handlePurchaseChoice(choice) {
+       function handlePurchaseChoice(choice) {
             if (finished) return;
-            
-            // 終了判定（価格が同じ or 百の位が5）
+        
             const currentHundredsDigit = Math.floor(Math.abs(clothingPrice) / 100) % 10;
-            let nextPrice;
-            if (choice === "buy") {
-                lowerBound = clothingPrice;
-            } else {
-                upperBound = clothingPrice;
-            }
-            nextPrice = Math.floor((lowerBound + upperBound) / 2);
-
-            // 終了条件：価格不変 or 百の位が5
-            if (nextPrice === clothingPrice || currentHundredsDigit === 5) {
-                finished = true;
+            // 終了条件（百の位が5）
+            if (currentHundredsDigit === 5) {
                 const finalChoiceText = (choice === 'buy') ? '買う' : '買わない';
                 surveyAnswers[`${currentSimulationData.id}_最終結果`] = `${clothingPrice}円で${finalChoiceText}`;
                 buyButton.disabled = true;
                 dontBuyButton.disabled = true;
                 buyButton.classList.add('hidden');
                 dontBuyButton.classList.add('hidden');
+                finished = true;
                 if (currentSimulationRoundIndex < allClothingSimulationsData.length - 1) {
                     currentSimulationRoundIndex++;
                     startClothingPurchaseSimulation();
@@ -889,47 +889,56 @@
                 }
                 return;
             }
-            clothingPrice = nextPrice;
-            priceHistory.push(clothingPrice);
-            updateClothingPriceAndImage();
-    
-            // 価格履歴を管理
-            if (firstChoice === null) {
-                firstChoice = choice;
-                prevPrice = clothingPrice;
-                lastPrice = clothingPrice;
+        
+            // 初回
+            if (lastAction === null) {
+                lastAction = choice;
+                lastActionPrice = clothingPrice;
+                lastSwitchPrice = clothingPrice;
+                actionCount = 1;
+                clothingPrice = (choice === 'buy')
+                    ? clothingPrice * 2
+                    : Math.floor(clothingPrice / 2);
+                updateClothingPriceAndImage();
+                return;
+            }
+        
+            // 同じ選択が続いている場合
+            if (choice === lastAction) {
+                actionCount++;
+                lastActionPrice = clothingPrice;
+                // 「買う」連続: 2倍
                 if (choice === 'buy') {
-                    clothingPrice = prevPrice * 2;
-                } else {
-                    clothingPrice = Math.floor(prevPrice / 2);
+                    clothingPrice = clothingPrice * 2;
+                }
+                // 「買わない」連続: 1/(n+1)倍（例: 5000→2500→1666...）
+                else {
+                    clothingPrice = Math.floor(lastSwitchPrice / (actionCount + 1));
                 }
                 updateClothingPriceAndImage();
                 return;
             }
-    
-            // 2回目以降
-            if (firstChoice === choice) {
-                // 方向が変わらない場合（買う→買う or 買わない→買わない）
-                lastPrice = prevPrice;
-                prevPrice = clothingPrice;
-                if (choice === 'buy') {
-                    clothingPrice = prevPrice * 2;
-                } else {
-                    clothingPrice = Math.floor(prevPrice / 2);
-                }
-                updateClothingPriceAndImage();
-                return;
+        
+            // ここから切り替え（第2、第3段階）
+            // 切り替えたらactionCountをリセット
+            // 参照価格は直前の切り替え時の価格（lastSwitchPrice）と現在の価格
+            // 差額の半分を大きい方から引く（buy→donotbuy）、または足す（donotbuy→buy）
+            let diff = Math.abs(clothingPrice - lastSwitchPrice);
+            let half = Math.floor(diff / 2);
+        
+            if (choice === 'buy') {
+                clothingPrice = lastSwitchPrice + half;
             } else {
-                // 方向転換した場合（買う→買わない or 買わない→買う）
-                // 価格は「直前の価格」と「ひとつ前の価格」の間の中央値
-                let midPrice = Math.floor((prevPrice + lastPrice) / 2);
-                lastPrice = prevPrice;
-                prevPrice = midPrice;
-                clothingPrice = midPrice;
-                // firstChoiceは反転後もそのまま（最初の方向を保持）
-                updateClothingPriceAndImage();
-                return;
+                clothingPrice = lastSwitchPrice - half;
             }
+        
+            // 切り替え履歴を更新
+            lastAction = choice;
+            lastActionPrice = clothingPrice;
+            lastSwitchPrice = clothingPrice;
+            actionCount = 1;
+        
+            updateClothingPriceAndImage();
         }
         
         updatePageDisplay();
