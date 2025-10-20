@@ -913,7 +913,7 @@
                 }
                 // 「買わない」連続: 1/2倍（例: 5000→2500）
                 else {
-                    clothingPrice = Math.floor(lastSwitchPrice / 2);
+                    clothingPrice = clothingPrace / 2;
                 }
                 updateClothingPriceAndImage();
                 return;
@@ -927,9 +927,9 @@
             let half = Math.floor(diff / 2);
         
             if (choice === 'buy') {
-                clothingPrice = lastActionPrice + half;
+                clothingPrice = lastSwitchPrice + half;
             } else {
-                clothingPrice = lastActionPrice - half;
+                clothingPrice = lastSwitchPrice - half;
             }
         
             // 切り替え履歴を更新
