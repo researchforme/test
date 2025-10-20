@@ -927,9 +927,9 @@
             let half = Math.floor(diff / 2);
         
             if (choice === 'buy') {
-                clothingPrice = lastSwitchPrice + half;
+                clothingPrice = lastActionPrice + half;
             } else {
-                clothingPrice = lastSwitchPrice - half;
+                clothingPrice = lastActionPrice - half;
             }
         
             // 切り替え履歴を更新
