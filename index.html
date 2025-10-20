@@ -911,9 +911,9 @@
                 if (choice === 'buy') {
                     clothingPrice = clothingPrice * 2;
                 }
-                // 「買わない」連続: 1/(n+1)倍（例: 5000→2500→1666...）
+                // 「買わない」連続: 1/2倍（例: 5000→2500）
                 else {
-                    clothingPrice = Math.floor(lastSwitchPrice / (actionCount + 1));
+                    clothingPrice = Math.floor(lastSwitchPrice / 2);
                 }
                 updateClothingPriceAndImage();
                 return;
