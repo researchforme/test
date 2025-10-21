@@ -503,6 +503,72 @@
             window.scrollTo(0, 0);
         }
 
+        // ページ内の required チェック（簡易）
+        function validatePage() {
+            const currentPage = surveyPages[currentPageIndex];
+            const requiredElements = currentPage.querySelectorAll('[required]');
+            for (const el of requiredElements) {
+                if (el.type === 'radio') {
+                    const group = currentPage.querySelectorAll(`input[name="${el.name}"]`);
+                    const checked = Array.from(group).some(r => r.checked);
+                    if (!checked) return false;
+                } else if ((el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
+                    if (el.value == null || String(el.value).trim() === '') return false;
+                }
+            }
+            return true;
+        }
+        
+        function nextPage() {
+            // 表紙（page 0）はバリデーション無しで page 1 へ
+            if (currentPageIndex === 0) {
+                currentPageIndex = 1;
+                updatePageDisplay();
+                return;
+            }
+        
+            // 同意ページは条件つき
+            if (currentPageIndex === 1) {
+                nextPageConditional();
+                return;
+            }
+        
+            // それ以外は required チェック
+            if (!validatePage()) {
+                showModal('すべての質問に回答してください。', false);
+                return;
+            }
+        
+            // ページ7（ランダム質問群）等、進めるべき特殊処理があればここに入れる
+            // デフォルトは次ページへ
+            currentPageIndex++;
+            updatePageDisplay();
+        }
+        
+        function nextPageConditional() {
+            const consentValue = document.querySelector('input[name="同意"]:checked')?.value;
+            if (!consentValue) {
+                showModal('研究参加への同意を選択してください。', false);
+                return;
+            }
+            if (consentValue === '同意する') {
+                currentPageIndex = 2;
+                updatePageDisplay();
+            } else {
+                // 同意しない場合は表紙へ戻す（元コードと同じ挙動）
+                currentPageIndex = 0;
+                updatePageDisplay();
+                showModal('調査は終了しました。ご協力ありがとうございました。', false);
+            }
+        }
+        
+        function prevPage() {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                updatePageDisplay();
+            }
+        }
+
         // Initialize a simulation round
         function startClothingPurchaseSimulation() {
             currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
