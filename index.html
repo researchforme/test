@@ -923,7 +923,7 @@
             // 切り替えたらactionCountをリセット
             // 参照価格は直前の切り替え時の価格（lastSwitchPrice）と現在の価格
             // 差額の半分を大きい方から引く（buy→donotbuy）、または足す（donotbuy→buy）
-            let diff = Math.abs(clothingPrice - lastSwitchPrice);
+            let diff = Math.abs(clothingPrice - lastActionPrice);
             let half = Math.floor(diff / 2);
         
             if (choice === 'buy') {
