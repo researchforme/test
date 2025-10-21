@@ -22,38 +22,32 @@
             box-sizing: border-box;
             overflow-x: hidden;
         }
-        @media screen and (orientation: portrait) {
-            #orientation-message {
-                display: flex;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.9);
-                color: white;
-                font-size: 1.5rem;
-                font-weight: bold;
-                justify-content: center;
-                align-items: center;
-                text-align: center;
-                z-index: 1000;
-                padding: 1rem;
-            }
-            #survey-container {
-                display: none;
-            }
+
+        /* orientation-message と survey-container の表示は JS で制御します。
+           もともと @media で強制していた処理を JS 側に移しました。 */
+        #orientation-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1000;
+            padding: 1rem;
         }
-        @media screen and (orientation: landscape) {
-            #orientation-message {
-                display: none;
-            }
-            #survey-container {
-                display: block;
-                max-width: 800px;
-                width: 100%;
-            }
+        #survey-container {
+            display: block;
+            max-width: 800px;
+            width: 100%;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -134,7 +128,7 @@
 </head>
 <body>
     <div id="orientation-message" class="hidden">
-        <p>スマホは<span class="text-yellow-400">横画面</span>、パソコンは<span class="text-yellow-400">全画面</span>で回答してください。</p>
+        <p id="orientation-text">スマホは<span class="text-yellow-400">横画面</span>、パソコンは<span class="text-yellow-400">全画面</span>で回答してください。</p>
     </div>
     <div id="survey-container" class="bg-white p-8 rounded-lg shadow-xl border border-gray-200 max-w-2xl w-full">
         <h1 id="main-survey-title" class="text-4xl font-extrabold text-gray-900 mb-8 text-center">衣服の購買における金銭感覚の調査</h1>
@@ -147,7 +141,7 @@
                     貴重なお時間を頂戴し、誠に恐縮ですが、なにとぞ、研究の趣旨をご理解の上、調査への回答にご協力いただけますよう、お願い申し上げます。<br>
                     <br>
                     調査対象者は、専門学生・短期大学生・大学生・大学院生・18～22歳の方です。<br>
-                    該当しない方・既に回答している方は、ブラウザを閉じてください。<br>
+                    該当しない方は、ブラウザを閉じてください。<br>
                     <br>
                     【研究代表者】<br>
                     静岡県立大学　経営情報学部　4年　野村優介<br>
@@ -542,8 +536,6 @@
         const clothingItemTypeSpan = document.getElementById('clothing-item-type');
         const clothingCombinationSpan = document.getElementById('clothing-combination');
         const clothingSituationSpan = document.getElementById('clothing-situation');
-        // ページ9の「次のシミュレーションへ進む」ボタンがなければこの行はコメントアウトでもOK
-        // const nextSimulationButton = document.getElementById('next-simulation-button');
 
         const formalJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%882.png?raw=true";
         const casualJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%82%AB%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true";
@@ -564,14 +556,14 @@
                 title: "自分の実家は裕福だと感じる",
                 name: "裕福",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
                 title: "自分の実家は貧しいと感じる",
                 name: "貧しい",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
@@ -585,56 +577,56 @@
                 title: "育ての親はファッションに関心があった",
                 name: "親ファッション",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
                 title: "幼少期から高校生の期間、お金を貯金するように教えられた",
                 name: "貯金",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
                 title: "幼少期から高校生の期間、お金を上手く活用するように教えられた",
                 name: "活用",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
                 title: "幼少期から中学生の期間、欲しいものは何でも買ってもらえた",
                 name: "欲しいものは何でも",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
                 title: "幼少期から高校生の期間、欲しいものを買ってもらうにはルールがあった<br>（良い成績を取る、お手伝いをするなど）",
                 name: "ルール",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
                 title: "幼少期から高校生の期間、理由があれば欲しいものを買ってもらえた",
                 name: "理由",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
                 title: "幼少期から高校生の期間、自分のお小遣いで買ったものが不要なものだと言われた",
                 name: "不要",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
                 title: "「あてはまる」を選択してください",
                 name: "トラップ2",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                     ]
             }
         ];
@@ -659,7 +651,63 @@
         let firstChoice = null;
 
         const randomQuestionContainer = document.getElementById('random-question-content');
+        const orientationMessage = document.getElementById('orientation-message');
+        const orientationText = document.getElementById('orientation-text');
+        const surveyContainer = document.getElementById('survey-container');
 
+        // ----- orientation control -----
+        // スマートフォン判定（簡易）
+        function isSmartphone() {
+            // この判定は必要に応じて調整してください。スマホ判定は userAgent ベースの簡易判定です。
+            return /Mobi|Android|iPhone|iPod/.test(navigator.userAgent);
+        }
+
+        function isPortrait() {
+            return window.matchMedia && window.matchMedia('(orientation: portrait)').matches;
+        }
+
+        // 何ページから縦画面にするか（質問通り：9ページから）
+        const PORTRAIT_FROM_PAGE = 9;
+
+        // ページとデバイスを見て現在の向きをチェックし、案内表示/非表示を切り替える
+        function checkOrientationRequirement() {
+            if (!isSmartphone()) {
+                // スマホ以外は常に表示（PC は全画面で回答する前提）
+                orientationMessage.style.display = 'none';
+                surveyContainer.style.display = 'block';
+                return;
+            }
+
+            // スマホの場合のみ向き指定を行う
+            const requiresPortrait = currentPageIndex >= PORTRAIT_FROM_PAGE;
+            const requiresLandscape = !requiresPortrait;
+
+            if (requiresPortrait) {
+                if (isPortrait()) {
+                    // 縦で OK
+                    orientationMessage.style.display = 'none';
+                    surveyContainer.style.display = 'block';
+                } else {
+                    // 横だとダメ → 縦にしてね、と表示して調査本体は非表示
+                    orientationText.innerHTML = 'この先は<span class="text-yellow-400">縦画面</span>で回答してください。スマホを縦向きにしてください。';
+                    orientationMessage.style.display = 'flex';
+                    surveyContainer.style.display = 'none';
+                }
+            } else if (requiresLandscape) {
+                if (!isPortrait()) {
+                    // 横で OK
+                    orientationMessage.style.display = 'none';
+                    surveyContainer.style.display = 'block';
+                } else {
+                    // 縦だとダメ → 横にしてね、と表示して調査本体は非表示
+                    orientationText.innerHTML = 'スマホで回答する場合は<span class="text-yellow-400">横画面</span>にしてから続けてください。';
+                    orientationMessage.style.display = 'flex';
+                    surveyContainer.style.display = 'none';
+                }
+            }
+        }
+
+        // ---- existing helpers ----
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -721,7 +769,10 @@
             if (currentPageIndex === 9) {
                 startClothingPurchaseSimulation();
             }
-            
+
+            // ページ表示後に向きのチェック（スマホのみ、ページ9から縦画面）
+            checkOrientationRequirement();
+
             window.scrollTo(0, 0);
         }
 
@@ -757,6 +808,25 @@
                 nextPageConditional();
                 return;
             }
+
+            // ページ移動前に向きが適切か確認（スマホのみ）
+            if (isSmartphone()) {
+                const requiresPortrait = currentPageIndex >= PORTRAIT_FROM_PAGE;
+                const currentIsPortrait = isPortrait();
+                // 次ページに進む場合の判定（遷移後のページでの向き要件を確認）
+                const nextPageIndex = currentPageIndex + 1;
+                const nextRequiresPortrait = nextPageIndex >= PORTRAIT_FROM_PAGE;
+                if (nextRequiresPortrait && !currentIsPortrait) {
+                    showModal('次のセクションはスマートフォンを縦画面にしてから続けてください。', false);
+                    return;
+                }
+                if (!nextRequiresPortrait && currentIsPortrait) {
+                    // 次が横向き要求（before page 9 の横要求）で、現在縦だと進めない
+                    showModal('次のページはスマホを横画面にしてから続けてください。', false);
+                    return;
+                }
+            }
+
             if (!validatePage()) {
                 showModal('すべての質問に回答してください。', false);
                 return;
@@ -808,6 +878,14 @@
         }
 
         function startClothingPurchaseSimulation() {
+            // currentSimulationData を用意（シンプルに順に回す）
+            if (shuffledClothingSimulations.length === 0) {
+                shuffledClothingSimulations = allClothingSimulationsData.slice();
+                shuffleArray(shuffledClothingSimulations);
+                currentSimulationRoundIndex = 0;
+            }
+            currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
+
             // ...ジャケット種別ごとの初期価格分岐...
             initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 5000 :
                            (currentSimulationData.itemType === "フォーマルなジャケット") ? 10000 : 1000;
@@ -893,6 +971,7 @@
 
         updatePageDisplay();
 
+        // --- modal ---
         function showModal(message, isLoading = false) {
             modalMessage.innerHTML = message;
             if (isLoading) {
@@ -967,8 +1046,21 @@
         }
 
         form.addEventListener('submit', submitForm);
-        // ページ9の「次へ」ボタンがnextSimulationButtonであれば下記を有効化
-        // if (nextSimulationButton) nextSimulationButton.addEventListener('click', startClothingPurchaseSimulation);
+
+        // --- 画面向き / リサイズの監視 ---
+        window.addEventListener('orientationchange', () => {
+            // orientationchange は発生後に状態が変わるので少し遅延を入れる
+            setTimeout(checkOrientationRequirement, 300);
+        });
+        window.addEventListener('resize', () => {
+            // デバイスの回転やリサイズ時にチェック
+            setTimeout(checkOrientationRequirement, 150);
+        });
+
+        // 初期チェック（ページロード時）
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(checkOrientationRequirement, 100);
+        });
     </script>
 </body>
 </html>
