@@ -535,6 +535,7 @@
                     ]
             }
         ];
+        
 
         // State
         let shuffledClothingSimulations = [];
@@ -570,7 +571,40 @@
                 if (index === currentPageIndex) page.classList.add('active');
                 else page.classList.remove('active');
             });
+            // 家庭についての質問ページ
+            if (currentPageIndex === 7) {
+                if (shuffledFamilyQuestionIndices.length === 0) {
+                    shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
+                    shuffleArray(shuffledFamilyQuestionIndices);
+                    currentFamilyQuestionIndexInShuffledOrder = 0;
+                }
 
+                const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
+                const questionData = familyQuestionsData[originalQuestionIndex];
+
+                randomQuestionContainer.innerHTML = `
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-6">${questionData.title}</h2>
+                    <div class="mb-10">
+                        <div class="mt-2 flex flex-wrap gap-x-6 gap-y-4 justify-center">
+                            ${questionData.options.map((option, idx) => `
+                                <div class="flex flex-col items-center">
+                                    <input id="${questionData.name}-${idx}" name="${questionData.name}_${originalQuestionIndex}" type="radio" value="${option}" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                                    <label for="${questionData.name}-${idx}" class="mt-1 block text-sm text-gray-700">${option}</label>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                const storedAnswerKey = `${questionData.name}_${originalQuestionIndex}`;
+                if (surveyAnswers[storedAnswerKey]) {
+                    const radio = randomQuestionContainer.querySelector(`input[name="${storedAnswerKey}"][value="${surveyAnswers[storedAnswerKey]}"]`);
+                    if (radio) radio.checked = true;
+                }
+            } else {
+                if (randomQuestionContainer) {
+                    randomQuestionContainer.innerHTML = '';
+                }
+            }
             // ページ9表示時にシミュレーション開始
             if (currentPageIndex === 9) {
                 if (shuffledClothingSimulations.length === 0) {
