@@ -33,7 +33,7 @@
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: bold;
             justify-content: center;
             align-items: center;
@@ -660,8 +660,9 @@
             return /Mobi|Android|iPhone|iPod/.test(navigator.userAgent);
         }
 
-        function isPortrait() {
-            return window.matchMedia && window.matchMedia('(orientation: portrait)').matches;
+        // 横向き判定（画面比）
+        function isLandscape() {
+            return window.innerWidth >= window.innerHeight;
         }
 
         // 何ページから縦画面にするか（質問通り：9ページから）
@@ -669,35 +670,39 @@
 
         // ページとデバイスを見て現在の向きをチェックし、案内表示/非表示を切り替える
         function checkOrientationRequirement() {
+            // デスクトップ（スマホでない）は開始から終了まで横画面（全画面）を必須にする
             if (!isSmartphone()) {
-                // スマホ以外は向き制約なし（PC は全画面で回答する想定）
-                orientationMessage.style.display = 'none';
-                surveyContainer.style.display = 'block';
-                return;
-            }
-
-            // スマホの場合のみ向き指定を行う
-            const requiresPortrait = currentPageIndex >= PORTRAIT_FROM_PAGE;
-            const requiresLandscape = !requiresPortrait;
-
-            if (requiresPortrait) {
-                if (isPortrait()) {
-                    // 縦で OK
+                if (isLandscape()) {
                     orientationMessage.style.display = 'none';
                     surveyContainer.style.display = 'block';
                 } else {
-                    // 縦が必須だが現在は横 → 縦にしてね、と表示して調査本体は非表示
-                    orientationText.innerHTML = 'この先は<span class="text-yellow-400">縦画面</span>で回答してください。スマホを縦向きにしてください。';
+                    // PCで縦長（ウィンドウが縦長）になっている場合は案内を表示して調査を隠す
+                    orientationText.innerHTML = 'パソコンで回答する場合は、ブラウザを横向き（横幅いっぱい・全画面）にしてから続けてください。';
                     orientationMessage.style.display = 'flex';
                     surveyContainer.style.display = 'none';
                 }
-            } else if (requiresLandscape) {
-                if (!isPortrait()) {
-                    // 横で OK
+                return;
+            }
+
+            // スマホの場合のみ向き指定をページによって変える
+            const requiresPortrait = currentPageIndex >= PORTRAIT_FROM_PAGE;
+            if (requiresPortrait) {
+                if (isLandscape()) {
+                    // 縦が必須だが現在は横 → 案内（縦にする）を出す
+                    orientationText.innerHTML = 'この先は<span class="text-yellow-400">縦画面</span>で回答してください。スマホを縦向きにしてください。';
+                    orientationMessage.style.display = 'flex';
+                    surveyContainer.style.display = 'none';
+                } else {
+                    // 縦で OK
+                    orientationMessage.style.display = 'none';
+                    surveyContainer.style.display = 'block';
+                }
+            } else {
+                // PORTRAIT_FROM_PAGE より前のページ（0〜8）は横向きを推奨（スマホの場合も横を要求）
+                if (isLandscape()) {
                     orientationMessage.style.display = 'none';
                     surveyContainer.style.display = 'block';
                 } else {
-                    // 横が必須だが現在は縦 → 横にしてね、と表示して調査本体は非表示
                     orientationText.innerHTML = 'スマホで回答する場合は<span class="text-yellow-400">横画面</span>にしてから続けてください。';
                     orientationMessage.style.display = 'flex';
                     surveyContainer.style.display = 'none';
@@ -768,7 +773,7 @@
                 startClothingPurchaseSimulation();
             }
 
-            // ページ表示後に向きのチェック（スマホのみ、ページ9から縦画面）
+            // ページ表示後に向きのチェック（デスクトップは常に横必須、スマホはページに応じて変化）
             checkOrientationRequirement();
 
             window.scrollTo(0, 0);
@@ -807,10 +812,7 @@
                 return;
             }
 
-            // NOTE:
-            // ここでは「遷移前の向きチェックで遷移を阻止しない」ようにしました。
-            // ユーザーの要望通り、ページ9へ遷移した後に縦画面の要求が発生するよう updatePageDisplay() 内の checkOrientationRequirement() に委ねます。
-
+            // ユーザーの指定通り、ページ遷移時に遷移前の向きチェックでブロックしない（ページ遷移後の checkOrientationRequirement に委ねる）
             if (!validatePage()) {
                 showModal('すべての質問に回答してください。', false);
                 return;
