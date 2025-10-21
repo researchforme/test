@@ -23,8 +23,7 @@
             overflow-x: hidden;
         }
 
-        /* orientation-message と survey-container の表示は JS で制御します。
-           もともと @media で強制していた処理を JS 側に移しました。 */
+        /* orientation-message と survey-container の表示は JS で制御します。 */
         #orientation-message {
             display: none;
             position: fixed;
@@ -418,7 +417,7 @@
                     <!-- 質問の説明 -->
                     次のセクションでは、<br>
                     あなたの幼少期から現在における「家庭の環境やお金の教育」についてお聞きします。<br>
-                    「全くあてはまらない」～「とてもあてはまる」の<br>
+                    「全くあてはまらない」～「とてもあてまる」の<br>
                     5つの選択肢から該当するものを選択してください。
                 </p>
                 <div class="mb-6">
@@ -570,7 +569,7 @@
                 title: "育ての親は倹約家である",
                 name: "親は倹約",
                 options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてはまる"
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
             },
             {
@@ -658,7 +657,6 @@
         // ----- orientation control -----
         // スマートフォン判定（簡易）
         function isSmartphone() {
-            // この判定は必要に応じて調整してください。スマホ判定は userAgent ベースの簡易判定です。
             return /Mobi|Android|iPhone|iPod/.test(navigator.userAgent);
         }
 
@@ -672,7 +670,7 @@
         // ページとデバイスを見て現在の向きをチェックし、案内表示/非表示を切り替える
         function checkOrientationRequirement() {
             if (!isSmartphone()) {
-                // スマホ以外は常に表示（PC は全画面で回答する前提）
+                // スマホ以外は向き制約なし（PC は全画面で回答する想定）
                 orientationMessage.style.display = 'none';
                 surveyContainer.style.display = 'block';
                 return;
@@ -688,7 +686,7 @@
                     orientationMessage.style.display = 'none';
                     surveyContainer.style.display = 'block';
                 } else {
-                    // 横だとダメ → 縦にしてね、と表示して調査本体は非表示
+                    // 縦が必須だが現在は横 → 縦にしてね、と表示して調査本体は非表示
                     orientationText.innerHTML = 'この先は<span class="text-yellow-400">縦画面</span>で回答してください。スマホを縦向きにしてください。';
                     orientationMessage.style.display = 'flex';
                     surveyContainer.style.display = 'none';
@@ -699,7 +697,7 @@
                     orientationMessage.style.display = 'none';
                     surveyContainer.style.display = 'block';
                 } else {
-                    // 縦だとダメ → 横にしてね、と表示して調査本体は非表示
+                    // 横が必須だが現在は縦 → 横にしてね、と表示して調査本体は非表示
                     orientationText.innerHTML = 'スマホで回答する場合は<span class="text-yellow-400">横画面</span>にしてから続けてください。';
                     orientationMessage.style.display = 'flex';
                     surveyContainer.style.display = 'none';
@@ -809,23 +807,9 @@
                 return;
             }
 
-            // ページ移動前に向きが適切か確認（スマホのみ）
-            if (isSmartphone()) {
-                const requiresPortrait = currentPageIndex >= PORTRAIT_FROM_PAGE;
-                const currentIsPortrait = isPortrait();
-                // 次ページに進む場合の判定（遷移後のページでの向き要件を確認）
-                const nextPageIndex = currentPageIndex + 1;
-                const nextRequiresPortrait = nextPageIndex >= PORTRAIT_FROM_PAGE;
-                if (nextRequiresPortrait && !currentIsPortrait) {
-                    showModal('次のセクションはスマートフォンを縦画面にしてから続けてください。', false);
-                    return;
-                }
-                if (!nextRequiresPortrait && currentIsPortrait) {
-                    // 次が横向き要求（before page 9 の横要求）で、現在縦だと進めない
-                    showModal('次のページはスマホを横画面にしてから続けてください。', false);
-                    return;
-                }
-            }
+            // NOTE:
+            // ここでは「遷移前の向きチェックで遷移を阻止しない」ようにしました。
+            // ユーザーの要望通り、ページ9へ遷移した後に縦画面の要求が発生するよう updatePageDisplay() 内の checkOrientationRequirement() に委ねます。
 
             if (!validatePage()) {
                 showModal('すべての質問に回答してください。', false);
@@ -1049,11 +1033,9 @@
 
         // --- 画面向き / リサイズの監視 ---
         window.addEventListener('orientationchange', () => {
-            // orientationchange は発生後に状態が変わるので少し遅延を入れる
             setTimeout(checkOrientationRequirement, 300);
         });
         window.addEventListener('resize', () => {
-            // デバイスの回転やリサイズ時にチェック
             setTimeout(checkOrientationRequirement, 150);
         });
 
