@@ -536,7 +536,10 @@
             }
         ];
         
-
+        // 追加：ページ7用のシャッフル配列とインデックス
+        let shuffledFamilyQuestionIndices = [];
+        let currentFamilyQuestionIndexInShuffledOrder = 0;
+        
         // State
         let shuffledClothingSimulations = [];
         let currentSimulationRoundIndex = 0;
@@ -631,6 +634,34 @@
                 }
             }
             return true;
+
+            // ページ7（ランダムな家庭質問群）の処理
+            if (currentPageIndex === 7) {
+                // 現在表示しているオリジナル質問インデックスを取得
+                const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
+                const questionData = familyQuestionsData[originalQuestionIndex];
+            
+                // 選択肢を保存
+                const selectedAnswer = document.querySelector(`input[name="${questionData.name}_${originalQuestionIndex}"]:checked`);
+                if (selectedAnswer) {
+                    surveyAnswers[`${questionData.name}_${originalQuestionIndex}`] = selectedAnswer.value;
+                }
+            
+                // 次のランダム質問へ進むか、全問終わったらページ8へ
+                if (currentFamilyQuestionIndexInShuffledOrder < familyQuestionsData.length - 1) {
+                    currentFamilyQuestionIndexInShuffledOrder++;
+                    // stay on page 7 to show next random question
+                } else {
+                    // 全問終了 -> 次ページ（8）へ
+                    currentPageIndex = 8;
+                    shuffledFamilyQuestionIndices = [];
+                    currentFamilyQuestionIndexInShuffledOrder = 0;
+                }
+            } else {
+                // 通常は次ページへ
+                currentPageIndex++;
+            }
+            updatePageDisplay();
         }
         
         function nextPage() {
