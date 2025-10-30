@@ -274,21 +274,7 @@
                     </select>
                 </div>
                 <!-- 質問: 一度に使う金額 -->
-                <div class="mb-6">
-                    <label for="single-purchase-amount" class="block text-sm font-medium text-gray-700 mb-1">あなたは一度（一日）の衣服の購入で、どれくらいの金額を使いますか</label>
-                    <select id="single-purchase-amount" name="一度に使う金額" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
-                        <option value="">選択してください</option>
-                        <option value="3000円以内">3000円以内</option>
-                        <option value="3001～4000円">3001～4000円</option>
-                        <option value="4001～5000円">4001～5000円</option>
-                        <option value="5001～6000円">5001～6000円</option>
-                        <option value="6001～7000円">6001～7000円</option>
-                        <option value="7001～8000円">7001～8000円</option>
-                        <option value="8001～9000円">8001～9000円</option>
-                        <option value="9001～10000円">9001～10000円</option>
-                        <option value="1万円以上">1万円以上</option>
-                    </select>
-                </div>
+
                 
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
@@ -433,6 +419,36 @@
                     </div>
                   </div>
                 </div>
+                <!-- 質問間の区切り線 -->
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                
+                <div class="mb-6">
+                    <label for="parent_income_level" class="block text-sm font-medium text-gray-700 mb-1">保護者（世帯）の年間収入（世帯合算）に最も近いものを選んでください。</label>
+                    <select id="parent_income_level" name="保護者の年収" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
+                        <option value="">選択してください</option>
+                        <option value="1">300万円未満</option>
+                        <option value="2">300～500万円</option>
+                        <option value="3">500万円～7000万円</option>
+                        <option value="4">700万円～1000万円</option>
+                        <option value="5">1000万円以上</option>
+                        <option value="99">回答しない・わからない</option>
+                    </select>
+                </div>
+                <!-- 質問間の区切り線 -->
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                
+                <div class="mb-6">
+                    <label for="allowance_amount" class="block text-sm font-medium text-gray-700 mb-1">あなたが毎月受け取る使い道が自由な仕送りの額はどれくらいですか</label>
+                    <select id="allowance_amount" name="保護者の年収" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
+                        <option value="">選択してください</option>
+                        <option value="1">もらっていない</option>
+                        <option value="2">1万円未満</option>
+                        <option value="3">1万円～3万円</option>
+                        <option value="4">3万円～5万円</option>
+                        <option value="5">5万円</option>
+                        <option value="99">回答しない・わからない</option>
+                    </select>
+                </div>    
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
@@ -603,7 +619,7 @@
                 ]
             },
             {
-                title: "育ての親はファッションに関心があった",
+                title: "育ての親はファッションに関心がある",
                 name: "親ファッション",
                 options: [
                     "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
@@ -650,6 +666,13 @@
                 options: [
                     "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
+            },
+            {
+                title: "服を買うとき、育ての親の意見に影響される",
+                name: "トラップ2",
+                options: [
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
+                    ]
             },
             {
                 title: "「あてはまる」を選択してください",
