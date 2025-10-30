@@ -412,7 +412,7 @@
                   <label class="block text-sm font-medium text-gray-700 mb-2">保護者からの経済的支援はありますか（該当するものすべて選択してください）</label>
                   <div class="mt-2 space-y-2">
                     <div class="flex items-center">
-                      <input id="support-rent" name="parent_education_expense_support" type="checkbox" value="家賃補助" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <input id="support-rent" name="parent_education_expense_support" type="checkbox" value="家賃補助" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="support-rent" class="ml-3 block text-sm text-gray-700">家賃補助</label>
                     </div>
                     <div class="flex items-center">
@@ -432,7 +432,7 @@
                       <label for="support-none" class="ml-3 block text-sm text-gray-700">支援なし</label>
                     </div>
                   </div>
-                
+                </div>
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
@@ -754,12 +754,12 @@
             if (currentPageIndex === 5) {
                 const saved = surveyAnswers['parent_education_expense_support'];
                 if (Array.isArray(saved)) {
-                    // まず全てのチェックをリセット（安全策）
                     document.querySelectorAll('input[name="parent_education_expense_support"]').forEach(cb => cb.checked = false);
-                    // 保存配列に基づいてチェックを入れる
+                    const allCbs = document.querySelectorAll('input[name="parent_education_expense_support"]');
                     saved.forEach(val => {
-                        const cb = document.querySelector(`input[name="parent_education_expense_support"][value="${CSS.escape(val)}"]`);
-                        if (cb) cb.checked = true;
+                        for (const cb of allCbs) {
+                            if (cb.value === val) { cb.checked = true; break; }
+                        }
                     });
                 }
             }
@@ -1065,31 +1065,25 @@
 
         async function submitForm(event) {
             event.preventDefault();
-
             if (!GOOGLE_APPS_SCRIPT_URL) {
                 showModal('エラー: Google Apps ScriptのURLが設定されていません。', false);
                 return;
             }
             showModal('回答を送信しています...', true);
-
+        
+            // surveyAnswers にページ遷移時に貯めたデータをコピー
             const data = {};
             for (const key in surveyAnswers) {
                 data[key] = surveyAnswers[key];
             }
-            // 既存の surveyAnswers を data にまずコピー
-            const data = {};
-            for (const key in surveyAnswers) {
-                data[key] = surveyAnswers[key];
-            }
-            // フォーム要素の値を集める（同じキーが複数ある場合は配列で保存）
+        
+            // フォーム内の値を取得（同名のフィールドが複数あるときは配列で格納）
             const formData = new FormData(form);
-            // keys() をセットにしてユニークキーごとに getAll する
             const seenKeys = new Set();
             for (const key of formData.keys()) {
                 if (seenKeys.has(key)) continue;
                 seenKeys.add(key);
                 const values = formData.getAll(key);
-                // 1要素なら単一値、複数なら配列として保存（解析時に統一的に配列扱いしても可）
                 data[key] = (values.length > 1) ? values : values[0];
             }
             // 例：data['parent_education_expense_support'] は配列になる（選択が複数ある場合）
