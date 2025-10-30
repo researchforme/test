@@ -384,15 +384,17 @@
                     <label for="part-time-income-home" class="block text-sm font-medium text-gray-700 mb-1">アルバイトの収入</label>
                     <select id="part-time-income-home" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
                         <option value="">選択してください</option>
-                        <option value="月5万円未満">月5万円未満</option>
-                        <option value="月5～6万円">月5～6万円</option>
-                        <option value="月6～7万円">月6～7万円</option>
-                        <option value="月7～8万円">月7～8万円</option>
-                        <option value="月8万円以上">月8万円以上</option>
-                        <option value="アルバイトをしていない">アルバイトをしていない</option>
-                        <option value="就職している">就職している</option>
+                        <option value="2">月5万円未満</option>
+                        <option value="3">月5～6万円</option>
+                        <option value="4">月6～7万円</option>
+                        <option value="5">月7～8万円</option>
+                        <option value="6">月8万円以上</option>
+                        <option value="99">アルバイトをしていない・就職している</option>
                     </select>
                 </div>
+                <!-- 質問間の区切り線 -->
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                
                 <!-- 複数選択：保護者からの経済的支援 -->
                 <div class="mb-6" id="parent-education-expense-support-block">
                   <label class="block text-sm font-medium text-gray-700 mb-2">保護者からの経済的支援はありますか（該当するものすべて選択してください）</label>
@@ -448,7 +450,37 @@
                         <option value="5">5万円</option>
                         <option value="99">回答しない・わからない</option>
                     </select>
-                </div>    
+                </div>
+                <!-- 質問間の区切り線 -->
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                
+                <!-- 複数選択：保護者からの経済的支援 -->
+                <div class="mb-6" id="parent-education-expense-support-block">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">育ての親はあなたに、”お金”についてどのようなことを教えましたか該当するものすべて選択してください）</label>
+                  <div class="mt-2 space-y-2">
+                    <div class="flex items-center">
+                      <input id="support-rent" name="money_education_by_parent" type="checkbox" value="貯金 required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-rent" class="ml-3 block text-sm text-gray-700">貯金を習慣づけられた</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-tuition" name="money_education_by_parent" type="checkbox" value="学費支援" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-tuition" class="ml-3 block text-sm text-gray-700">お金の使い道を自分で考えること</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-allowance" name="money_education_by_parent" type="checkbox" value="毎月のお小遣い" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-allowance" class="ml-3 block text-sm text-gray-700">毎月のお小遣い</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-occasional" name="money_education_by_parent" type="checkbox" value="必要時の買い物負担" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-occasional" class="ml-3 block text-sm text-gray-700">必要時の買い物負担</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-none" name="money_education_by_parent" type="checkbox" value="支援なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-none" class="ml-3 block text-sm text-gray-700">支援なし</label>
+                    </div>
+                  </div>
+                </div>
+                
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
                         次へ
@@ -621,13 +653,6 @@
             {
                 title: "育ての親はファッションに関心がある",
                 name: "親ファッション",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                ]
-            },
-            {
-                title: "幼少期から高校生の期間、お金を貯金するように教えられた",
-                name: "貯金",
                 options: [
                     "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                 ]
