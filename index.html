@@ -522,7 +522,7 @@
                   <label class="block text-sm font-medium text-gray-700 mb-2">育ての親からどのような方法でお金について教わりましたか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
                     <div class="flex items-center">
-                      <input id="support-rent" name="money_education_by_parent" type="checkbox" value="貯金 required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <input id="support-rent" name="money_education_by_parent" type="checkbox" value="貯金" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="support-rent" class="ml-3 block text-sm text-gray-700">貯金を習慣づけられた</label>
                     </div>
                     <div class="flex items-center">
@@ -548,10 +548,63 @@
                       <label for="support-occasional" class="ml-3 block text-sm text-gray-700">お金とは何かを口頭で説明した</label>
                     </div>
                     <div class="flex items-center">
-                      <input id="support-none" name="money_education_by_parent" type="checkbox" value="支援なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="support-none" class="ml-3 block text-sm text-gray-700">支援なし</label>
+                      <input id="support-none" name="money_education_by_parent" type="checkbox" value="教わっていない" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-none" class="ml-3 block text-sm text-gray-700">教わっていない</label>
                     </div>
                   </div>
+                </div>
+    
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                
+                <!-- 複数選択：保護者からの経済的支援 -->
+                <div class="mb-6" id="parent-education-expense-support-block">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">学校ではどのような方法でお金について教わりましたか（該当するものすべて選んでください）</label>
+                  <div class="mt-2 space-y-2">
+                    <div class="flex items-center">
+                      <input id="support-rent" name="parent_education_expense_support" type="checkbox" value="授業" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-rent" class="ml-3 block text-sm text-gray-700">理論的な概要を授業で</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-tuition" name="parent_education_expense_support" type="checkbox" value="学費支援" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-tuition" class="ml-3 block text-sm text-gray-700">ワークショップや体験学習（模擬会計やゲーム）</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-allowance" name="parent_education_expense_support" type="checkbox" value="体験" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-allowance" class="ml-3 block text-sm text-gray-700">職場体験や外部講師の授業</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-none" name="parent_education_expense_support" type="checkbox" value="教わっていない" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-none" class="ml-3 block text-sm text-gray-700">教わっていない</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+    
+                <div class="mb-8">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた教育はどれくらいの頻度・機関で行われましたか</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="education_frequency" name="教育頻度" type="radio" value="1" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="education_frequency" class="mt-1 block text-sm text-gray-700">一度だけ</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="scholarship-no" name="教育頻度" type="radio" value="2" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="scholarship-no" class="mt-1 block text-sm text-gray-700">数回</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="scholarship-was-received" name="教育頻度" type="radio" value="3" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="scholarship-was-received" class="mt-1 block text-sm text-gray-700">定期的に（毎週・毎月）</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="scholarship-no" name="教育頻度" type="radio" value="4" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="scholarship-no" class="mt-1 block text-sm text-gray-700">長期間継続して</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="scholarship-was-received" name="教育頻度" type="radio" value="99" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="scholarship-was-received" class="mt-1 block text-sm text-gray-700">ほとんどなかった</label>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="flex justify-end mt-6">
