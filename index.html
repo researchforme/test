@@ -1167,28 +1167,56 @@
 
         // 初期チェック（ページロード時）
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(checkOrientationRequirement, 100);
-            // '支援なし' 排他ロジック
-            const noneCb = document.getElementById('parent_support_none');
-            if (noneCb) {
-                noneCb.addEventListener('change', (e) => {
-                    if (e.target.checked) {
-                        document.querySelectorAll('input[name="parent_support_types"]').forEach(cb => {
-                            if (cb.id !== 'support-none') cb.checked = false;
-                        });
+            // --- 全 checkbox 群の "None"（「ない」）排他ロジックを汎用的に追加 ---
+            // 判定に使う 'None' を表す語（必要ならここに追加）
+            const NONE_KEYWORDS = ['なし', '支援なし', '教わってない', '教わっていない', 'ない', 'none'];
+            
+            // ヘルパー：入力要素が "None" 候補かどうか（value, id, aria-label, ラベルテキストをチェック）
+            function isNoneCheckbox(cb) {
+                if (!cb) return false;
+                const v = String(cb.value || '').toLowerCase();
+                for (const kw of NONE_KEYWORDS) if (v.includes(kw)) return true;
+                const id = String(cb.id || '').toLowerCase();
+                for (const kw of NONE_KEYWORDS) if (id.includes(kw)) return true;
+                // ラベル要素のテキストも確認（label[for=...]）
+                if (cb.id) {
+                    const lab = document.querySelector(`label[for="${cb.id}"]`);
+                    if (lab) {
+                        const text = lab.textContent || '';
+                        for (const kw of NONE_KEYWORDS) if (text.includes(kw)) return true;
                     }
-                });
-                // 他のチェックが付いたら '支援なし' を外す
-                document.querySelectorAll('input[name="parent_support_types"]').forEach(cb => {
-                    if (cb.id !== 'support-none') {
-                        cb.addEventListener('change', (e) => {
-                            if (e.target.checked) {
-                                noneCb.checked = false;
-                            }
-                        });
-                    }
-                });
+                }
+                return false;
             }
+            
+            // 同じ name のグループ内で None を選んだら他を外す処理を取り付ける
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                // 各 checkbox に change ハンドラを追加
+                cb.addEventListener('change', (e) => {
+                    const target = e.target;
+                    const groupName = target.name;
+                    if (!groupName) return;
+                    
+                    // 同名グループのすべての checkbox を取得
+                    const group = Array.from(document.querySelectorAll(`input[type="checkbox"][name="${groupName}"]`));
+                
+                    // この checkbox が None（「ない」系）かどうか                            
+                    const targetIsNone = isNoneCheckbox(target);
+                
+                    if (targetIsNone && target.checked) {
+                        // None を選んだ → 同グループの他をすべて外す（None 自身は残す）
+                        group.forEach(cb2 => {
+                            if (cb2 !== target) cb2.checked = false;
+                        });
+                    } else if (!targetIsNone && target.checked) {                                
+                        // None 以外を選んだ → 同グループの None を外す（複数 None があっても全て外す）
+                        group.forEach(cb2 => {
+                            if (isNoneCheckbox(cb2)) cb2.checked = false;
+                        });
+                    }
+                    // checked を外す（target.checked==false）の場合は特に操作不要
+                });
+            });
         });
     </script>
 </body>
