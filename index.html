@@ -1155,8 +1155,6 @@
             }
         }
 
-        form.addEventListener('submit', submitForm);
-
         // --- 画面向き / リサイズの監視 ---
         window.addEventListener('orientationchange', () => {
             setTimeout(checkOrientationRequirement, 300);
@@ -1218,6 +1216,10 @@
                 });
             });
         });
+
+        // DOM が完全に読み込まれたタイミングで submit イベント登録（確実にフォーム要素が存在する）
+        form.addEventListener('submit', submitForm);
+        
     </script>
 </body>
 </html>
