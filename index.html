@@ -534,11 +534,6 @@
                       <label for="support-allowance" class="ml-3 block text-sm text-gray-700">毎月のお小遣いの管理を自分でさせられた</label>
                     </div>
                     <div class="flex items-center">
-                      <input id="support-occasional" name="money_education_by_parent" type="checkbox" value="理由" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="support-occasional" class="ml-3 block text-sm text-gray-700">買いたいものがあるときは理由を説明する必要があった</label>
-                    </div>
-                      </div>
-                    <div class="flex items-center">
                       <input id="support-occasional" name="money_education_by_parent" type="checkbox" value="買い物" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="support-occasional" class="ml-3 block text-sm text-gray-700">実際に買い物に連れていき見本を示した</label>
                     </div>
@@ -605,6 +600,34 @@
                             <label for="scholarship-was-received" class="mt-1 block text-sm text-gray-700">ほとんどなかった</label>
                         </div>
                     </div>
+                </div>
+
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+
+                <div class="mb-6" id="parent-education-expense-support-block">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">欲しいものを買ってもらうために決められたルールはありましたか（該当するものすべて選んでください）</label>
+                  <div class="mt-2 space-y-2">
+                    <div class="flex items-center">
+                      <input id="support-rent" name="parent_education_expense_support" type="checkbox" value="成績" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-rent" class="ml-3 block text-sm text-gray-700">良い成績を取る</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-tuition" name="parent_education_expense_support" type="checkbox" value="手伝い" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-tuition" class="ml-3 block text-sm text-gray-700">家事の手伝い</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-allowance" name="parent_education_expense_support" type="checkbox" value="理由" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-allowance" class="ml-3 block text-sm text-gray-700">理由の説明が必要</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="support-none" name="parent_education_expense_support" type="checkbox" value="予算制限" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-none" class="ml-3 block text-sm text-gray-700">月ごとの予算制限</label>
+                    </div>
+                      <div class="flex items-center">
+                      <input id="support-none" name="parent_education_expense_support" type="checkbox" value="なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="support-none" class="ml-3 block text-sm text-gray-700">なし</label>
+                    </div>
+                  </div>
                 </div>
                 
                 <div class="flex justify-end mt-6">
@@ -821,6 +844,20 @@
             {
                 title: "服を買うとき、育ての親の意見に影響される",
                 name: "親の意見",
+                options: [
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
+                    ]
+            },
+            {
+                title: "保護者からの金銭教育は現在のあなたの金銭管理に役立っていると感じる",
+                name: "親役立つ",
+                options: [
+                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
+                    ]
+            },
+            {
+                title: "保護者からの金銭教育は現在のあなたの金銭管理に役立っていると感じる",
+                name: "学校役立つ",
                 options: [
                     "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
                     ]
