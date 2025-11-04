@@ -260,7 +260,6 @@
 
             <!-- ページ3 (moved): 収入などについての質問 (original page5 content moved earlier in flow) -->
             <div class="survey-page" data-page="3">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">収入などについての質問</h2>
                 <div class="mb-8">
                     <label class="block text-sm font-medium text-gray-700 mb-2">奨学金や学費の減額などの支援を、公的な機関から受けている</label>
                     <div class="mt-2 space-y-2">
@@ -282,7 +281,7 @@
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
                 <div class="mb-8">
-                    <label for="part-time-income" class="block text-sm font-medium text-gray-700 mb-1">アルバイトの収入</label>
+                    <label for="part-time-income" class="block text-sm font-medium text-gray-700 mb-1">あなたのひと月のアルバイトの収入を教えてください</label>
                     <select id="part-time-income" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
                         <option value="">選択してください</option>
                         <option value="0">アルバイトをしていない</option>
@@ -313,8 +312,8 @@
                       <label for="parent_support-allowance" class="ml-3 block text-sm text-gray-700">毎月の使い道が自由な仕送り</label>
                     </div>
                     <div class="flex items-center">
-                      <input id="parent_support-occasional" name="親の支援" type="checkbox" value="必要時の買い物負担" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support-occasional" class="ml-3 block text-sm text-gray-700">必要時の買い物負担</label>
+                      <input id="parent_support-occasional" name="親の支援" type="checkbox" value="代わりに買う" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support-occasional" class="ml-3 block text-sm text-gray-700">必要なものを代わりに買ってくれる</label>
                     </div>
                     <div class="flex items-center">
                       <input id="parent_support-none" name="親の支援" type="checkbox" value="支援なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
@@ -349,7 +348,7 @@
                         <option value="3">1万円～3万円</option>
                         <option value="4">3万円～5万円</option>
                         <option value="5">5万円</option>
-                        <option value="99">回答しない・わからない</option>
+                        <option value="99">受け取っていない</option>
                     </select>
                 </div>
 
@@ -360,10 +359,67 @@
 
             <!-- ページ4 (moved): 衣服の購買頻度などの質問 (original page3 content kept) -->
             <div class="survey-page" data-page="4">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">衣服の購買頻度などの質問</h2>
                 <p class="text-gray-700 mb-8">
                     選択肢の中から、最もあてはまるものを選択してください。
                 </p>
+                <!-- 複数選択：保護者からの経済的支援 -->
+                <div class="mb-6" id="parent-education-expense-support-block">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">育ての親からどのような方法でお金について教わりましたか（該当するものすべて選んでください）</label>
+                  <div class="mt-2 space-y-2">
+                    <div class="flex items-center">
+                      <input id="parent_edu_saving" name="親の教育" type="checkbox" value="貯金" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_edu_saving" class="ml-3 block text-sm text-gray-700">貯金を習慣づけられた</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_edu_way" name="親の教育" type="checkbox" value="使い方" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_edu_way" class="ml-3 block text-sm text-gray-700">お金の使い方を自分で考えること</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_edu_allowance" name="親の教育" type="checkbox" value="毎月のお小遣い" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_edu_allowance" class="ml-3 block text-sm text-gray-700">毎月のお小遣いの管理を自分でさせられた</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_edu_shopping" name="親の教育" type="checkbox" value="買い物" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_edu_shopping" class="ml-3 block text-sm text-gray-700">実際に買い物に連れていき見本を示した</label>
+                    </div>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_edu_verbal" name="親の教育" type="checkbox" value="口頭" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_edu_verbal" class="ml-3 block text-sm text-gray-700">お金とは何かを口頭で説明した</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_edu_none" name="親の教育" type="checkbox" value="教わっていない" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_edu_none" class="ml-3 block text-sm text-gray-700">教わっていない</label>
+                    </div>
+                  </div>
+                </div>
+    
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                
+                <!-- 複数選択：保護者からの経済的支援 -->
+                <div class="mb-6" id="parent-education-expense-support-block">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">学校ではどのような方法でお金について教わりましたか（該当するものすべて選んでください）</label>
+                  <div class="mt-2 space-y-2">
+                    <div class="flex items-center">
+                      <input id="school_edu_class" name="学校の教育" type="checkbox" value="授業" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="school_edu_class" class="ml-3 block text-sm text-gray-700">理論的な概要を授業で</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="school_edu_workshop" name="学校の教育" type="checkbox" value="学費支援" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="school_edu_workshop" class="ml-3 block text-sm text-gray-700">ワークショップや体験学習（模擬会計やゲーム）</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="school_edu_trial" name="学校の教育" type="checkbox" value="体験" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="school_edu_trial" class="ml-3 block text-sm text-gray-700">職場体験や外部講師の授業</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="school_edu_none" name="学校の教育" type="checkbox" value="教わっていない" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="school_edu_none" class="ml-3 block text-sm text-gray-700">教わっていない</label>
+                    </div>
+                  </div>
+                </div>
+            
+                <div class="border-b border-gray-300 my-6 w-full"></div>
 
                 <div class="mb-6" id="parent-education-expense-support-block">
                   <label class="block text-sm font-medium text-gray-700 mb-2">育ての親からお金について教わった時期はいつですか（該当するものすべて選んでください）</label>
@@ -401,24 +457,20 @@
                   <label class="block text-sm font-medium text-gray-700 mb-2">学校からお金について教わった時期はいつですか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
                     <div class="flex items-center">
-                      <input id="school_teaching_parent_age_1" name="学校の教育時期" type="checkbox" value="1" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_1" class="ml-3 block text-sm text-gray-700">小学校入学まで</label>
+                      <input id="school_teaching_parent_age_1" name="学校の教育時期" type="checkbox" value="1" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="school_teaching_parent_age_1" class="ml-3 block text-sm text-gray-700">小学校低学年</label>
                     </div>
                     <div class="flex items-center">
                       <input id="school_teaching_parent_age_2" name="学校の教育時期" type="checkbox" value="2" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_2" class="ml-3 block text-sm text-gray-700">小学校低学年</label>
+                      <label for="school_teaching_parent_age_2" class="ml-3 block text-sm text-gray-700">小学校高学年</label>
                     </div>
                     <div class="flex items-center">
                       <input id="school_teaching_parent_age_3" name="学校の教育時期" type="checkbox" value="3" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_3" class="ml-3 block text-sm text-gray-700">小学校高学年</label>
+                      <label for="school_teaching_parent_age_3" class="ml-3 block text-sm text-gray-700">中学生</label>
                     </div>
                     <div class="flex items-center">
                       <input id="school_teaching_parent_age_4" name="学校の教育時期" type="checkbox" value="4" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_4" class="ml-3 block text-sm text-gray-700">中学生</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="school_teaching_parent_age_5" name="学校の教育時期" type="checkbox" value="5" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_5" class="ml-3 block text-sm text-gray-700">高校生</label>
+                      <label for="school_teaching_parent_age_4" class="ml-3 block text-sm text-gray-700">高校生</label>
                     </div>
                     <div class="flex items-center">
                       <input id="school_teaching_parent_age_99" name="学校の教育時期" type="checkbox" value="99" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
@@ -660,7 +712,7 @@
                 ]
             },
             {
-                title: "幼少期から中学生の期間、欲しいものは何でも買ってもらえた",
+                title: "幼少期から高校生の期間、欲しいものは何でも買ってもらえた",
                 name: "欲しいものは何でも",
                 options: [
                     "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
@@ -1180,7 +1232,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // --- 全 checkbox 群の "None"（「ない」）排他ロジックを汎用的に追加 ---
             // 判定に使う 'None' を表す語（必要ならここに追加）
-            const NONE_KEYWORDS = ['なし', '支援なし', '教わってない', '教わっていない', 'ない', 'none'];
+            const NONE_KEYWORDS = ['なし', '支援なし','受け取っていない' '教わってない', '教わっていない', 'ない', 'none'];
             
             // ヘルパー：入力要素が "None" 候補かどうか（value, id, aria-label, ラベルテキストをチェック）
             function isNoneCheckbox(cb) {
