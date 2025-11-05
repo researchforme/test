@@ -1320,29 +1320,23 @@
                     const target = e.target;
                     const groupName = target.name;
                     if (!groupName) return;
-                    
-                    // 同名グループのすべての checkbox を取得
+            
                     const group = Array.from(document.querySelectorAll(`input[type="checkbox"][name="${groupName}"]`));
-                
-                    // この checkbox が None（「ない」系）かどうか                            
                     const targetIsNone = isNoneCheckbox(target);
-                
+            
                     if (targetIsNone && target.checked) {
-                        // None を選んだ → 同グループの他をすべて外す（None 自身は残す）
-                        group.forEach(cb2 => {
-                            if (cb2 !== target) cb2.checked = false;
-                        });
-                    } else if (!targetIsNone && target.checked) {                                
-                        // None 以外を選んだ → 同グループの None を外す（複数 None があっても全て外す）
-                        group.forEach(cb2 => {
-                            if (isNoneCheckbox(cb2)) cb2.checked = false;
-                        });
+                        group.forEach(cb2 => { if (cb2 !== target) cb2.checked = false; });
+                    } else if (!targetIsNone && target.checked) {
+                        group.forEach(cb2 => { if (isNoneCheckbox(cb2)) cb2.checked = false; });
                     }
-                    // checked を外す（target.checked==false）の場合は特に操作不要
                 });
-                // DOM が完全に読み込まれたタイミングで submit イベント登録（確実にフォーム要素が存在する）
-                form.addEventListener('submit', submitForm);
             });
+            
+            // disable native HTML5 validation so we can handle validation/submission in JS
+            form.noValidate = true;
+            
+            // 登録はループ外で一度だけ
+            form.addEventListener('submit', submitForm);
         });
     </script>
 </body>
