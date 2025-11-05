@@ -304,20 +304,20 @@
                       <label for="parent_support_rent" class="ml-3 block text-sm text-gray-700">家賃補助</label>
                     </div>
                     <div class="flex items-center">
-                      <input id="parent_support-tuition" name="親の支援" type="checkbox" value="学費支援" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support-tuition" class="ml-3 block text-sm text-gray-700">学費支援</label>
+                      <input id="parent_support_tuition" name="親の支援" type="checkbox" value="学費支援" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support_tuition" class="ml-3 block text-sm text-gray-700">学費支援</label>
                     </div>
                     <div class="flex items-center">
-                      <input id="parent_support-allowance" name="親の支援" type="checkbox" value="毎月のお小遣い" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support-allowance" class="ml-3 block text-sm text-gray-700">毎月の使い道が自由な仕送り</label>
+                      <input id="parent_support_allowance" name="親の支援" type="checkbox" value="毎月のお小遣い" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support_allowance" class="ml-3 block text-sm text-gray-700">毎月の使い道が自由な仕送り</label>
                     </div>
                     <div class="flex items-center">
-                      <input id="parent_support-occasional" name="親の支援" type="checkbox" value="代わりに買う" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support-occasional" class="ml-3 block text-sm text-gray-700">必要なものを代わりに買ってくれる</label>
+                      <input id="parent_support_occasional" name="親の支援" type="checkbox" value="代わりに買う" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support_occasional" class="ml-3 block text-sm text-gray-700">必要なものを代わりに買ってくれる</label>
                     </div>
                     <div class="flex items-center">
-                      <input id="parent_support-none" name="親の支援" type="checkbox" value="支援なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support-none" class="ml-3 block text-sm text-gray-700">支援なし</label>
+                      <input id="parent_support_none" name="親の支援" type="checkbox" value="支援なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support_none" class="ml-3 block text-sm text-gray-700">支援なし</label>
                     </div>
                   </div>
                 </div>
@@ -363,7 +363,7 @@
                     選択肢の中から、最もあてはまるものを選択してください。
                 </p>
                 <!-- 複数選択：保護者からの経済的支援 -->
-                <div class="mb-6" id="parent-education-expense-support-block">
+                <div class="mb-6" id="parent-education-types">
                   <label class="block text-sm font-medium text-gray-700 mb-2">育ての親からどのような方法でお金について教わりましたか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
                     <div class="flex items-center">
@@ -397,7 +397,7 @@
                 <div class="border-b border-gray-300 my-6 w-full"></div>
                 
                 <!-- 複数選択：保護者からの経済的支援 -->
-                <div class="mb-6" id="parent-education-expense-support-block">
+                <div class="mb-6" id="school-education-types">
                   <label class="block text-sm font-medium text-gray-700 mb-2">学校ではどのような方法でお金について教わりましたか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
                     <div class="flex items-center">
@@ -421,7 +421,7 @@
             
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
-                <div class="mb-6" id="parent-education-expense-support-block">
+                <div class="mb-6" id="parent-education-period">
                   <label class="block text-sm font-medium text-gray-700 mb-2">育ての親からお金について教わった時期はいつですか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
                     <div class="flex items-center">
@@ -453,11 +453,11 @@
 
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
-                <div class="mb-6" id="parent-education-expense-support-block">
+                <div class="mb-6" id="school_education_period">
                   <label class="block text-sm font-medium text-gray-700 mb-2">学校からお金について教わった時期はいつですか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
                     <div class="flex items-center">
-                      <input id="school_teaching_parent_age_1" name="学校の教育時期" type="checkbox" value="1" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <input id="school_teaching_parent_age_1" name="学校の教育時期" type="checkbox" value="1" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="school_teaching_parent_age_1" class="ml-3 block text-sm text-gray-700">小学校低学年</label>
                     </div>
                     <div class="flex items-center">
@@ -1025,10 +1025,10 @@
             // nextPage() の該当箇所（currentPageIndex が 5 のとき）
             if (currentPageIndex === 5) {
                 // チェックされたものを配列で取得
-                const selected = Array.from(document.querySelectorAll('input[name="parent_support_types"]:checked'))
+                const selected = Array.from(document.querySelectorAll('input[name="親の支援"]:checked'))
                                       .map(el => el.value);
                 // 保存（配列で保存しておけば後から復元・解析しやすい）
-                surveyAnswers['parent_support_types'] = selected;
+                surveyAnswers['親の支援'] = selected;
             }
             if (currentPageIndex === 7) {
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
@@ -1294,7 +1294,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             // --- 全 checkbox 群の "None"（「ない」）排他ロジックを汎用的に追加 ---
             // 判定に使う 'None' を表す語（必要ならここに追加）
-            const NONE_KEYWORDS = ['なし', '支援なし','受け取っていない' '教わってない', '教わっていない', 'ない', 'none'];
+            const NONE_KEYWORDS = ['なし', '支援なし','受け取っていない', '教わってない', '教わっていない', 'ない', 'none'];
             
             // ヘルパー：入力要素が "None" 候補かどうか（value, id, aria-label, ラベルテキストをチェック）
             function isNoneCheckbox(cb) {
@@ -1341,12 +1341,10 @@
                     }
                     // checked を外す（target.checked==false）の場合は特に操作不要
                 });
+                // DOM が完全に読み込まれたタイミングで submit イベント登録（確実にフォーム要素が存在する）
+                form.addEventListener('submit', submitForm);
             });
         });
-
-        // DOM が完全に読み込まれたタイミングで submit イベント登録（確実にフォーム要素が存在する）
-        form.addEventListener('submit', submitForm);
-        
     </script>
 </body>
 </html>
