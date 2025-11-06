@@ -318,7 +318,7 @@
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
                 <div class="mb-8">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">育ての親からの教育はどれくらいの頻度で行われましたか</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた育ての親からの教育はどれくらいの頻度で行われましたか</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
                             <input id="parent_edu_freaquency_1" name="親の教育頻度" type="radio" value="一度だけ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
@@ -346,7 +346,7 @@
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
                 <div class="mb-8">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">学校からの教育はどれくらいの頻度で行われましたか</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた学校からの教育はどれくらいの頻度で行われましたか</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
                             <input id="school_edu_freaquency_1" name="学校の教育頻度" type="radio" value="一度だけ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
@@ -392,9 +392,9 @@
                     <select id="single-purchase-amount" name="一回の金額" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 rounded-md shadow-sm" required>
                         <option value="">選択してください</option>
                         <option value="3000円以下">3000円以下</option>
-                        <option value="3000～5000円">3000～5000円</option>
-                        <option value="5000～7000円">5000～7000円</option>
-                        <option value="7000～1万円">7000～1万円</option>
+                        <option value="3000～5000円">3000～5000円未満</option>
+                        <option value="5000～7000円">5000～7000円未満</option>
+                        <option value="7000～1万円">7000～1万円未満</option>
                         <option value="1万円以上">1万円以上</option>
                     </select>
                 </div>
@@ -496,13 +496,14 @@
                     <label for="part-time-income" class="block text-sm font-medium text-gray-700 mb-1">あなたのひと月のアルバイトの収入を教えてください</label>
                     <select id="part-time-income" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
                         <option value="">選択してください</option>
-                        <option value="0">アルバイトをしていない</option>
+                        <option value="0">アルバイトをしていない（学生）</option>
                         <option value="1">月5万円未満</option>
-                        <option value="2">月5～6万円</option>
-                        <option value="3">月6～7万円</option>
-                        <option value="4">月7～8万円</option>
+                        <option value="2">月5～6万円未満</option>
+                        <option value="3">月6～7万円未満</option>
+                        <option value="4">月7～8万円未満</option>
                         <option value="5">月8万円以上</option>
-                        <option value="99">就職している</option>
+                        <option value="98">就職している</option>
+                        <option value="99">アルバイトをしていない（学生でなく、就職していない）</option>
                     </select>
                 </div>
                 <!-- 保護者支援（親の支援） -->
@@ -541,9 +542,9 @@
                     <select id="parent_income_level" name="保護者の年収" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
                         <option value="">選択してください</option>
                         <option value="1">300万円未満</option>
-                        <option value="2">300～500万円</option>
-                        <option value="3">500万円～700万円</option>
-                        <option value="4">700万円～1000万円</option>
+                        <option value="2">300～500万円未満</option>
+                        <option value="3">500万円～700万円未満</option>
+                        <option value="4">700万円～1000万円未満</option>
                         <option value="5">1000万円以上</option>
                         <option value="99">回答しない・わからない</option>
                     </select>
@@ -557,8 +558,8 @@
                         <option value="">選択してください</option>
                         <option value="1">もらっていない</option>
                         <option value="2">1万円未満</option>
-                        <option value="3">1万円～3万円</option>
-                        <option value="4">3万円～5万円</option>
+                        <option value="3">1万円～3万円未満</option>
+                        <option value="4">3万円～5万円未満</option>
                         <option value="5">5万円</option>
                         <option value="99">受け取っていない</option>
                     </select>
@@ -848,7 +849,7 @@
         function isLandscape() {
             return window.innerWidth >= window.innerHeight;
         }
-        const PORTRAIT_FROM_PAGE = 9;
+        const PORTRAIT_FROM_PAGE = 6;
 
         function checkOrientationRequirement() {
             if (!isSmartphone()) {
@@ -902,17 +903,17 @@
                 }
             });
 
-            if (currentPageIndex === 0 || currentPageIndex === 10) {
+            if (currentPageIndex === 0 || currentPageIndex === 9) {
                 mainSurveyTitle.classList.remove('hidden');
             } else {
                 mainSurveyTitle.classList.add('hidden');
             }
             // ページ表示処理の中（updatePageDisplay など）
-            if (currentPageIndex === 5) {
-                const saved = surveyAnswers['parent_support_types'];
+            if (currentPageIndex === 7) {
+                const saved = surveyAnswers['親の支援'];
                 if (Array.isArray(saved)) {
                     document.querySelectorAll('input[name="parent_support_types"]').forEach(cb => cb.checked = false);
-                    const allCbs = document.querySelectorAll('input[name="parent_support_types"]');
+                    const allCbs = document.querySelectorAll('input[name="親の支援"]');
                     saved.forEach(val => {
                         for (const cb of allCbs) {
                             if (cb.value === val) { cb.checked = true; break; }
@@ -920,7 +921,7 @@
                     });
                 }
             }
-            if (currentPageIndex === 7) {
+            if (currentPageIndex === 4) {
                 if (shuffledFamilyQuestionIndices.length === 0) {
                     shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
                     shuffleArray(shuffledFamilyQuestionIndices);
@@ -954,7 +955,7 @@
                 }
             }
             
-            if (currentPageIndex === 9) {
+            if (currentPageIndex === 6) {
                 startClothingPurchaseSimulation();
             }
 
@@ -1009,14 +1010,14 @@
                 return;
             }
             // nextPage() の該当箇所（currentPageIndex が 5 のとき）
-            if (currentPageIndex === 5) {
+            if (currentPageIndex === 7) {
                 // チェックされたものを配列で取得
                 const selected = Array.from(document.querySelectorAll('input[name="親の支援"]:checked'))
                                       .map(el => el.value);
                 // 保存（配列で保存しておけば後から復元・解析しやすい）
                 surveyAnswers['親の支援'] = selected;
             }
-            if (currentPageIndex === 7) {
+            if (currentPageIndex === 4) {
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
                 const questionData = familyQuestionsData[originalQuestionIndex];
                 const selectedAnswer = document.querySelector(`input[name="${questionData.name}_${originalQuestionIndex}"]:checked`);
@@ -1026,7 +1027,7 @@
                 if (currentFamilyQuestionIndexInShuffledOrder < familyQuestionsData.length - 1) {
                     currentFamilyQuestionIndexInShuffledOrder++;
                 } else {
-                    currentPageIndex = 8;
+                    currentPageIndex = 5;
                     shuffledFamilyQuestionIndices = [];
                     currentFamilyQuestionIndexInShuffledOrder = 0;
                 }
@@ -1070,8 +1071,8 @@
             }
             currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
 
-            initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 5000 :
-                           (currentSimulationData.itemType === "フォーマルなジャケット") ? 10000 : 1000;
+            initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 10000 :
+                           (currentSimulationData.itemType === "フォーマルなジャケット") ? 20000 : 1000;
             clothingPrice = initialPrice;
             finished = false;
             lastChoice = null;
@@ -1127,7 +1128,7 @@
                     currentSimulationRoundIndex++;
                     setTimeout(startClothingPurchaseSimulation, 300);
                 } else {
-                    currentPageIndex = 10;
+                    currentPageIndex = 7;
                     setTimeout(updatePageDisplay, 300);
                 }
                 return;
