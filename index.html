@@ -194,171 +194,8 @@
                 </div>
             </div>
 
-            <!-- ページ2: 基本情報 (unchanged) -->
             <div class="survey-page" data-page="2">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">基本情報</h2>
-                <!-- 質問1: 年齢 -->
-                <div class="mb-6">
-                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">あなたの年齢を入力してください（半角数字）</label>
-                    <input type="number" id="age" name="年齢" class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
-                </div>
-
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-                <!-- 質問2: 性別 -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">あなたの性別を選択してください</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="gender-male" name="性別" type="radio" value="男性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="gender-male" class="ml-3 block text-sm text-gray-700">男性</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="gender-female" name="性別" type="radio" value="女性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="gender-female" class="ml-3 block text-sm text-gray-700">女性</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="gender-other" name="性別" type="radio" value="その他" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="gender-other" class="ml-3 block text-sm text-gray-700">その他</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-                <!-- 質問3: 所属 -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">あなたの現在の所属を教えてください</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="affiliation-spec-college" name="所属" type="radio" value="専門学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-spec-college" class="ml-3 block text-sm text-gray-700">専門学生</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="affiliation-jr-college" name="所属" type="radio" value="短期大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-jr-college" class="ml-3 block text-sm text-gray-700">短期大学生</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="affiliation-university" name="所属" type="radio" value="大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-university" class="ml-3 block text-sm text-gray-700">大学生</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="affiliation-grad" name="所属" type="radio" value="大学院生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-grad" class="ml-3 block text-sm text-gray-700">大学院生</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="affiliation-other" name="所属" type="radio" value="学生ではない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-other" class="ml-3 block text-sm text-gray-700">学生ではない</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="flex justify-end mt-6">
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
-                </div>
-            </div>
-
-            <!-- ページ3 (moved): 収入などについての質問 (original page5 content moved earlier in flow) -->
-            <div class="survey-page" data-page="3">
-                <div class="mb-8">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">奨学金や学費の減額などの支援を、公的な機関から受けている</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="scholarship-yes" name="奨学金" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="scholarship-yes" class="mt-1 block text-sm text-gray-700">はい</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="scholarship-no" name="奨学金" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="scholarship-no" class="mt-1 block text-sm text-gray-700">いいえ</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="scholarship-was-received" name="奨学金" type="radio" value="以前受けていた" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="scholarship-was-received" class="mt-1 block text-sm text-gray-700">受けていた時期があるが、今は受けていない</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- 質問間の区切り線 -->
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-
-                <div class="mb-8">
-                    <label for="part-time-income" class="block text-sm font-medium text-gray-700 mb-1">あなたのひと月のアルバイトの収入を教えてください</label>
-                    <select id="part-time-income" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
-                        <option value="">選択してください</option>
-                        <option value="0">アルバイトをしていない</option>
-                        <option value="1">月5万円未満</option>
-                        <option value="2">月5～6万円</option>
-                        <option value="3">月6～7万円</option>
-                        <option value="4">月7～8万円</option>
-                        <option value="5">月8万円以上</option>
-                        <option value="99">就職している</option>
-                    </select>
-                </div>
-                <!-- 保護者支援（親の支援） -->
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-                
-                <div class="mb-6" id="parent-education-expense-support-block">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">保護者からの経済的支援はありますか（該当するものすべて選択してください）</label>
-                  <div class="mt-2 space-y-2">
-                    <div class="flex items-center">
-                      <input id="parent_support_rent" name="親の支援" type="checkbox" value="家賃補助" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_rent" class="ml-3 block text-sm text-gray-700">家賃補助</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_support_tuition" name="親の支援" type="checkbox" value="学費支援" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_tuition" class="ml-3 block text-sm text-gray-700">学費支援</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_support_allowance" name="親の支援" type="checkbox" value="毎月のお小遣い" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_allowance" class="ml-3 block text-sm text-gray-700">毎月の使い道が自由な仕送り</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_support_occasional" name="親の支援" type="checkbox" value="代わりに買う" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_occasional" class="ml-3 block text-sm text-gray-700">必要なものを代わりに買ってくれる</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_support_none" name="親の支援" type="checkbox" value="支援なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_none" class="ml-3 block text-sm text-gray-700">支援なし</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-
-                <div class="mb-6">
-                    <label for="parent_income_level" class="block text-sm font-medium text-gray-700 mb-1">保護者（世帯）の年間収入（世帯合算）に最も近いものを選んでください。</label>
-                    <select id="parent_income_level" name="保護者の年収" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
-                        <option value="">選択してください</option>
-                        <option value="1">300万円未満</option>
-                        <option value="2">300～500万円</option>
-                        <option value="3">500万円～700万円</option>
-                        <option value="4">700万円～1000万円</option>
-                        <option value="5">1000万円以上</option>
-                        <option value="99">回答しない・わからない</option>
-                    </select>
-                </div>
-
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-
-                <div class="mb-6">
-                    <label for="allowance_amount" class="block text-sm font-medium text-gray-700 mb-1">あなたが毎月受け取る使い道が自由な仕送りの額はどれくらいですか</label>
-                    <select id="allowance_amount" name="毎月の仕送り" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
-                        <option value="">選択してください</option>
-                        <option value="1">もらっていない</option>
-                        <option value="2">1万円未満</option>
-                        <option value="3">1万円～3万円</option>
-                        <option value="4">3万円～5万円</option>
-                        <option value="5">5万円</option>
-                        <option value="99">受け取っていない</option>
-                    </select>
-                </div>
-
-                <div class="flex justify-end mt-6">
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">次へ</button>
-                </div>
-            </div>
-
-            <!-- ページ4 (moved): 衣服の購買頻度などの質問 (original page3 content kept) -->
-            <div class="survey-page" data-page="4">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">金銭的教育についての質問</h2>
                 <p class="text-gray-700 mb-8">
                     選択肢の中から、最もあてはまるものを選択してください。
                 </p>
@@ -561,16 +398,235 @@
                         <option value="1万円以上">1万円以上</option>
                     </select>
                 </div>
-                
+                <div class="flex justify-end mt-6">
+                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
+                        次へ
+                    </button>
+                </div>
+            </div>
+
+            <div class="survey-page" data-page="3">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">次のセクションについて</h2>
+                <p class="text-gray-700 mb-10">
+                    <!-- 質問の説明 -->
+                    次のセクションでは、<br>
+                    「全くあてはまらない」～「とてもあてまる」の<br>
+                    5つの選択肢から該当するものを選択してください。
+                </p>
+                <div class="mb-6">
+                    <div class="flex items-center">
+                        <input id="illustration" name="質問の説明" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                        <label for="illustration" class="ml-3 block text-sm text-gray-700">確認しました</label>
+                    </div>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">次へ</button>
+                </div>
+            </div>
+
+            <div class="survey-page" data-page="4">
+                <div id="random-question-content" class="text-center">
+                </div>
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
-            <!-- ページ5 (moved): 所属世帯について -->
             <div class="survey-page" data-page="5">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">所属世帯について</h2>
-                <!-- 質問: 所属世帯について (条件分岐のトリガー) -->
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">衣服の購買シミュレーション説明</h2>
+                <p class="text-gray-700 mb-8">
+                    次のセクションでは衣服の画像と価格、その他の情報が表示されます。<br>
+                    あなたは、その衣服を「買う」か「買わない」かを選択します。<br>
+                    価格が変化するので、あなたが妥当だと感じれば「買う」、<br>
+                    高すぎると感じれば「買わない」選択してください。<br>
+                    ※選択後すぐに、新しい情報へ更新されるため、ボタンを連打しないよう注意してください。
+                </p>
+                <div class="mb-6">
+                    <div class="flex items-center">
+                        <input id="confirmation" name="シミュレーション説明確認" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                        <label for="confirmation" class="ml-3 block text-sm text-gray-700">確認しました</label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mt-6">
+                    <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
+                </div>
+            </div>
+
+            <div class="survey-page" data-page="6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">購買シミュレーション</h2>
+                <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
+                    <img id="clothing-image" src="https://github.com/researchforme/my_survey_img/blob/main/%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true" alt="Clothing Item" class="rounded-md shadow-md mb-4 w-full max-w-sm">
+                    <p class="text-xl font-medium text-gray-700 mb-2">種類: <span id="clothing-item-type" class="font-semibold text-gray-900"></span></p>
+                    <p class="text-xl font-medium text-gray-700 mb-2">希少性: <span id="clothing-combination" class="font-semibold text-gray-900"></span></p>
+                    <p class="text-xl font-medium text-gray-700 mb-4">機能性: <span id="clothing-situation" class="font-semibold text-gray-900"></span></p>
+                    <p class="text-xl font-medium text-gray-700 mb-4">品質：良い<p>
+                    <p class="text-xl font-medium text-gray-700 mb-4">メーカーの信用度：高い<p>
+                    <p class="text-2xl font-bold text-gray-900 mb-6">価格: <span id="current-price"></span>円</p>
+                    <div class="flex space-x-4">
+                        <button type="button" id="buy-button" onclick="handlePurchaseChoice('buy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700">買う</button>
+                        <button type="button" id="dont-buy-button" onclick="handlePurchaseChoice('donotbuy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-red-600 hover:bg-red-700">買わない</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="survey-page" data-page="7">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">収入などについての質問</h2>
+                <div class="mb-8">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">奨学金や学費の減額などの支援を、公的な機関から受けている</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="scholarship-yes" name="奨学金" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="scholarship-yes" class="mt-1 block text-sm text-gray-700">はい</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="scholarship-no" name="奨学金" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="scholarship-no" class="mt-1 block text-sm text-gray-700">いいえ</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="scholarship-was-received" name="奨学金" type="radio" value="以前受けていた" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="scholarship-was-received" class="mt-1 block text-sm text-gray-700">受けていた時期があるが、今は受けていない</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- 質問間の区切り線 -->
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+
+                <div class="mb-8">
+                    <label for="part-time-income" class="block text-sm font-medium text-gray-700 mb-1">あなたのひと月のアルバイトの収入を教えてください</label>
+                    <select id="part-time-income" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
+                        <option value="">選択してください</option>
+                        <option value="0">アルバイトをしていない</option>
+                        <option value="1">月5万円未満</option>
+                        <option value="2">月5～6万円</option>
+                        <option value="3">月6～7万円</option>
+                        <option value="4">月7～8万円</option>
+                        <option value="5">月8万円以上</option>
+                        <option value="99">就職している</option>
+                    </select>
+                </div>
+                <!-- 保護者支援（親の支援） -->
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                
+                <div class="mb-6" id="parent-education-expense-support-block">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">保護者からの経済的支援はありますか（該当するものすべて選択してください）</label>
+                  <div class="mt-2 space-y-2">
+                    <div class="flex items-center">
+                      <input id="parent_support_rent" name="親の支援" type="checkbox" value="家賃補助" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support_rent" class="ml-3 block text-sm text-gray-700">家賃補助</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_support_tuition" name="親の支援" type="checkbox" value="学費支援" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support_tuition" class="ml-3 block text-sm text-gray-700">学費支援</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_support_allowance" name="親の支援" type="checkbox" value="毎月のお小遣い" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support_allowance" class="ml-3 block text-sm text-gray-700">毎月の使い道が自由な仕送り</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_support_occasional" name="親の支援" type="checkbox" value="代わりに買う" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support_occasional" class="ml-3 block text-sm text-gray-700">必要なものを代わりに買ってくれる</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_support_none" name="親の支援" type="checkbox" value="支援なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                      <label for="parent_support_none" class="ml-3 block text-sm text-gray-700">支援なし</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+
+                <div class="mb-6">
+                    <label for="parent_income_level" class="block text-sm font-medium text-gray-700 mb-1">保護者（世帯）の年間収入（世帯合算）に最も近いものを選んでください。</label>
+                    <select id="parent_income_level" name="保護者の年収" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
+                        <option value="">選択してください</option>
+                        <option value="1">300万円未満</option>
+                        <option value="2">300～500万円</option>
+                        <option value="3">500万円～700万円</option>
+                        <option value="4">700万円～1000万円</option>
+                        <option value="5">1000万円以上</option>
+                        <option value="99">回答しない・わからない</option>
+                    </select>
+                </div>
+
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+
+                <div class="mb-6">
+                    <label for="allowance_amount" class="block text-sm font-medium text-gray-700 mb-1">あなたが毎月受け取る使い道が自由な仕送りの額はどれくらいですか</label>
+                    <select id="allowance_amount" name="毎月の仕送り" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
+                        <option value="">選択してください</option>
+                        <option value="1">もらっていない</option>
+                        <option value="2">1万円未満</option>
+                        <option value="3">1万円～3万円</option>
+                        <option value="4">3万円～5万円</option>
+                        <option value="5">5万円</option>
+                        <option value="99">受け取っていない</option>
+                    </select>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
+                </div>
+            </div>
+
+            <div class="survey-page" data-page="8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">基本情報</h2>
+                <!-- 質問1: 年齢 -->
+                <div class="mb-6">
+                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">あなたの年齢を入力してください（半角数字）</label>
+                    <input type="number" id="age" name="年齢" class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                </div>
+
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                <!-- 質問2: 性別 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">あなたの性別を選択してください</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="gender-male" name="性別" type="radio" value="男性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="gender-male" class="ml-3 block text-sm text-gray-700">男性</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="gender-female" name="性別" type="radio" value="女性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="gender-female" class="ml-3 block text-sm text-gray-700">女性</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="gender-other" name="性別" type="radio" value="その他" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="gender-other" class="ml-3 block text-sm text-gray-700">その他</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                <!-- 質問3: 所属 -->
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">あなたの現在の所属を教えてください</label>
+                    <div class="mt-2 space-y-2">
+                        <div class="flex items-center">
+                            <input id="affiliation-spec-college" name="所属" type="radio" value="専門学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="affiliation-spec-college" class="ml-3 block text-sm text-gray-700">専門学生</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="affiliation-jr-college" name="所属" type="radio" value="短期大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="affiliation-jr-college" class="ml-3 block text-sm text-gray-700">短期大学生</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="affiliation-university" name="所属" type="radio" value="大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="affiliation-university" class="ml-3 block text-sm text-gray-700">大学生</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="affiliation-grad" name="所属" type="radio" value="大学院生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="affiliation-grad" class="ml-3 block text-sm text-gray-700">大学院生</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="affiliation-other" name="所属" type="radio" value="学生ではない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
+                            <label for="affiliation-other" class="ml-3 block text-sm text-gray-700">学生ではない</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-b border-gray-300 my-6 w-full"></div>
+                
+                
                 <div class="mb-6">
                     <label class="block text-sm font-medium text-gray-700 mb-2">現在の所属世帯を教えてください</label>
                     <div class="mt-2 space-y-2">
@@ -600,81 +656,12 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
-            <!-- ページ6: 次のセクションについて (unchanged) -->
-            <div class="survey-page" data-page="6">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">次のセクションについて</h2>
-                <p class="text-gray-700 mb-10">
-                    <!-- 質問の説明 -->
-                    次のセクションでは、<br>
-                    「全くあてはまらない」～「とてもあてまる」の<br>
-                    5つの選択肢から該当するものを選択してください。
-                </p>
-                <div class="mb-6">
-                    <div class="flex items-center">
-                        <input id="illustration" name="質問の説明" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                        <label for="illustration" class="ml-3 block text-sm text-gray-700">確認しました</label>
-                    </div>
-                </div>
-                <div class="flex justify-end mt-6">
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
-                </div>
-            </div>
-
-            <!-- ページ7: 家庭についての質問 (ランダム表示用コンテナ) (unchanged) -->
-            <div class="survey-page" data-page="7">
-                <div id="random-question-content" class="text-center">
-                </div>
-                <div class="flex justify-end mt-6">
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
-                </div>
-            </div>
-
-            <!-- ページ8: 衣服の購買シミュレーション説明 (unchanged) -->
-            <div class="survey-page" data-page="8">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">衣服の購買シミュレーション説明</h2>
-                <p class="text-gray-700 mb-8">
-                    次のセクションでは衣服の画像と価格、その他の情報が表示されます。<br>
-                    あなたは、その衣服を「買う」か「買わない」かを選択します。<br>
-                    価格が変化するので、あなたが妥当だと感じれば「買う」、<br>
-                    高すぎると感じれば「買わない」選択してください。<br>
-                    ※選択後すぐに、新しい情報へ更新されるため、ボタンを連打しないよう注意してください。
-                </p>
-                <div class="mb-6">
-                    <div class="flex items-center">
-                        <input id="confirmation" name="シミュレーション説明確認" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                        <label for="confirmation" class="ml-3 block text-sm text-gray-700">確認しました</label>
-                    </div>
-                </div>
-                <div class="flex justify-end mt-6">
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
-                </div>
-            </div>
-
-            <!-- ページ9: 衣服の購買シミュレーション (unchanged) -->
             <div class="survey-page" data-page="9">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">購買シミュレーション</h2>
-                <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
-                    <img id="clothing-image" src="https://github.com/researchforme/my_survey_img/blob/main/%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true" alt="Clothing Item" class="rounded-md shadow-md mb-4 w-full max-w-sm">
-                    <p class="text-xl font-medium text-gray-700 mb-2">種類: <span id="clothing-item-type" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-xl font-medium text-gray-700 mb-2">希少性: <span id="clothing-combination" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-xl font-medium text-gray-700 mb-4">機能性: <span id="clothing-situation" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-2xl font-bold text-gray-900 mb-6">価格: <span id="current-price"></span>円</p>
-                    <div class="flex space-x-4">
-                        <button type="button" id="buy-button" onclick="handlePurchaseChoice('buy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700">買う</button>
-                        <button type="button" id="dont-buy-button" onclick="handlePurchaseChoice('donotbuy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-red-600 hover:bg-red-700">買わない</button>
-                    </div>
-                </div>
-                <!-- ページ9には回答送信ボタンは表示しない -->
-            </div>
-
-            <!-- ページ10: 回答完了画面 (unchanged) -->
-            <div class="survey-page" data-page="10">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">調査完了</h2>
                 <p class="text-gray-700 mb-8 text-center text-xl font-bold">
                     調査は以上です。<br>
