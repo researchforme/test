@@ -127,11 +127,11 @@
 </head>
 <body>
     <div id="orientation-message" class="hidden">
-        <p id="orientation-text">スマホは<span class="text-yellow-400">横画面</span>、パソコンは<span class="text-yellow-400">全画面</span>で回答してください。</p>
-    <div id="fs-controls" class="mt-6" style="display:flex;gap:8px;justify-content:center;">
+        <p id="orientation-text">スマホは<span class="text-yellow-400">横画面かつ全画面</span>、パソコンは<span class="text-yellow-400">全画面</span>で回答してください。</p>
+    <!-- <div id="fs-controls" class="mt-6" style="display:flex;gap:8px;justify-content:center;">
       <button id="enter-fullscreen-button" class="py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">全画面で開始（推奨）</button>
       <button id="force-allow-desktop" class="py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700">全画面にできない（代替で続行）</button>
-    </div>
+    </div> -->
     </div>
     <div id="survey-container" class="bg-white p-8 rounded-lg shadow-xl border border-gray-200 max-w-2xl w-full">
         <h1 id="main-survey-title" class="text-4xl font-extrabold text-gray-900 mb-8 text-center">衣服の購買における金銭感覚の調査</h1>
@@ -258,7 +258,7 @@
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
                 <div class="mb-6" id="parent-education-period">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">育ての親からお金について教わった時期はいつですか（該当するものすべて選んでください）</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた育ての親からの金銭的教育はいつ頃行われましたか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
                     <div class="flex items-center">
                       <input id="parent_teaching_parent_age_1" name="親の教育時期" type="checkbox" value="1" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
@@ -290,7 +290,7 @@
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
                 <div class="mb-6" id="school_education_period">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">学校からお金について教わった時期はいつですか（該当するものすべて選んでください）</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた学校での金銭的教育はいつ頃行われましたか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
                     <div class="flex items-center">
                       <input id="school_teaching_parent_age_1" name="学校の教育時期" type="checkbox" value="1" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
@@ -318,7 +318,7 @@
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
                 <div class="mb-8">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた育ての親からの教育はどれくらいの頻度で行われましたか</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた育ての親からの金銭的教育はどれくらいの頻度で行われましたか</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
                             <input id="parent_edu_freaquency_1" name="親の教育頻度" type="radio" value="一度だけ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
@@ -346,7 +346,7 @@
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
                 <div class="mb-8">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた学校からの教育はどれくらいの頻度で行われましたか</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた学校からの金銭的教育はどれくらいの頻度で行われましたか</label>
                     <div class="mt-2 space-y-2">
                         <div class="flex items-center">
                             <input id="school_edu_freaquency_1" name="学校の教育頻度" type="radio" value="一度だけ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
@@ -556,11 +556,10 @@
                     <label for="allowance_amount" class="block text-sm font-medium text-gray-700 mb-1">あなたが毎月受け取る使い道が自由な仕送りの額はどれくらいですか</label>
                     <select id="allowance_amount" name="毎月の仕送り" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
                         <option value="">選択してください</option>
-                        <option value="1">もらっていない</option>
-                        <option value="2">1万円未満</option>
-                        <option value="3">1万円～3万円未満</option>
-                        <option value="4">3万円～5万円未満</option>
-                        <option value="5">5万円</option>
+                        <option value="1">1万円未満</option>
+                        <option value="2">1万円～3万円未満</option>
+                        <option value="3">3万円～5万円未満</option>
+                        <option value="4">5万円以上</option>
                         <option value="99">受け取っていない</option>
                     </select>
                 </div>
