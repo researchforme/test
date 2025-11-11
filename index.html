@@ -227,6 +227,13 @@
                       <input id="parent_edu_none" name="親の教育" type="checkbox" value="教わっていない" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="parent_edu_none" class="ml-3 block text-sm text-gray-700">教わっていない</label>
                     </div>
+                    <div class="flex items-center">
+                      <input id="parent_edu_other" name="親の教育" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
+                      <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他（具体的に記入してください）</label>
+                    </div>
+                    <div id="parent_edu_other_container" class="mt-2 ml-6 hidden">
+                      <input id="parent_edu_other_text" name="親の教育_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
+                    </div>
                   </div>
                 </div>
     
@@ -251,6 +258,13 @@
                     <div class="flex items-center">
                       <input id="school_edu_none" name="学校の教育" type="checkbox" value="教わっていない" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="school_edu_none" class="ml-3 block text-sm text-gray-700">教わっていない</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_edu_other" name="学校の教育" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
+                      <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他（具体的に記入してください）</label>
+                    </div>
+                    <div id="parent_edu_other_container" class="mt-2 ml-6 hidden">
+                      <input id="parent_edu_other_text" name="学校の教育_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
                     </div>
                   </div>
                 </div>
@@ -284,6 +298,13 @@
                       <input id="parent_teaching_parent_age_99" name="親の教育時期" type="checkbox" value="99" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="parent_teaching_parent_age_99" class="ml-3 block text-sm text-gray-700">教わってない</label>
                     </div>
+                    <div class="flex items-center">
+                      <input id="parent_edu_other" name="親の教育時期" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
+                      <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他（具体的に記入してください）</label>
+                    </div>
+                    <div id="parent_edu_other_container" class="mt-2 ml-6 hidden">
+                      <input id="parent_edu_other_text" name="親の教育時期_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
+                    </div>
                   </div>
                 </div>
 
@@ -311,6 +332,13 @@
                     <div class="flex items-center">
                       <input id="school_teaching_parent_age_99" name="学校の教育時期" type="checkbox" value="99" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="school_teaching_parent_age_99" class="ml-3 block text-sm text-gray-700">教わってない</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_edu_other" name="学校の教育時期" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
+                      <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他（具体的に記入してください）</label>
+                    </div>
+                    <div id="parent_edu_other_container" class="mt-2 ml-6 hidden">
+                      <input id="parent_edu_other_text" name="学校の教育時期_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
                     </div>
                   </div>
                 </div>
@@ -991,6 +1019,25 @@
                 }
             }
             return isValid;
+
+            // validatePage() 内で既存チェックの後に:
+            if (!validateOtherTextFields(currentPage)) return false;
+
+            // 追加：各 "その他" チェックが選ばれているのにテキストが空なら invalid とする
+            function validateOtherTextFields(currentPage) {
+              const otherCheckboxes = currentPage.querySelectorAll('input[type="checkbox"][data-has-other="true"]');
+              for (const cb of otherCheckboxes) {
+                const otherId = cb.dataset.otherTarget;
+                if (!otherId) continue;
+                const textEl = document.getElementById(otherId);
+                if (cb.checked) {
+                  if (!textEl || String(textEl.value || '').trim() === '') {
+                    return false;
+                  }
+                }
+              }
+              return true;
+            }
         }
 
         function nextPage() {
@@ -1299,6 +1346,41 @@
                 }
                 return false;
             }
+
+            function setupOtherCheckboxes() {
+              // 全てのチェックボックスを走査し、data-has-other 属性がある要素にハンドラを付ける
+              document.querySelectorAll('input[type="checkbox"][data-has-other="true"]').forEach(cb => {
+                const otherTargetId = cb.dataset.otherTarget;
+                if (!otherTargetId) return;
+                const container = document.getElementById(otherTargetId + '_container') || document.getElementById(otherTargetId + '_container') /*fallback*/;
+                const textInput = document.getElementById(otherTargetId);
+            
+                // 初期表示: チェックされていれば見せる
+                if (cb.checked) {
+                  if (container) container.classList.remove('hidden');
+                  if (textInput) textInput.required = true;
+                } else {
+                  if (container) container.classList.add('hidden');
+                  if (textInput) textInput.required = false;
+                }
+            
+                cb.addEventListener('change', () => {
+                  if (cb.checked) {
+                    if (container) container.classList.remove('hidden');
+                    if (textInput) {
+                      textInput.required = true;
+                      textInput.focus();
+                    }
+                  } else {
+                    if (container) container.classList.add('hidden');
+                    if (textInput) {
+                      textInput.required = false;
+                      textInput.value = ''; // 任意で既入力を消す
+                    }
+                  }
+                });
+              });
+            }
             
             // 同じ name のグループ内で None を選んだら他を外す処理を取り付ける
             document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
@@ -1324,6 +1406,8 @@
             
             // 登録はループ外で一度だけ
             form.addEventListener('submit', submitForm);
+
+            setupOtherCheckboxes();
         });
     </script>
 </body>
