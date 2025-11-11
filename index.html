@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>衣服の購買における金銭感覚の調査</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -22,141 +21,42 @@
             box-sizing: border-box;
             overflow-x: hidden;
         }
-
-        /* orientation-message と survey-container の表示は JS で制御します。 */
-        #orientation-message {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            color: white;
-            font-size: 1.25rem;
-            font-weight: bold;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            z-index: 1000;
-            padding: 1rem;
-        }
-        #survey-container {
-            display: block;
-            max-width: 800px;
-            width: 100%;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1001;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.4);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: #ffffff;
-            margin: auto;
-            padding: 2rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            max-width: 90%;
-            width: 400px;
-        }
-        .close-button {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .survey-page {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-        .survey-page.active {
-            display: block;
-            opacity: 1;
-        }
-        .custom-radio-group {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .custom-radio-item {
-            flex: 1;
-            min-width: 0;
-            position: relative;
-            padding: 0 8px;
-        }
-        .custom-radio-item label {
-            text-align: center;
-            width: 100%;
-            display: block;
-            white-space: normal;
-            word-break: keep-all;
-        }
-        .custom-radio-item:not(:last-child)::after {
-            content: "";
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(30%, -50%);
-            width: 90px;
-            height: 2px;
-            background: #a0aec0;
-            z-index: 0;
-        }
+        #orientation-message { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.9); color:white; font-size:1.25rem; font-weight:bold; justify-content:center; align-items:center; text-align:center; z-index:1000; padding:1rem; }
+        #survey-container { display:block; max-width:800px; width:100%; }
+        .modal { display:none; position:fixed; z-index:1001; left:0; top:0; width:100%; height:100%; overflow:auto; background-color: rgba(0,0,0,0.4); justify-content:center; align-items:center; }
+        .modal-content { background-color:#ffffff; margin:auto; padding:2rem; border-radius:0.75rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); text-align:center; max-width:90%; width:400px; }
+        .survey-page { display:none; opacity:0; transition: opacity 0.5s ease-in-out; }
+        .survey-page.active { display:block; opacity:1; }
+        .custom-radio-group { display:flex; align-items:center; justify-content:center; width:100%; max-width:700px; margin:0 auto; }
+        .custom-radio-item { flex:1; min-width:0; position:relative; padding:0 8px; }
+        .custom-radio-item label { text-align:center; width:100%; display:block; white-space:normal; word-break:keep-all; }
+        .custom-radio-item:not(:last-child)::after { content: ""; position:absolute; top:20%; left:50%; transform:translate(30%, -50%); width:90px; height:2px; background:#a0aec0; z-index:0; }
+        .hidden { display:none !important; }
     </style>
 </head>
 <body>
     <div id="orientation-message" class="hidden">
         <p id="orientation-text">スマホは<span class="text-yellow-400">横画面かつ全画面</span>、パソコンは<span class="text-yellow-400">全画面</span>で回答してください。</p>
-    <!-- <div id="fs-controls" class="mt-6" style="display:flex;gap:8px;justify-content:center;">
-      <button id="enter-fullscreen-button" class="py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">全画面で開始（推奨）</button>
-      <button id="force-allow-desktop" class="py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700">全画面にできない（代替で続行）</button>
-    </div> -->
     </div>
+
     <div id="survey-container" class="bg-white p-8 rounded-lg shadow-xl border border-gray-200 max-w-2xl w-full">
         <h1 id="main-survey-title" class="text-4xl font-extrabold text-gray-900 mb-8 text-center">衣服の購買における金銭感覚の調査</h1>
         <form id="survey-form" class="space-y-6">
-            <!-- Reordered pages: keep all question texts and name attributes unchanged, only sequence adjusted -->
-
-            <!-- ページ0: 表紙ページ (unchanged text/name) -->
+            <!-- ページ0: 表紙 -->
             <div class="survey-page active" data-page="0">
                 <p class="text-gray-700 text-lg mb-10 text-center">
-                    この度は、調査にご協力いただき、ありがとうございます。<br>
-                    <br>
+                    この度は、調査にご協力いただき、ありがとうございます。<br><br>
                     調査対象者は、専門学生・短期大学生・大学生・大学院生・もしくは学生でない18～22歳の方です。<br>
-                    該当しない方・既に回答している方は、ブラウザを閉じてください。<br>
-                    <br>
+                    該当しない方・既に回答している方は、ブラウザを閉じてください。<br><br>
                     【研究代表者】<br>
                     静岡県立大学　経営情報学部　4年　野村優介<br>
                 </p>
                 <div class="flex justify-center mt-12">
-                    <button type="button" onclick="nextPage()" class="py-3 px-10 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
+                    <button type="button" onclick="nextPage()" class="py-3 px-10 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
-            <!-- ページ1: 同意 (unchanged) -->
+            <!-- ページ1: 同意 -->
             <div class="survey-page" data-page="1">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">研究参加への同意</h2>
                 <p class="text-gray-700 mb-8">
@@ -175,235 +75,121 @@
                 <div class="mb-6">
                     <div class="flex items-center space-x-6">
                         <div class="flex items-center">
-                            <input id="agree-radio" name="同意" type="radio" value="同意する" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="agree-radio" class="ml-3 block text-sm text-gray-700">同意する</label>
+                            <input id="agree-radio" name="同意" type="radio" value="同意する" required>
+                            <label for="agree-radio" class="ml-3">同意する</label>
                         </div>
                         <div class="flex items-center">
-                            <input id="disagree-radio" name="同意" type="radio" value="同意しない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="disagree-radio" class="ml-3 block text-sm text-gray-700">同意しない</label>
+                            <input id="disagree-radio" name="同意" type="radio" value="同意しない" required>
+                            <label for="disagree-radio" class="ml-3">同意しない</label>
                         </div>
                     </div>
                 </div>
                 <div class="flex justify-between mt-6">
-                    <button type="button" onclick="prevPage()" class="py-2 px-6 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        戻る
-                    </button>
-                    <button type="button" onclick="nextPageConditional()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
+                    <button type="button" onclick="prevPage()" class="py-2 px-6 rounded-md bg-white border">戻る</button>
+                    <button type="button" onclick="nextPageConditional()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
+            <!-- ページ2: 金銭的教育（親／学校） -->
             <div class="survey-page" data-page="2">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-4">金銭的教育についての質問</h2>
-                <p class="text-gray-700 mb-8">
-                    選択肢の中から、最もあてはまるものを選択してください。
-                </p>
-                <!-- 複数選択：保護者からの経済的支援 -->
+
+                <!-- 親の教育グループ -->
                 <div class="mb-6" id="parent-education-types">
                   <label class="block text-sm font-medium text-gray-700 mb-2">育ての親からどのような方法でお金について教わりましたか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
+                    <div class="flex items-center"><input id="parent_edu_saving" name="親の教育" type="checkbox" value="貯金"><label for="parent_edu_saving" class="ml-3">貯金を習慣づけられた</label></div>
+                    <div class="flex items-center"><input id="parent_edu_way" name="親の教育" type="checkbox" value="使い方"><label for="parent_edu_way" class="ml-3">お金の使い方を自分で考えること</label></div>
+                    <div class="flex items-center"><input id="parent_edu_allowance" name="親の教育" type="checkbox" value="毎月のお小遣い"><label for="parent_edu_allowance" class="ml-3">毎月のお小遣いの管理を自分でさせられた</label></div>
+                    <div class="flex items-center"><input id="parent_edu_shopping" name="親の教育" type="checkbox" value="買い物"><label for="parent_edu_shopping" class="ml-3">実際に買い物に連れていき見本を示した</label></div>
+                    <div class="flex items-center"><input id="parent_edu_verbal" name="親の教育" type="checkbox" value="口頭"><label for="parent_edu_verbal" class="ml-3">お金とは何かを理論的に説明した</label></div>
+                    <div class="flex items-center"><input id="parent_edu_none" name="親の教育" type="checkbox" value="教わっていない"><label for="parent_edu_none" class="ml-3">教わっていない</label></div>
+
+                    <!-- その他（ユニーク id） -->
                     <div class="flex items-center">
-                      <input id="parent_edu_saving" name="親の教育" type="checkbox" value="貯金" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_edu_saving" class="ml-3 block text-sm text-gray-700">貯金を習慣づけられた</label>
+                      <input id="parent_edu_other_cb" name="親の教育" type="checkbox" value="その他" data-has-other="true" data-other-target="parent_edu_other_text">
+                      <label for="parent_edu_other_cb" class="ml-3">その他（具体的に記入してください）</label>
                     </div>
-                    <div class="flex items-center">
-                      <input id="parent_edu_way" name="親の教育" type="checkbox" value="使い方" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_edu_way" class="ml-3 block text-sm text-gray-700">お金の使い方を自分で考えること</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_edu_allowance" name="親の教育" type="checkbox" value="毎月のお小遣い" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_edu_allowance" class="ml-3 block text-sm text-gray-700">毎月のお小遣いの管理を自分でさせられた</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_edu_shopping" name="親の教育" type="checkbox" value="買い物" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_edu_shopping" class="ml-3 block text-sm text-gray-700">実際に買い物に連れていき見本を示した</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_edu_verbal" name="親の教育" type="checkbox" value="口頭" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_edu_verbal" class="ml-3 block text-sm text-gray-700">お金とは何かを理論的に説明した</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_edu_none" name="親の教育" type="checkbox" value="教わっていない" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_edu_none" class="ml-3 block text-sm text-gray-700">教わっていない</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_edu_other" name="親の教育" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
-                      <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他（具体的に記入してください）</label>
-                    </div>
-                    <div id="parent_edu_other_container" class="mt-2 ml-6 hidden">
-                      <input id="parent_edu_other_text" name="親の教育_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
+                    <div id="parent_edu_other_text_container" class="mt-2 ml-6 hidden">
+                      <input id="parent_edu_other_text" name="親の教育_その他" type="text" placeholder="具体的にご記入ください" class="w-full">
                     </div>
                   </div>
                 </div>
-    
+
                 <div class="border-b border-gray-300 my-6 w-full"></div>
-                
-                <!-- 複数選択：保護者からの経済的支援 -->
+
+                <!-- 学校の教育グループ -->
                 <div class="mb-6" id="school-education-types">
                   <label class="block text-sm font-medium text-gray-700 mb-2">学校ではどのような方法でお金について教わりましたか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
+                    <div class="flex items-center"><input id="school_edu_class" name="学校の教育" type="checkbox" value="授業"><label for="school_edu_class" class="ml-3">理論的な概要を授業で</label></div>
+                    <div class="flex items-center"><input id="school_edu_workshop" name="学校の教育" type="checkbox" value="ワークショップ"><label for="school_edu_workshop" class="ml-3">ワークショップや体験学習</label></div>
+                    <div class="flex items-center"><input id="school_edu_trial" name="学校の教育" type="checkbox" value="体験"><label for="school_edu_trial" class="ml-3">職場体験や外部講師の授業</label></div>
+                    <div class="flex items-center"><input id="school_edu_none" name="学校の教育" type="checkbox" value="教わっていない"><label for="school_edu_none" class="ml-3">教わっていない</label></div>
+
+                    <!-- その他（ユニーク id） -->
                     <div class="flex items-center">
-                      <input id="school_edu_class" name="学校の教育" type="checkbox" value="授業" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_edu_class" class="ml-3 block text-sm text-gray-700">理論的な概要を授業で</label>
+                      <input id="school_edu_other_cb" name="学校の教育" type="checkbox" value="その他" data-has-other="true" data-other-target="school_edu_other_text">
+                      <label for="school_edu_other_cb" class="ml-3">その他（具体的に記入してください）</label>
                     </div>
-                    <div class="flex items-center">
-                      <input id="school_edu_workshop" name="学校の教育" type="checkbox" value="学費支援" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_edu_workshop" class="ml-3 block text-sm text-gray-700">ワークショップや体験学習（模擬会計やゲーム）</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="school_edu_trial" name="学校の教育" type="checkbox" value="体験" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_edu_trial" class="ml-3 block text-sm text-gray-700">職場体験や外部講師の授業</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="school_edu_none" name="学校の教育" type="checkbox" value="教わっていない" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_edu_none" class="ml-3 block text-sm text-gray-700">教わっていない</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_edu_other" name="学校の教育" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
-                      <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他（具体的に記入してください）</label>
-                    </div>
-                    <div id="parent_edu_other_container" class="mt-2 ml-6 hidden">
-                      <input id="parent_edu_other_text" name="学校の教育_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
+                    <div id="school_edu_other_text_container" class="mt-2 ml-6 hidden">
+                      <input id="school_edu_other_text" name="学校の教育_その他" type="text" placeholder="具体的にご記入ください" class="w-full">
                     </div>
                   </div>
                 </div>
-            
+
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
+                <!-- 親の教育時期 -->
                 <div class="mb-6" id="parent-education-period">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた育ての親からの金銭的教育はいつ頃行われましたか（該当するものすべて選んでください）</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">育ての親からお金について教わった時期（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
+                    <div class="flex items-center"><input id="parent_teaching_parent_age_1" name="親の教育時期" type="checkbox" value="1"><label for="parent_teaching_parent_age_1" class="ml-3">小学校入学まで</label></div>
+                    <div class="flex items-center"><input id="parent_teaching_parent_age_2" name="親の教育時期" type="checkbox" value="2"><label for="parent_teaching_parent_age_2" class="ml-3">小学校低学年</label></div>
+                    <div class="flex items-center"><input id="parent_teaching_parent_age_3" name="親の教育時期" type="checkbox" value="3"><label for="parent_teaching_parent_age_3" class="ml-3">小学校高学年</label></div>
+                    <div class="flex items-center"><input id="parent_teaching_parent_age_4" name="親の教育時期" type="checkbox" value="4"><label for="parent_teaching_parent_age_4" class="ml-3">中学生</label></div>
+                    <div class="flex items-center"><input id="parent_teaching_parent_age_5" name="親の教育時期" type="checkbox" value="5"><label for="parent_teaching_parent_age_5" class="ml-3">高校生</label></div>
+                    <div class="flex items-center"><input id="parent_teaching_parent_age_99" name="親の教育時期" type="checkbox" value="99"><label for="parent_teaching_parent_age_99" class="ml-3">教わってない</label></div>
+
+                    <!-- その他（ユニーク id） -->
                     <div class="flex items-center">
-                      <input id="parent_teaching_parent_age_1" name="親の教育時期" type="checkbox" value="1" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_teaching_parent_age_1" class="ml-3 block text-sm text-gray-700">小学校入学まで</label>
+                      <input id="parent_period_other_cb" name="親の教育時期" type="checkbox" value="その他" data-has-other="true" data-other-target="parent_period_other_text">
+                      <label for="parent_period_other_cb" class="ml-3">その他（具体的に記入してください）</label>
                     </div>
-                    <div class="flex items-center">
-                      <input id="parent_teaching_parent_age_2" name="親の教育時期" type="checkbox" value="2" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_teaching_parent_age_2" class="ml-3 block text-sm text-gray-700">小学校低学年</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_teaching_parent_age_3" name="親の教育時期" type="checkbox" value="3" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_teaching_parent_age_3" class="ml-3 block text-sm text-gray-700">小学校高学年</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_teaching_parent_age_4" name="親の教育時期" type="checkbox" value="4" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_teaching_parent_age_4" class="ml-3 block text-sm text-gray-700">中学生</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_teaching_parent_age_5" name="親の教育時期" type="checkbox" value="5" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_teaching_parent_age_5" class="ml-3 block text-sm text-gray-700">高校生</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_teaching_parent_age_99" name="親の教育時期" type="checkbox" value="99" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_teaching_parent_age_99" class="ml-3 block text-sm text-gray-700">教わってない</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_edu_other" name="親の教育時期" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
-                      <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他（具体的に記入してください）</label>
-                    </div>
-                    <div id="parent_edu_other_container" class="mt-2 ml-6 hidden">
-                      <input id="parent_edu_other_text" name="親の教育時期_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
+                    <div id="parent_period_other_text_container" class="mt-2 ml-6 hidden">
+                      <input id="parent_period_other_text" name="親の教育時期_その他" type="text" placeholder="具体的にご記入ください" class="w-full">
                     </div>
                   </div>
                 </div>
 
                 <div class="border-b border-gray-300 my-6 w-full"></div>
 
-                <div class="mb-6" id="school_education_period">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた学校での金銭的教育はいつ頃行われましたか（該当するものすべて選んでください）</label>
+                <!-- 学校の教育時期 -->
+                <div class="mb-6" id="school-education-period">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">学校からお金について教わった時期（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
+                    <div class="flex items-center"><input id="school_teaching_parent_age_1" name="学校の教育時期" type="checkbox" value="1"><label for="school_teaching_parent_age_1" class="ml-3">小学校低学年</label></div>
+                    <div class="flex items-center"><input id="school_teaching_parent_age_2" name="学校の教育時期" type="checkbox" value="2"><label for="school_teaching_parent_age_2" class="ml-3">小学校高学年</label></div>
+                    <div class="flex items-center"><input id="school_teaching_parent_age_3" name="学校の教育時期" type="checkbox" value="3"><label for="school_teaching_parent_age_3" class="ml-3">中学生</label></div>
+                    <div class="flex items-center"><input id="school_teaching_parent_age_4" name="学校の教育時期" type="checkbox" value="4"><label for="school_teaching_parent_age_4" class="ml-3">高校生</label></div>
+                    <div class="flex items-center"><input id="school_teaching_parent_age_99" name="学校の教育時期" type="checkbox" value="99"><label for="school_teaching_parent_age_99" class="ml-3">教わってない</label></div>
+
+                    <!-- その他（ユニーク id） -->
                     <div class="flex items-center">
-                      <input id="school_teaching_parent_age_1" name="学校の教育時期" type="checkbox" value="1" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_1" class="ml-3 block text-sm text-gray-700">小学校低学年</label>
+                      <input id="school_period_other_cb" name="学校の教育時期" type="checkbox" value="その他" data-has-other="true" data-other-target="school_period_other_text">
+                      <label for="school_period_other_cb" class="ml-3">その他（具体的に記入してください）</label>
                     </div>
-                    <div class="flex items-center">
-                      <input id="school_teaching_parent_age_2" name="学校の教育時期" type="checkbox" value="2" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_2" class="ml-3 block text-sm text-gray-700">小学校高学年</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="school_teaching_parent_age_3" name="学校の教育時期" type="checkbox" value="3" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_3" class="ml-3 block text-sm text-gray-700">中学生</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="school_teaching_parent_age_4" name="学校の教育時期" type="checkbox" value="4" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_4" class="ml-3 block text-sm text-gray-700">高校生</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="school_teaching_parent_age_99" name="学校の教育時期" type="checkbox" value="99" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="school_teaching_parent_age_99" class="ml-3 block text-sm text-gray-700">教わってない</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_edu_other" name="学校の教育時期" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
-                      <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他（具体的に記入してください）</label>
-                    </div>
-                    <div id="parent_edu_other_container" class="mt-2 ml-6 hidden">
-                      <input id="parent_edu_other_text" name="学校の教育時期_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
+                    <div id="school_period_other_text_container" class="mt-2 ml-6 hidden">
+                      <input id="school_period_other_text" name="学校の教育時期_その他" type="text" placeholder="具体的にご記入ください" class="w-full">
                     </div>
                   </div>
                 </div>
 
+                <!-- 購買頻度など -->
                 <div class="border-b border-gray-300 my-6 w-full"></div>
-
-                <div class="mb-8">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた育ての親からの金銭的教育はどれくらいの頻度で行われましたか</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="parent_edu_freaquency_1" name="親の教育頻度" type="radio" value="一度だけ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="parent_edu_freaquency_1" class="mt-1 block text-sm text-gray-700">一度だけ</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="parent_edu_freaquency_2" name="親の教育頻度" type="radio" value="数回" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="parent_edu_freaquency_2" class="mt-1 block text-sm text-gray-700">数回</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="parent_edu_freaquency_3" name="親の教育頻度" type="radio" value="定期的" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="parent_edu_freaquency_3" class="mt-1 block text-sm text-gray-700">定期的（週一回、月一回など）</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="parent_edu_freaquency_4" name="親の教育頻度" type="radio" value="長期間" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="parent_edu_freaquency_4" class="mt-1 block text-sm text-gray-700">長期間</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="parent_edu_freaquency_99" name="親の教育頻度" type="radio" value="ない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="parent_edu_freaquency_99" class="mt-1 block text-sm text-gray-700">ほとんどなかった</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- 質問間の区切り線 -->
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-
-                <div class="mb-8">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">上で挙げた学校からの金銭的教育はどれくらいの頻度で行われましたか</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="school_edu_freaquency_1" name="学校の教育頻度" type="radio" value="一度だけ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="school_edu_freaquency_1" class="mt-1 block text-sm text-gray-700">一度だけ</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="school_edu_freaquency_2" name="学校の教育頻度" type="radio" value="数回" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="school_edu_freaquency_2" class="mt-1 block text-sm text-gray-700">数回</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="school_edu_freaquency_3" name="学校の教育頻度" type="radio" value="定期的" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="school_edu_freaquency_3" class="mt-1 block text-sm text-gray-700">定期的（週一回、月一回など）</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="school_edu_freaquency_4" name="学校の教育頻度" type="radio" value="長期間" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="school_edu_freaquency_4" class="mt-1 block text-sm text-gray-700">長期間</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="school_edu_freaquency_99" name="学校の教育頻度" type="radio" value="ない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="school_edu_freaquency_99" class="mt-1 block text-sm text-gray-700">ほとんどなかった</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- 質問間の区切り線 -->
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-
                 <div class="mb-6">
                     <label for="purchase-frequency" class="block text-sm font-medium text-gray-700 mb-1">あなたは普段どれくらいの頻度で衣服を購入していますか</label>
-                    <select id="purchase-frequency" name="購買頻度" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 rounded-md shadow-sm" required>
+                    <select id="purchase-frequency" name="購買頻度" required class="mt-1 block w-full">
                         <option value="">選択してください</option>
                         <option value="1ヶ月に1回より多い">1ヶ月に1回より多い</option>
                         <option value="1ヶ月に1回程度">1ヶ月に1回程度</option>
@@ -413,116 +199,58 @@
                     </select>
                 </div>
 
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-                
-                <div class="mb-6">
-                    <label for="single-purchase-amount" class="block text-sm font-medium text-gray-700 mb-1">あなたは一回（一日）の衣服の購買でどれくらいの金額を使用しますか</label>
-                    <select id="single-purchase-amount" name="一回の金額" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 rounded-md shadow-sm" required>
-                        <option value="">選択してください</option>
-                        <option value="3000円以下">3000円以下</option>
-                        <option value="3000～5000円">3000～5000円未満</option>
-                        <option value="5000～7000円">5000～7000円未満</option>
-                        <option value="7000～1万円">7000～1万円未満</option>
-                        <option value="1万円以上">1万円以上</option>
-                    </select>
-                </div>
                 <div class="flex justify-end mt-6">
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out">
-                        次へ
-                    </button>
+                    <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
+            <!-- ページ3: 次のセクション説明 -->
             <div class="survey-page" data-page="3">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">次のセクションについて</h2>
-                <p class="text-gray-700 mb-10">
-                    <!-- 質問の説明 -->
-                    次のセクションでは、<br>
-                    「全くあてはまらない」～「とてもあてまる」の<br>
-                    5つの選択肢から該当するものを選択してください。
-                </p>
-                <div class="mb-6">
-                    <div class="flex items-center">
-                        <input id="illustration" name="質問の説明" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                        <label for="illustration" class="ml-3 block text-sm text-gray-700">確認しました</label>
-                    </div>
-                </div>
+                <h2 class="text-2xl font-semibold">次のセクションについて</h2>
                 <div class="flex justify-end mt-6">
-                    <button type="button" onclick="nextPage()" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">次へ</button>
+                    <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
+            <!-- ページ4: ランダムfamily questions -->
             <div class="survey-page" data-page="4">
-                <div id="random-question-content" class="text-center">
-                </div>
+                <div id="random-question-content" class="text-center"></div>
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
+            <!-- ページ5: シミュレーション説明 -->
             <div class="survey-page" data-page="5">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">衣服の購買シミュレーション説明</h2>
-                <p class="text-gray-700 mb-8">
-                    次のセクションでは衣服の画像と価格、その他の情報が表示されます。<br>
-                    あなたは、その衣服を「買う」か「買わない」かを選択します。<br>
-                    価格が変化するので、あなたが妥当だと感じれば「買う」、<br>
-                    高すぎると感じれば「買わない」選択してください。<br>
-                    ※選択後すぐに、新しい情報へ更新されるため、ボタンを連打しないよう注意してください。
-                </p>
-                <div class="mb-6">
-                    <div class="flex items-center">
-                        <input id="confirmation" name="シミュレーション説明確認" type="radio" value="確認しました" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                        <label for="confirmation" class="ml-3 block text-sm text-gray-700">確認しました</label>
-                    </div>
-                </div>
-
+                <h2 class="text-2xl font-semibold">衣服の購買シミュレーション説明</h2>
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
+            <!-- ページ6: 購買シミュレーション -->
             <div class="survey-page" data-page="6">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">購買シミュレーション</h2>
-                <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
-                    <img id="clothing-image" src="https://github.com/researchforme/my_survey_img/blob/main/%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true" alt="Clothing Item" class="rounded-md shadow-md mb-4 w-full max-w-sm">
-                    <p class="text-xl font-medium text-gray-700 mb-2">種類: <span id="clothing-item-type" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-xl font-medium text-gray-700 mb-2">希少性: <span id="clothing-combination" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-xl font-medium text-gray-700 mb-4">機能性: <span id="clothing-situation" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-xl font-medium text-gray-700 mb-4">品質: <span class="font-semibold text-gray-900">良い</span><p>
-                    <p class="text-xl font-medium text-gray-700 mb-4">メーカーの信用度: <span class="font-semibold text-gray-900">高い</span><p>
-                    <p class="text-2xl font-bold text-gray-900 mb-6">価格: <span id="current-price"></span>円</p>
-                    <div class="flex space-x-4">
-                        <button type="button" id="buy-button" onclick="handlePurchaseChoice('buy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-green-600 hover:bg-green-700">買う</button>
-                        <button type="button" id="dont-buy-button" onclick="handlePurchaseChoice('donotbuy')" class="py-3 px-8 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-red-600 hover:bg-red-700">買わない</button>
+                <h2 class="text-2xl font-semibold">購買シミュレーション</h2>
+                <div class="flex flex-col items-center p-4 bg-gray-50 rounded-lg mb-6">
+                    <img id="clothing-image" src="" alt="Clothing Item" class="mb-4 w-full max-w-sm rounded-md">
+                    <p>種類: <span id="clothing-item-type"></span></p>
+                    <p>希少性: <span id="clothing-combination"></span></p>
+                    <p>機能性: <span id="clothing-situation"></span></p>
+                    <p class="text-2xl font-bold">価格: <span id="current-price"></span>円</p>
+                    <div class="flex space-x-4 mt-4">
+                        <button type="button" id="buy-button" onclick="handlePurchaseChoice('buy')" class="py-2 px-6 rounded-md bg-green-600 text-white">買う</button>
+                        <button type="button" id="dont-buy-button" onclick="handlePurchaseChoice('donotbuy')" class="py-2 px-6 rounded-md bg-red-600 text-white">買わない</button>
                     </div>
                 </div>
             </div>
 
+            <!-- ページ7: 収入等（親の支援に「その他」追加） -->
             <div class="survey-page" data-page="7">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">収入などについての質問</h2>
-                <div class="mb-8">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">奨学金や学費の減額などの支援を、公的な機関から受けている</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="scholarship-yes" name="奨学金" type="radio" value="はい" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="scholarship-yes" class="mt-1 block text-sm text-gray-700">はい</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="scholarship-no" name="奨学金" type="radio" value="いいえ" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="scholarship-no" class="mt-1 block text-sm text-gray-700">いいえ</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="scholarship-was-received" name="奨学金" type="radio" value="以前受けていた" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="scholarship-was-received" class="mt-1 block text-sm text-gray-700">受けていた時期があるが、今は受けていない</label>
-                        </div>
-                    </div>
-                </div>
-                <!-- 質問間の区切り線 -->
-                <div class="border-b border-gray-300 my-6 w-full"></div>
+                <h2 class="text-2xl font-semibold">収入などについての質問</h2>
 
-                <div class="mb-8">
-                    <label for="part-time-income" class="block text-sm font-medium text-gray-700 mb-1">あなたのひと月のアルバイトの収入を教えてください</label>
-                    <select id="part-time-income" name="アルバイトの収入" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
+                <div class="mb-6">
+                    <label for="part-time-income" class="block text-sm font-medium">あなたのひと月のアルバイトの収入を教えてください</label>
+                    <select id="part-time-income" name="アルバイトの収入" required class="mt-1 block w-full">
                         <option value="">選択してください</option>
                         <option value="0">アルバイトをしていない（学生）</option>
                         <option value="1">月5万円未満</option>
@@ -534,189 +262,67 @@
                         <option value="99">アルバイトをしていない（学生でなく、就職していない）</option>
                     </select>
                 </div>
-                <!-- 保護者支援（親の支援） -->
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-                
+
+                <div class="border-b border-gray-300 my-6"></div>
+
+                <!-- 親の支援（ここにその他を追加） -->
                 <div class="mb-6" id="parent-education-expense-support-block">
-                  <label class="block text-sm font-medium text-gray-700 mb-2">保護者からの経済的支援はありますか（該当するものすべて選択してください）</label>
+                  <label class="block text-sm font-medium mb-2">保護者からの経済的支援はありますか（該当するものすべて選択してください）</label>
                   <div class="mt-2 space-y-2">
+                    <div class="flex items-center"><input id="parent_support_rent" name="親の支援" type="checkbox" value="家賃補助"><label for="parent_support_rent" class="ml-3">家賃補助</label></div>
+                    <div class="flex items-center"><input id="parent_support_tuition" name="親の支援" type="checkbox" value="学費支援"><label for="parent_support_tuition" class="ml-3">学費支援</label></div>
+                    <div class="flex items-center"><input id="parent_support_allowance" name="親の支援" type="checkbox" value="毎月のお小遣い"><label for="parent_support_allowance" class="ml-3">毎月の使い道が自由な仕送り</label></div>
+                    <div class="flex items-center"><input id="parent_support_occasional" name="親の支援" type="checkbox" value="代わりに買う"><label for="parent_support_occasional" class="ml-3">必要なものを代わりに買ってくれる</label></div>
+                    <div class="flex items-center"><input id="parent_support_none" name="親の支援" type="checkbox" value="支援なし"><label for="parent_support_none" class="ml-3">支援なし</label></div>
+
+                    <!-- 親の支援の「その他」 -->
                     <div class="flex items-center">
-                      <input id="parent_support_rent" name="親の支援" type="checkbox" value="家賃補助" required class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_rent" class="ml-3 block text-sm text-gray-700">家賃補助</label>
+                      <input id="parent_support_other_cb" name="親の支援" type="checkbox" value="その他" data-has-other="true" data-other-target="parent_support_other_text">
+                      <label for="parent_support_other_cb" class="ml-3">その他（具体的に記入してください）</label>
                     </div>
-                    <div class="flex items-center">
-                      <input id="parent_support_tuition" name="親の支援" type="checkbox" value="学費支援" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_tuition" class="ml-3 block text-sm text-gray-700">学費支援</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_support_allowance" name="親の支援" type="checkbox" value="毎月のお小遣い" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_allowance" class="ml-3 block text-sm text-gray-700">毎月の使い道が自由な仕送り</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_support_occasional" name="親の支援" type="checkbox" value="代わりに買う" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_occasional" class="ml-3 block text-sm text-gray-700">必要なものを代わりに買ってくれる</label>
-                    </div>
-                    <div class="flex items-center">
-                      <input id="parent_support_none" name="親の支援" type="checkbox" value="支援なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                      <label for="parent_support_none" class="ml-3 block text-sm text-gray-700">支援なし</label>
+                    <div id="parent_support_other_text_container" class="mt-2 ml-6 hidden">
+                      <input id="parent_support_other_text" name="親の支援_その他" type="text" placeholder="具体的にご記入ください" class="w-full">
                     </div>
                   </div>
                 </div>
 
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-
-                <div class="mb-6">
-                    <label for="parent_income_level" class="block text-sm font-medium text-gray-700 mb-1">保護者（世帯）の年間収入（世帯合算）に最も近いものを選んでください。</label>
-                    <select id="parent_income_level" name="保護者の年収" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
-                        <option value="">選択してください</option>
-                        <option value="1">300万円未満</option>
-                        <option value="2">300～500万円未満</option>
-                        <option value="3">500万円～700万円未満</option>
-                        <option value="4">700万円～1000万円未満</option>
-                        <option value="5">1000万円以上</option>
-                        <option value="99">回答しない・わからない</option>
-                    </select>
-                </div>
-
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-
-                <div class="mb-6">
-                    <label for="allowance_amount" class="block text-sm font-medium text-gray-700 mb-1">あなたが毎月受け取る使い道が自由な仕送りの額はどれくらいですか</label>
-                    <select id="allowance_amount" name="毎月の仕送り" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm" required>
-                        <option value="">選択してください</option>
-                        <option value="1">1万円未満</option>
-                        <option value="2">1万円～3万円未満</option>
-                        <option value="3">3万円～5万円未満</option>
-                        <option value="4">5万円以上</option>
-                        <option value="99">受け取っていない</option>
-                    </select>
-                </div>
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
+            <!-- ページ8: 基本情報 -->
             <div class="survey-page" data-page="8">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-4">基本情報</h2>
-                <!-- 質問1: 年齢 -->
+                <h2 class="text-2xl font-semibold">基本情報</h2>
                 <div class="mb-6">
-                    <label for="age" class="block text-sm font-medium text-gray-700 mb-1">あなたの年齢を入力してください（半角数字）</label>
-                    <input type="number" id="age" name="年齢" class="mt-1 block w-full rounded-md border border-gray-400 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                    <label for="age" class="block text-sm font-medium">あなたの年齢を入力してください（半角数字）</label>
+                    <input type="number" id="age" name="年齢" required class="mt-1 block w-full rounded-md border">
                 </div>
-
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-                <!-- 質問2: 性別 -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">あなたの性別を選択してください</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="gender-male" name="性別" type="radio" value="男性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="gender-male" class="ml-3 block text-sm text-gray-700">男性</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="gender-female" name="性別" type="radio" value="女性" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="gender-female" class="ml-3 block text-sm text-gray-700">女性</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="gender-other" name="性別" type="radio" value="その他" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="gender-other" class="ml-3 block text-sm text-gray-700">その他</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-                <!-- 質問3: 所属 -->
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">あなたの現在の所属を教えてください</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="affiliation-spec-college" name="所属" type="radio" value="専門学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-spec-college" class="ml-3 block text-sm text-gray-700">専門学生</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="affiliation-jr-college" name="所属" type="radio" value="短期大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-jr-college" class="ml-3 block text-sm text-gray-700">短期大学生</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="affiliation-university" name="所属" type="radio" value="大学生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-university" class="ml-3 block text-sm text-gray-700">大学生</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="affiliation-grad" name="所属" type="radio" value="大学院生" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-grad" class="ml-3 block text-sm text-gray-700">大学院生</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="affiliation-other" name="所属" type="radio" value="学生ではない" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="affiliation-other" class="ml-3 block text-sm text-gray-700">学生ではない</label>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="border-b border-gray-300 my-6 w-full"></div>
-                
-                
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">現在の所属世帯を教えてください</label>
-                    <div class="mt-2 space-y-2">
-                        <div class="flex items-center">
-                            <input id="household-live-with-parents" name="所属世帯" type="radio" value="実家暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="household-live-with-parents" class="mt-1 block text-sm text-gray-700">出生から今日まで実家暮らし</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="household-live-alone-hs" name="所属世帯" type="radio" value="高校生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="household-live-alone-hs" class="mt-1 block text-sm text-gray-700">高校生から一人暮らし</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="household-live-alone-univ" name="所属世帯" type="radio" value="大学生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="household-live-alone-univ" class="mt-1 block text-sm text-gray-700">大学生から一人暮らし</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="household-live-alone-grad" name="所属世帯" type="radio" value="大学院生から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="household-live-alone-grad" class="mt-1 block text-sm text-gray-700">大学院生から一人暮らし</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="household-live-alone-work" name="所属世帯" type="radio" value="就職から一人暮らし" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="household-live-alone-work" class="mt-1 block text-sm text-gray-700">就職してから一人暮らし</label>
-                        </div>
-                        <div class="flex items-center">
-                            <input id="household-returned-home" name="所属世帯" type="radio" value="一人暮らしから実家暮らしに戻っている" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                            <label for="household-returned-home" class="mt-1 block text-sm text-gray-700">一人暮らしの時期があったが、現在は実家暮らしに戻っている</label>
-                        </div>
-                    </div>
-                </div>
+                <!-- 性別 / 所属 / 所属世帯 など（省略表示） -->
                 <div class="flex justify-end mt-6">
                     <button type="button" onclick="nextPage()" class="py-2 px-6 rounded-md bg-indigo-600 text-white">次へ</button>
                 </div>
             </div>
 
+            <!-- ページ9: 完了 -->
             <div class="survey-page" data-page="9">
-                <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">調査完了</h2>
-                <p class="text-gray-700 mb-8 text-center text-xl font-bold">
-                    調査は以上です。<br>
-                    「回答を送信」を押してください。</p>
+                <h2 class="text-2xl font-semibold text-center">調査完了</h2>
+                <p class="text-center font-bold">調査は以上です。回答を送信してください。</p>
                 <div class="flex justify-center mt-6">
-                    <button type="submit" id="submit-button-final" class="py-2 px-6 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                        回答を送信
-                    </button>
+                    <button type="submit" id="submit-button-final" class="py-2 px-6 rounded-md bg-indigo-600 text-white">回答を送信</button>
                 </div>
             </div>
-
         </form>
     </div>
+
     <div id="statusModal" class="modal">
         <div class="modal-content">
-            <p id="modal-message" class="text-lg font-semibold text-gray-800"></p>
-            <div id="loading-spinner" class="hidden mt-4">
-                <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-            </div>
-            <button id="modal-close-button" class="mt-6 py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition duration-150 ease-in-out hidden">
-                閉じる
-            </button>
+            <p id="modal-message"></p>
+            <div id="loading-spinner" class="hidden mt-4">送信中...</div>
+            <button id="modal-close-button" class="hidden mt-6 py-2 px-4 bg-indigo-600 text-white rounded-md">閉じる</button>
         </div>
     </div>
+
     <script>
         const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx-eu-h9B5aFMiPpR2nOGF1gOUVc-IqPHlFUp0qJyFuuVcr7WjQCh-A5QySKPc35c94/exec';
 
@@ -737,112 +343,25 @@
         const clothingCombinationSpan = document.getElementById('clothing-combination');
         const clothingSituationSpan = document.getElementById('clothing-situation');
 
-        const formalJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%882.png?raw=true";
-        const casualJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%82%AB%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true";
-
         const allClothingSimulationsData = [
-            { id: "sim_formal_high_high", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "高い", situation: "高い" },
-            { id: "sim_formal_high_normal", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "高い", situation: "普通" },
-            { id: "sim_formal_normal_high", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "普通", situation: "高い" },
-            { id: "sim_formal_normal_normal", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "普通", situation: "普通" },
-            { id: "sim_casual_high_high", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "高い", situation: "高い" },
-            { id: "sim_casual_high_normal", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "高い", situation: "普通" },
-            { id: "sim_casual_normal_high", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "普通", situation: "高い" },
-            { id: "sim_casual_normal_normal", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "普通", situation: "普通" },
+            { id: "sim_formal_high_high", itemType: "フォーマルなジャケット", combination: "高い", situation: "高い", imageUrl: "" },
+            { id: "sim_casual_normal_normal", itemType: "カジュアルなジャケット", combination: "普通", situation: "普通", imageUrl: "" },
         ];
 
         const familyQuestionsData = [
-            {
-                title: "自分の実家は裕福だと感じる",
-                name: "裕福",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                ]
-            },
-            {
-                title: "育ての親は倹約家である",
-                name: "親は倹約",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                ]
-            },
-            {
-                title: "育ての親はファッションに関心がある",
-                name: "親ファッション",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                ]
-            },
-            {
-                title: "幼少期から高校生の期間、お金を上手く活用するように教えられた",
-                name: "活用",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                ]
-            },
-            {
-                title: "幼少期から高校生の期間、欲しいものは何でも買ってもらえた",
-                name: "欲しいものは何でも",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                ]
-            },
-            {
-                title: "幼少期から高校生の期間、欲しいものを買ってもらうにはルールがあった<br>（良い成績を取る、お手伝いをするなど）",
-                name: "ルール",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                ]
-            },
-            {
-                title: "幼少期から高校生の期間、理由があれば欲しいものを買ってもらえた",
-                name: "理由",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                ]
-            },
-            {
-                title: "幼少期から高校生の期間、自分のお小遣いで買ったものが不要なものだと言われた",
-                name: "不要",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                ]
-            },
-            {
-                title: "服を買うとき、育ての親の意見に影響される",
-                name: "親の意見",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                    ]
-            },
-            {
-                title: "保護者からの金銭教育は現在のあなたの金銭管理に役立っていると感じる",
-                name: "親役立つ",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                    ]
-            },
-            {
-                title: "学校からの金銭教育は現在のあなたの金銭管理に役立っていると感じる",
-                name: "学校役立つ",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                    ]
-            },
-            {
-                title: "自分は計画的な金銭管理ができていると感じる",
-                name: "計画的",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                    ]
-            },
-            {
-                title: "「あてはまる」を選択してください",
-                name: "トラップ",
-                options: [
-                    "全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"
-                    ]
-            }
+            { title: "自分の実家は裕福だと感じる", name: "裕福", options: ["全くあてはまらない","あてはまらない","どちらともいえない","あてはまる","とてもあてまる"] },
+            { title: "育ての親は倹約家である", name: "親は倹約", options: ["全くあてはまらない","あてはまらない","どちらともいえない","あてはまる","とてもあてまる"] },
+            { title: "育ての親はファッションに関心がある", name: "親ファッション", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"] },
+            { title: "幼少期から高校生の期間、お金を上手く活用するように教えられた", name: "活用", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"] },
+            { title: "幼少期から高校生の期間、欲しいものは何でも買ってもらえた",name: "欲しいものは何でも", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
+            { title: "幼少期から高校生の期間、欲しいものを買ってもらうにはルールがあった<br>（良い成績を取る、お手伝いをするなど）", name: "ルール", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
+            { title: "幼少期から高校生の期間、理由があれば欲しいものを買ってもらえた",name: "理由", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"] },},
+            { title: "幼少期から高校生の期間、自分のお小遣いで買ったものが不要なものだと言われた", name: "不要", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
+            { title: "服を買うとき、育ての親の意見に影響される", name: "親の意見", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
+            { title: "保護者からの金銭教育は現在のあなたの金銭管理に役立っていると感じる", name: "親役立つ", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"] },
+            { title: "学校からの金銭教育は現在のあなたの金銭管理に役立っていると感じる", name: "学校役立つ", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
+            { title: "自分は計画的な金銭管理ができていると感じる", name: "計画的", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
+            { title: "「あてはまる」を選択してください", name: "トラップ", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"] }
         ];
 
         let shuffledClothingSimulations = [];
@@ -850,8 +369,8 @@
         let currentSimulationData = null;
 
         let currentPageIndex = 0;
-        let clothingPrice = 1000;
-        let lastChoice = null; // 'buy' or 'donotbuy' or null
+        let clothingPrice = 0;
+        let lastChoice = null;
         let surveyAnswers = {};
 
         let shuffledFamilyQuestionIndices = [];
@@ -865,107 +384,82 @@
         const orientationText = document.getElementById('orientation-text');
         const surveyContainer = document.getElementById('survey-container');
 
-        // priceHistory: 配列要素は { price: number, bounds: { high: number, low: number } | null }
-        // bounds が存在する場合、その価格は (high + low) / 2 で生成されたことを示す
         let priceHistory = [];
 
-        // ----- orientation control -----
-        function isSmartphone() {
-            return /Mobi|Android|iPhone|iPod/.test(navigator.userAgent);
-        }
-        function isLandscape() {
-            return window.innerWidth >= window.innerHeight;
-        }
+        // orientation control
+        function isSmartphone() { return /Mobi|Android|iPhone|iPod/.test(navigator.userAgent); }
+        function isLandscape() { return window.innerWidth >= window.innerHeight; }
         const PORTRAIT_FROM_PAGE = 6;
 
         function checkOrientationRequirement() {
             if (!isSmartphone()) {
-                if (isLandscape()) {
-                    orientationMessage.style.display = 'none';
-                    surveyContainer.style.display = 'block';
-                } else {
-                    orientationText.innerHTML = 'パソコンで回答する場合は、ブラウザを横向き（横幅いっぱい・全画面）にしてから続けてください。';
-                    orientationMessage.style.display = 'flex';
-                    surveyContainer.style.display = 'none';
-                }
+                if (isLandscape()) { orientationMessage.style.display = 'none'; surveyContainer.style.display = 'block'; }
+                else { orientationText.innerHTML = 'パソコンは横向きで続けてください。'; orientationMessage.style.display = 'flex'; surveyContainer.style.display = 'none'; }
                 return;
             }
-
             const requiresPortrait = currentPageIndex >= PORTRAIT_FROM_PAGE;
             if (requiresPortrait) {
-                if (isLandscape()) {
-                    orientationText.innerHTML = 'この先は<span class="text-yellow-400">縦画面</span>で回答してください。スマホを縦向きにしてください。';
-                    orientationMessage.style.display = 'flex';
-                    surveyContainer.style.display = 'none';
-                } else {
-                    orientationMessage.style.display = 'none';
-                    surveyContainer.style.display = 'block';
-                }
+                if (isLandscape()) { orientationText.innerHTML = 'この先は縦画面で回答してください。'; orientationMessage.style.display = 'flex'; surveyContainer.style.display = 'none'; }
+                else { orientationMessage.style.display = 'none'; surveyContainer.style.display = 'block'; }
             } else {
-                if (isLandscape()) {
-                    orientationMessage.style.display = 'none';
-                    surveyContainer.style.display = 'block';
-                } else {
-                    orientationText.innerHTML = 'スマホで回答する場合は<span class="text-yellow-400">横画面</span>にしてから続けてください。';
-                    orientationMessage.style.display = 'flex';
-                    surveyContainer.style.display = 'none';
-                }
+                if (isLandscape()) { orientationMessage.style.display = 'none'; surveyContainer.style.display = 'block'; }
+                else { orientationText.innerHTML = 'スマホは横画面で回答してください。'; orientationMessage.style.display = 'flex'; surveyContainer.style.display = 'none'; }
             }
         }
 
-        // ---- existing helpers ----
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+        function shuffleArray(array) { for (let i = array.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [array[i], array[j]] = [array[j], array[i]]; } }
 
         function updatePageDisplay() {
-            surveyPages.forEach((page, index) => {
-                if (index === currentPageIndex) {
-                    page.classList.add('active');
-                } else {
-                    page.classList.remove('active');
-                }
-            });
+            surveyPages.forEach((page, index) => { if (index === currentPageIndex) page.classList.add('active'); else page.classList.remove('active'); });
 
-            if (currentPageIndex === 0 || currentPageIndex === 9) {
-                mainSurveyTitle.classList.remove('hidden');
-            } else {
-                mainSurveyTitle.classList.add('hidden');
-            }
-            // ページ表示処理の中（updatePageDisplay など）
+            if (currentPageIndex === 0 || currentPageIndex === 9) mainSurveyTitle.classList.remove('hidden'); else mainSurveyTitle.classList.add('hidden');
+
+            // Restore saved parent support (page7)
             if (currentPageIndex === 7) {
                 const saved = surveyAnswers['親の支援'];
                 if (Array.isArray(saved)) {
-                    document.querySelectorAll('input[name="parent_support_types"]').forEach(cb => cb.checked = false);
+                    // clear existing
+                    document.querySelectorAll('input[name="親の支援"]').forEach(cb => cb.checked = false);
                     const allCbs = document.querySelectorAll('input[name="親の支援"]');
                     saved.forEach(val => {
-                        for (const cb of allCbs) {
-                            if (cb.value === val) { cb.checked = true; break; }
-                        }
+                        // If saved entry is "その他: text", handle separately below
+                        if (typeof val === 'string' && val.startsWith('その他:')) return;
+                        for (const cb of allCbs) { if (cb.value === val) { cb.checked = true; break; } }
                     });
+                    // restore その他 if present
+                    const otherEntry = saved.find(s => typeof s === 'string' && s.startsWith('その他:'));
+                    if (otherEntry) {
+                        const otherText = otherEntry.replace(/^その他:\s*/, '');
+                        const otherCb = document.querySelector('input[name="親の支援"][value="その他"]');
+                        if (otherCb) {
+                            otherCb.checked = true;
+                            const txtId = otherCb.dataset.otherTarget || 'parent_support_other_text';
+                            const txtEl = document.getElementById(txtId);
+                            const container = document.getElementById(txtId + '_container');
+                            if (container) container.classList.remove('hidden');
+                            if (txtEl) txtEl.value = otherText;
+                        }
+                    }
                 }
             }
+
+            // Random family question page (page4)
             if (currentPageIndex === 4) {
                 if (shuffledFamilyQuestionIndices.length === 0) {
                     shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
                     shuffleArray(shuffledFamilyQuestionIndices);
                     currentFamilyQuestionIndexInShuffledOrder = 0;
                 }
-
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
                 const questionData = familyQuestionsData[originalQuestionIndex];
-
                 randomQuestionContainer.innerHTML = `
-                    <h2 class="text-2xl font-semibold text-gray-800 mb-6">${questionData.title}</h2>
+                    <h2 class="text-2xl font-semibold mb-6">${questionData.title}</h2>
                     <div class="mb-10">
                         <div class="flex items-center justify-center gap-0 custom-radio-group">
                             ${questionData.options.map((option, idx) => `
                                 <div class="flex flex-col items-center flex-1 relative custom-radio-item">
-                                    <input id="${questionData.name}-${idx}" name="${questionData.name}_${originalQuestionIndex}" type="radio" value="${option}" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded-full" required>
-                                    <label for="${questionData.name}-${idx}" class="mt-1 block text-sm text-gray-700">${option}</label>
+                                    <input id="${questionData.name}-${idx}" name="${questionData.name}_${originalQuestionIndex}" type="radio" value="${option}">
+                                    <label for="${questionData.name}-${idx}" class="mt-1 block text-sm">${option}</label>
                                 </div>
                             `).join('')}
                         </div>
@@ -977,18 +471,28 @@
                     if (radio) radio.checked = true;
                 }
             } else {
-                if (randomQuestionContainer) {
-                    randomQuestionContainer.innerHTML = '';
-                }
+                if (randomQuestionContainer) randomQuestionContainer.innerHTML = '';
             }
-            
-            if (currentPageIndex === 6) {
-                startClothingPurchaseSimulation();
-            }
+
+            // start simulation when arriving at page6
+            if (currentPageIndex === 6) startClothingPurchaseSimulation();
 
             checkOrientationRequirement();
-
             window.scrollTo(0, 0);
+        }
+
+        // validation including "その他" text requirement
+        function validateOtherTextFields(currentPage) {
+          const otherCheckboxes = currentPage.querySelectorAll('input[type="checkbox"][data-has-other="true"]');
+          for (const cb of otherCheckboxes) {
+            const otherId = cb.dataset.otherTarget;
+            if (!otherId) continue;
+            const textEl = document.getElementById(otherId);
+            if (cb.checked) {
+              if (!textEl || String(textEl.value || '').trim() === '') return false;
+            }
+          }
+          return true;
         }
 
         function validatePage() {
@@ -999,83 +503,50 @@
                 if (element.type === 'radio') {
                     const radioGroup = currentPage.querySelectorAll(`input[name="${element.name}"]`);
                     const isGroupChecked = Array.from(radioGroup).some(radio => radio.checked);
-                    if (!isGroupChecked) {
-                        isValid = false;
-                        break;
-                    }
+                    if (!isGroupChecked) { isValid = false; break; }
                 } else if (element.type === 'checkbox') {
-                    // チェックボックスは同じ name のグループで 1 個以上選ばれていることを要求
                     const checkboxGroup = currentPage.querySelectorAll(`input[name="${element.name}"]`);
                     const isGroupChecked = Array.from(checkboxGroup).some(cb => cb.checked);
-                    if (!isGroupChecked) {
-                        isValid = false;
-                        break;
-                    }
+                    if (!isGroupChecked) { isValid = false; break; }
                 } else if (element.type === 'number' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA' || element.type === 'text') {
-                    if (element.value.trim() === '') {
-                        isValid = false;
-                        break;
-                    }
+                    if (String(element.value || '').trim() === '') { isValid = false; break; }
                 }
             }
+            if (isValid && !validateOtherTextFields(currentPage)) isValid = false;
             return isValid;
-
-            // validatePage() 内で既存チェックの後に:
-            if (!validateOtherTextFields(currentPage)) return false;
-
-            // 追加：各 "その他" チェックが選ばれているのにテキストが空なら invalid とする
-            function validateOtherTextFields(currentPage) {
-              const otherCheckboxes = currentPage.querySelectorAll('input[type="checkbox"][data-has-other="true"]');
-              for (const cb of otherCheckboxes) {
-                const otherId = cb.dataset.otherTarget;
-                if (!otherId) continue;
-                const textEl = document.getElementById(otherId);
-                if (cb.checked) {
-                  if (!textEl || String(textEl.value || '').trim() === '') {
-                    return false;
-                  }
-                }
-              }
-              return true;
-            }
         }
 
         function nextPage() {
-            if (currentPageIndex === 0) {
-                currentPageIndex = 1;
-                updatePageDisplay();
-                return;
-            }
-            if (currentPageIndex === 1) {
-                nextPageConditional();
-                return;
-            }
+            if (currentPageIndex === 0) { currentPageIndex = 1; updatePageDisplay(); return; }
+            if (currentPageIndex === 1) { nextPageConditional(); return; }
 
-            if (!validatePage()) {
-                showModal('すべての質問に回答してください。', false);
-                return;
-            }
-            // nextPage() の該当箇所（currentPageIndex が 5 のとき）
+            if (!validatePage()) { showModal('すべての質問に回答してください。', false); return; }
+
+            // save parent support on page7 before advancing
             if (currentPageIndex === 7) {
-                // チェックされたものを配列で取得
-                const selected = Array.from(document.querySelectorAll('input[name="親の支援"]:checked'))
-                                      .map(el => el.value);
-                // 保存（配列で保存しておけば後から復元・解析しやすい）
+                const selected = Array.from(document.querySelectorAll('input[name="親の支援"]:checked')).map(el => el.value);
+                const otherCb = document.querySelector('input[name="親の支援"][value="その他"]');
+                if (otherCb && otherCb.checked) {
+                    const otherText = (document.getElementById(otherCb.dataset.otherTarget || 'parent_support_other_text')?.value || '').trim();
+                    if (otherText) selected.push(`その他: ${otherText}`);
+                }
                 surveyAnswers['親の支援'] = selected;
             }
+
+            // save random family question answers on page4
             if (currentPageIndex === 4) {
                 const originalQuestionIndex = shuffledFamilyQuestionIndices[currentFamilyQuestionIndexInShuffledOrder];
                 const questionData = familyQuestionsData[originalQuestionIndex];
                 const selectedAnswer = document.querySelector(`input[name="${questionData.name}_${originalQuestionIndex}"]:checked`);
-                if (selectedAnswer) {
-                    surveyAnswers[`${questionData.name}_${originalQuestionIndex}`] = selectedAnswer.value;
-                }
+                if (selectedAnswer) surveyAnswers[`${questionData.name}_${originalQuestionIndex}`] = selectedAnswer.value;
                 if (currentFamilyQuestionIndexInShuffledOrder < familyQuestionsData.length - 1) {
                     currentFamilyQuestionIndexInShuffledOrder++;
                 } else {
-                    currentPageIndex = 5;
+                    currentPageIndex = 5; // after random questions go to simulation description
                     shuffledFamilyQuestionIndices = [];
                     currentFamilyQuestionIndexInShuffledOrder = 0;
+                    updatePageDisplay();
+                    return;
                 }
             } else {
                 currentPageIndex++;
@@ -1085,30 +556,14 @@
 
         function nextPageConditional() {
             const consentValue = document.querySelector('input[name="同意"]:checked')?.value;
-            if (!consentValue) {
-                showModal('研究参加への同意を選択してください。', false);
-                return;
-            }
-            if (consentValue === '同意する') {
-                currentPageIndex = 2;
-                updatePageDisplay();
-            }
-            else if (consentValue === '同意しない') {
-                currentPageIndex = 0;
-                updatePageDisplay();
-                showModal('調査以上です。<br>もしよろしければ、お知り合いにもアンケートを共有して頂けると幸いです。<br>ご協力ありがとうございました。<br>【アンケートフォームURL】<br>https://researchforme.github.io/test/', false);
-            } else {
-                showModal('選択肢に問題があります。再度お試しください。', false);
-            }
+            if (!consentValue) { showModal('研究参加への同意を選択してください。', false); return; }
+            if (consentValue === '同意する') { currentPageIndex = 2; updatePageDisplay(); }
+            else { currentPageIndex = 0; updatePageDisplay(); showModal('調査は終了しました。', false); }
         }
 
-        function prevPage() {
-            if (currentPageIndex > 0) {
-                currentPageIndex--;
-                updatePageDisplay();
-            }
-        }
+        function prevPage() { if (currentPageIndex > 0) { currentPageIndex--; updatePageDisplay(); } }
 
+        // Simulation init
         function startClothingPurchaseSimulation() {
             if (shuffledClothingSimulations.length === 0) {
                 shuffledClothingSimulations = allClothingSimulationsData.slice();
@@ -1116,172 +571,112 @@
                 currentSimulationRoundIndex = 0;
             }
             currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
-
-            initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 20000 :
-                           (currentSimulationData.itemType === "フォーマルなジャケット") ? 40000 : 1000;
+            initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 5000 : 20000;
+                            (currentSimulationData.itemType === "フォーマルなジャケット") ? 40000 : 1000;
             clothingPrice = initialPrice;
             finished = false;
             lastChoice = null;
-            // 初期履歴（bounds は null）
             priceHistory = [{ price: clothingPrice, bounds: null }];
             updateClothingPriceAndImage();
-            buyButton.disabled = false;
-            dontBuyButton.disabled = false;
-            buyButton.classList.remove('hidden');
-            dontBuyButton.classList.remove('hidden');
+            if (buyButton) buyButton.disabled = false;
+            if (dontBuyButton) dontBuyButton.disabled = false;
+            if (buyButton) buyButton.classList.remove('hidden');
+            if (dontBuyButton) dontBuyButton.classList.remove('hidden');
         }
 
         function updateClothingPriceAndImage() {
-            currentPriceSpan.textContent = clothingPrice.toLocaleString();
+            const price = (clothingPrice || 0);
+            const el = document.getElementById('current-price');
+            if (el) el.textContent = price.toLocaleString();
             if (currentSimulationData) {
-                clothingImage.src = currentSimulationData.imageUrl;
-                clothingItemTypeSpan.textContent = currentSimulationData.itemType;
-                clothingCombinationSpan.textContent = currentSimulationData.combination;
-                clothingSituationSpan.textContent = currentSimulationData.situation;
-                clothingImage.onerror = () => {
-                    clothingImage.src = "https://placehold.co/300x300/ff0000/ffffff?text=Error";
-                    clothingImage.alt = "Error loading image";
-                };
-            } else {
-                clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Data";
-                clothingImage.alt = "No simulation data";
-                clothingItemTypeSpan.textContent = "N/A";
-                clothingCombinationSpan.textContent = "N/A";
-                clothingSituationSpan.textContent = "N/A";
+                if (clothingImage && currentSimulationData.imageUrl) clothingImage.src = currentSimulationData.imageUrl;
+                if (clothingItemTypeSpan) clothingItemTypeSpan.textContent = currentSimulationData.itemType || '';
+                if (clothingCombinationSpan) clothingCombinationSpan.textContent = currentSimulationData.combination || '';
+                if (clothingSituationSpan) clothingSituationSpan.textContent = currentSimulationData.situation || '';
             }
         }
 
-        // ---------- 改良した価格遷移ロジック（履歴 + bounds ベース） ----------
+        // Price transition logic (keeps "other" logic intact) - simplified but consistent
         function handlePurchaseChoice(choice) {
             if (finished) return;
-
-            // 現在の表示価格（直前に表示されている価格）
             const currentEntry = priceHistory[priceHistory.length - 1];
             const currentPrice = currentEntry.price;
-
-            // 終了判定（百の位が5）
             const currentHundredsDigit = Math.floor(Math.abs(currentPrice) / 100) % 10;
             if (currentHundredsDigit === 5) {
                 const finalChoiceText = (choice === 'buy') ? '買う' : '買わない';
                 surveyAnswers[`${currentSimulationData.id}_最終結果`] = `${currentPrice}円で${finalChoiceText}`;
-                buyButton.disabled = true;
-                dontBuyButton.disabled = true;
-                buyButton.classList.add('hidden');
-                dontBuyButton.classList.add('hidden');
+                if (buyButton) buyButton.disabled = true;
+                if (dontBuyButton) dontBuyButton.disabled = true;
+                if (buyButton) buyButton.classList.add('hidden');
+                if (dontBuyButton) dontBuyButton.classList.add('hidden');
                 finished = true;
-                // 次へ（少し遅延して次セット or 終了）
-                if (currentSimulationRoundIndex < allClothingSimulationsData.length - 1) {
+                if (currentSimulationRoundIndex < shuffledClothingSimulations.length - 1) {
                     currentSimulationRoundIndex++;
                     setTimeout(startClothingPurchaseSimulation, 300);
                 } else {
-                    currentPageIndex = 7;
+                    currentPageIndex = 7; // go to page7 after all simulation rounds
                     setTimeout(updatePageDisplay, 300);
                 }
                 return;
             }
 
-            // 新しい価格を計算する
             let newPrice = currentPrice;
-            let newBounds = null; // デフォルトは null（bounds が設定されるのは中央値を計算した場合）
-
-            // 1) currentEntry が bounds を持つ（現在値が「A と B の中央値」として生成されている）場合：
-            //    - choice === 'buy' なら current と bounds.high を参照して中央値を計算
-            //    - choice === 'donotbuy' なら current と bounds.low を参照して中央値を計算
+            let newBounds = null;
             if (currentEntry.bounds) {
                 const high = currentEntry.bounds.high;
                 const low = currentEntry.bounds.low;
                 if (choice === 'buy') {
+                    let diff = Math.max(1, Math.abs(currentPrice - high));
+                    let half = Math.max(1, Math.floor(diff / 2));
+                    newPrice = Math.floor(Math.max(currentPrice, high) - half * (Math.max(currentPrice, high) === currentPrice ? -1 : 1));
+                    // simpler: move toward high by half gap from current
                     newPrice = Math.floor((currentPrice + high) / 2);
-                    // 新しい bounds は (high, current) の間
                     newBounds = { high: Math.max(high, currentPrice), low: Math.min(high, currentPrice) };
-                } else { // 'donotbuy'
+                } else {
                     newPrice = Math.floor((currentPrice + low) / 2);
                     newBounds = { high: Math.max(currentPrice, low), low: Math.min(currentPrice, low) };
                 }
             } else {
-                // 2) currentEntry に bounds がない（通常の値：初期・倍増・半額で出てきた値）
-                //    - lastChoice が null または 同方向の場合は「買う=2倍」「買わない=半額（下限2500円）」を実行
-                //    - 方向切替（lastChoice != choice）の場合は、「current と その一つ前の価格」の中央値を計算して newBounds を設定
                 const prevEntry = priceHistory.length >= 2 ? priceHistory[priceHistory.length - 2] : null;
                 if (lastChoice === null || lastChoice === choice) {
-                    if (choice === 'buy') {
-                        newPrice = currentPrice * 2;
-                        newBounds = null;
-                    } else { // 'donotbuy'
-                        newPrice = Math.max(Math.floor(currentPrice / 2), 2500);
-                        newBounds = null;
-                    }
+                    if (choice === 'buy') newPrice = currentPrice * 2;
+                    else newPrice = Math.max(Math.floor(currentPrice / 2), 2500);
                 } else {
-                    // 方向切替：current と 直前の価格(prevEntry) の中央値を計算
                     if (prevEntry) {
                         newPrice = Math.floor((currentPrice + prevEntry.price) / 2);
                         const high = Math.max(currentPrice, prevEntry.price);
                         const low = Math.min(currentPrice, prevEntry.price);
                         newBounds = { high, low };
                     } else {
-                        // prevEntry がない（あまり起きないが念のため）→ フォールバックで半額/倍
-                        if (choice === 'buy') {
-                            newPrice = currentPrice * 2;
-                        } else {
-                            newPrice = Math.max(Math.floor(currentPrice / 2), 2500);
-                        }
-                        newBounds = null;
+                        if (choice === 'buy') newPrice = currentPrice * 2;
+                        else newPrice = Math.max(Math.floor(currentPrice / 2), 2500);
                     }
                 }
             }
 
-            // 最低値保証（安全策）：2500円未満にはしない
             if (newPrice < 2500) newPrice = 2500;
-
-            // 更新を履歴に保存して表示を更新
             priceHistory.push({ price: newPrice, bounds: newBounds });
             clothingPrice = newPrice;
             lastChoice = choice;
             updateClothingPriceAndImage();
         }
-        // ---------- ここまで ----------
 
-        updatePageDisplay();
-
-        // --- modal ---
         function showModal(message, isLoading = false) {
             modalMessage.innerHTML = message;
-            if (isLoading) {
-                loadingSpinner.classList.remove('hidden');
-                modalCloseButton.classList.add('hidden');
-            } else {
-                loadingSpinner.classList.add('hidden');
-                modalCloseButton.classList.remove('hidden');
-            }
+            if (isLoading) loadingSpinner.classList.remove('hidden'); else loadingSpinner.classList.add('hidden');
             statusModal.style.display = 'flex';
         }
-
-        function closeModal() {
-            statusModal.style.display = 'none';
-        }
-
+        function closeModal() { statusModal.style.display = 'none'; }
         modalCloseButton.addEventListener('click', closeModal);
-        window.addEventListener('click', (event) => {
-            if (event.target == statusModal) {
-                closeModal();
-            }
-        });
+        window.addEventListener('click', (event) => { if (event.target == statusModal) closeModal(); });
 
         async function submitForm(event) {
             event.preventDefault();
-            if (!GOOGLE_APPS_SCRIPT_URL) {
-                showModal('エラー: Google Apps ScriptのURLが設定されていません。', false);
-                return;
-            }
+            if (!GOOGLE_APPS_SCRIPT_URL) { showModal('エラー: Google Apps ScriptのURLが設定されていません。', false); return; }
             showModal('回答を送信しています...', true);
-        
-            // surveyAnswers にページ遷移時に貯めたデータをコピー
+
             const data = {};
-            for (const key in surveyAnswers) {
-                data[key] = surveyAnswers[key];
-            }
-        
-            // フォーム内の値を取得（同名のフィールドが複数あるときは配列で格納）
+            for (const key in surveyAnswers) data[key] = surveyAnswers[key];
             const formData = new FormData(form);
             const seenKeys = new Set();
             for (const key of formData.keys()) {
@@ -1290,17 +685,9 @@
                 const values = formData.getAll(key);
                 data[key] = (values.length > 1) ? values : values[0];
             }
-            // 例：data['parent_education_expense_support'] は配列になる（選択が複数ある場合）
-            try {
-                await fetch(GOOGLE_APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                });
 
+            try {
+                await fetch(GOOGLE_APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
                 showModal('回答が正常に送信されました。<br>もしよろしければ、お知り合いにもアンケートを共有して頂けると幸いです。<br>ご協力ありがとうございました。<br>【アンケートフォームURL】<br>https://researchforme.github.io/test/', false);
                 form.reset();
                 currentPageIndex = 0;
@@ -1311,104 +698,80 @@
                 currentSimulationData = null;
             } catch (error) {
                 console.error('送信エラー:', error);
-                showModal('送信中にエラーが発生しました。もう一度お試しください。', false);
+                showModal('送信中にエラーが発生しました。', false);
             }
         }
 
-        // --- 画面向き / リサイズの監視 ---
-        window.addEventListener('orientationchange', () => {
-            setTimeout(checkOrientationRequirement, 300);
-        });
-        window.addEventListener('resize', () => {
-            setTimeout(checkOrientationRequirement, 150);
-        });
-
-        // 初期チェック（ページロード時）
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- 全 checkbox 群の "None"（「ない」）排他ロジックを汎用的に追加 ---
-            // 判定に使う 'None' を表す語（必要ならここに追加）
-            const NONE_KEYWORDS = ['なし', '支援なし','受け取っていない', '教わってない', '教わっていない', 'ない', 'none'];
-            
-            // ヘルパー：入力要素が "None" 候補かどうか（value, id, aria-label, ラベルテキストをチェック）
-            function isNoneCheckbox(cb) {
-                if (!cb) return false;
-                const v = String(cb.value || '').toLowerCase();
-                for (const kw of NONE_KEYWORDS) if (v.includes(kw)) return true;
-                const id = String(cb.id || '').toLowerCase();
-                for (const kw of NONE_KEYWORDS) if (id.includes(kw)) return true;
-                // ラベル要素のテキストも確認（label[for=...]）
-                if (cb.id) {
-                    const lab = document.querySelector(`label[for="${cb.id}"]`);
-                    if (lab) {
-                        const text = lab.textContent || '';
-                        for (const kw of NONE_KEYWORDS) if (text.includes(kw)) return true;
-                    }
+        // --- Other checkbox helpers ---
+        function isNoneCheckbox(cb) {
+            if (!cb) return false;
+            const NONE_KEYWORDS = ['なし','支援なし','受け取っていない','教わってない','教わっていない','ない','none'];
+            const v = String(cb.value || '').toLowerCase();
+            for (const kw of NONE_KEYWORDS) if (v.includes(kw)) return true;
+            const id = String(cb.id || '').toLowerCase();
+            for (const kw of NONE_KEYWORDS) if (id.includes(kw)) return true;
+            if (cb.id) {
+                const lab = document.querySelector(`label[for="${cb.id}"]`);
+                if (lab) {
+                    const text = (lab.textContent || '').toLowerCase();
+                    for (const kw of NONE_KEYWORDS) if (text.includes(kw)) return true;
                 }
-                return false;
             }
+            return false;
+        }
 
-            function setupOtherCheckboxes() {
-              // 全てのチェックボックスを走査し、data-has-other 属性がある要素にハンドラを付ける
-              document.querySelectorAll('input[type="checkbox"][data-has-other="true"]').forEach(cb => {
-                const otherTargetId = cb.dataset.otherTarget;
-                if (!otherTargetId) return;
-                const container = document.getElementById(otherTargetId + '_container') || document.getElementById(otherTargetId + '_container') /*fallback*/;
-                const textInput = document.getElementById(otherTargetId);
-            
-                // 初期表示: チェックされていれば見せる
-                if (cb.checked) {
-                  if (container) container.classList.remove('hidden');
-                  if (textInput) textInput.required = true;
-                } else {
-                  if (container) container.classList.add('hidden');
-                  if (textInput) textInput.required = false;
-                }
-            
-                cb.addEventListener('change', () => {
-                  if (cb.checked) {
-                    if (container) container.classList.remove('hidden');
-                    if (textInput) {
-                      textInput.required = true;
-                      textInput.focus();
-                    }
-                  } else {
-                    if (container) container.classList.add('hidden');
-                    if (textInput) {
-                      textInput.required = false;
-                      textInput.value = ''; // 任意で既入力を消す
-                    }
-                  }
-                });
-              });
+        function setupOtherCheckboxes() {
+          document.querySelectorAll('input[type="checkbox"][data-has-other="true"]').forEach(cb => {
+            const otherTargetId = cb.dataset.otherTarget;
+            if (!otherTargetId) return;
+            const containerId = cb.dataset.otherContainer || (otherTargetId + '_container');
+            const container = document.getElementById(containerId);
+            const textInput = document.getElementById(otherTargetId);
+            if (cb.checked) {
+              if (container) container.classList.remove('hidden');
+              if (textInput) textInput.required = true;
+            } else {
+              if (container) container.classList.add('hidden');
+              if (textInput) textInput.required = false;
             }
-            
-            // 同じ name のグループ内で None を選んだら他を外す処理を取り付ける
-            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
-                // 各 checkbox に change ハンドラを追加
-                cb.addEventListener('change', (e) => {
-                    const target = e.target;
-                    const groupName = target.name;
-                    if (!groupName) return;
-            
-                    const group = Array.from(document.querySelectorAll(`input[type="checkbox"][name="${groupName}"]`));
-                    const targetIsNone = isNoneCheckbox(target);
-            
-                    if (targetIsNone && target.checked) {
-                        group.forEach(cb2 => { if (cb2 !== target) cb2.checked = false; });
-                    } else if (!targetIsNone && target.checked) {
-                        group.forEach(cb2 => { if (isNoneCheckbox(cb2)) cb2.checked = false; });
-                    }
-                });
+            cb.addEventListener('change', () => {
+              if (cb.checked) {
+                if (container) container.classList.remove('hidden');
+                if (textInput) { textInput.required = true; textInput.focus(); }
+              } else {
+                if (container) container.classList.add('hidden');
+                if (textInput) { textInput.required = false; textInput.value = ''; }
+              }
             });
-            
-            // disable native HTML5 validation so we can handle validation/submission in JS
-            form.noValidate = true;
-            
-            // 登録はループ外で一度だけ
-            form.addEventListener('submit', submitForm);
+          });
+        }
 
+        // None-exclusive logic for checkboxes
+        function setupNoneExclusive() {
+          document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+            cb.addEventListener('change', (e) => {
+              const target = e.target;
+              const groupName = target.name;
+              if (!groupName) return;
+              const group = Array.from(document.querySelectorAll(`input[type="checkbox"][name="${groupName}"]`));
+              const targetIsNone = isNoneCheckbox(target);
+              if (targetIsNone && target.checked) group.forEach(cb2 => { if (cb2 !== target) cb2.checked = false; });
+              else if (!targetIsNone && target.checked) group.forEach(cb2 => { if (isNoneCheckbox(cb2)) cb2.checked = false; });
+            });
+          });
+        }
+
+        // init
+        document.addEventListener('DOMContentLoaded', () => {
+            form.noValidate = true;
+            form.addEventListener('submit', submitForm);
             setupOtherCheckboxes();
+            setupNoneExclusive();
+            updatePageDisplay();
         });
+
+        window.addEventListener('orientationchange', () => setTimeout(checkOrientationRequirement,300));
+        window.addEventListener('resize', () => setTimeout(checkOrientationRequirement,150));
     </script>
 </body>
 </html>
