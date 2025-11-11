@@ -298,13 +298,6 @@
                       <input id="parent_teaching_parent_age_99" name="親の教育時期" type="checkbox" value="99" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="parent_teaching_parent_age_99" class="ml-3 block text-sm text-gray-700">教わってない</label>
                     </div>
-                    <div class="flex items-center">
-                      <input id="parent_teaching_parent_age_other" name="親の教育時期" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
-                      <label for="parent_teaching_parent_age_other" class="ml-3 block text-sm text-gray-700">その他（具体的に記入してください）</label>
-                    </div>
-                    <div id="parent_teaching_parent_age_other_container" class="mt-2 ml-6 hidden">
-                      <input id="parent_teaching_parent_age_other_text" name="親の教育時期_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
-                    </div>
                   </div>
                 </div>
 
@@ -559,6 +552,13 @@
                     <div class="flex items-center">
                       <input id="parent_support_none" name="親の支援" type="checkbox" value="支援なし" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
                       <label for="parent_support_none" class="ml-3 block text-sm text-gray-700">支援なし</label>
+                    </div>
+                    <div class="flex items-center">
+                      <input id="parent_support_other" name="親の支援" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
+                      <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他</label>
+                    </div>
+                    <div id="parent_edu_support_container" class="mt-2 ml-6 hidden">
+                      <input id="parent_support_other_text" name="親の支援_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
                     </div>
                   </div>
                 </div>
