@@ -355,7 +355,7 @@
             { title: "幼少期から高校生の期間、お金を上手く活用するように教えられた", name: "活用", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"] },
             { title: "幼少期から高校生の期間、欲しいものは何でも買ってもらえた",name: "欲しいものは何でも", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
             { title: "幼少期から高校生の期間、欲しいものを買ってもらうにはルールがあった<br>（良い成績を取る、お手伝いをするなど）", name: "ルール", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
-            { title: "幼少期から高校生の期間、理由があれば欲しいものを買ってもらえた",name: "理由", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"] },},
+            { title: "幼少期から高校生の期間、理由があれば欲しいものを買ってもらえた",name: "理由", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"] },
             { title: "幼少期から高校生の期間、自分のお小遣いで買ったものが不要なものだと言われた", name: "不要", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
             { title: "服を買うとき、育ての親の意見に影響される", name: "親の意見", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる" ] },
             { title: "保護者からの金銭教育は現在のあなたの金銭管理に役立っていると感じる", name: "親役立つ", options: ["全くあてはまらない", "あてはまらない", "どちらともいえない", "あてはまる", "とてもあてまる"] },
@@ -571,8 +571,8 @@
                 currentSimulationRoundIndex = 0;
             }
             currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
-            initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 5000 : 20000;
-                            (currentSimulationData.itemType === "フォーマルなジャケット") ? 40000 : 1000;
+            initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 20000;
+                            (currentSimulationData.itemType === "フォーマルなジャケット") ? 40000;
             clothingPrice = initialPrice;
             finished = false;
             lastChoice = null;
