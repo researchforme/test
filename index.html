@@ -239,7 +239,7 @@
     
                 <div class="border-b border-gray-300 my-6 w-full"></div>
                 
-                <!-- 複数選択：保護者からの経済的支援 -->
+                <!-- 複数選択：学校の教育 -->
                 <div class="mb-6" id="school-education-types">
                   <label class="block text-sm font-medium text-gray-700 mb-2">学校ではどのような方法でお金について教わりましたか（該当するものすべて選んでください）</label>
                   <div class="mt-2 space-y-2">
@@ -260,7 +260,8 @@
                       <label for="school_edu_none" class="ml-3 block text-sm text-gray-700">教わっていない</label>
                     </div>
                     <div class="flex items-center">
-                      <input id="school_edu_other" name="学校の教育" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
+                      <!-- FIXED: data-other-target now points to school_edu_other_text -->
+                      <input id="school_edu_other" name="学校の教育" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="school_edu_other_text">
                       <label for="school_edu_other" class="ml-3 block text-sm text-gray-700">その他</label>
                     </div>
                     <div id="school_edu_other_container" class="mt-2 ml-6 hidden">
@@ -547,10 +548,11 @@
                       <label for="parent_support_none" class="ml-3 block text-sm text-gray-700">支援なし</label>
                     </div>
                     <div class="flex items-center">
-                      <input id="parent_support_other" name="親の支援" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
+                      <!-- FIXED: data-other-target now points to parent_support_other_text and id/label/container aligned -->
+                      <input id="parent_support_other" name="親の支援" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_support_other_text">
                       <label for="parent_support_other" class="ml-3 block text-sm text-gray-700">その他</label>
                     </div>
-                    <div id="parent_support_container" class="mt-2 ml-6 hidden">
+                    <div id="parent_support_other_text_container" class="mt-2 ml-6 hidden">
                       <input id="parent_support_other_text" name="親の支援_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
                     </div>
                   </div>
@@ -929,18 +931,6 @@
                 mainSurveyTitle.classList.add('hidden');
             }
             // ページ表示処理の中（updatePageDisplay など）
-            if (currentPageIndex === 7) {
-                const saved = surveyAnswers['親の支援'];
-                if (Array.isArray(saved)) {
-                    document.querySelectorAll('input[name="parent_support_types"]').forEach(cb => cb.checked = false);
-                    const allCbs = document.querySelectorAll('input[name="親の支援"]');
-                    saved.forEach(val => {
-                        for (const cb of allCbs) {
-                            if (cb.value === val) { cb.checked = true; break; }
-                        }
-                    });
-                }
-            }
             if (currentPageIndex === 4) {
                 if (shuffledFamilyQuestionIndices.length === 0) {
                     shuffledFamilyQuestionIndices = Array.from({ length: familyQuestionsData.length }, (_, i) => i);
@@ -1005,32 +995,33 @@
                         break;
                     }
                 } else if (element.type === 'number' || element.tagName === 'SELECT' || element.tagName === 'TEXTAREA' || element.type === 'text') {
-                    if (element.value.trim() === '') {
+                    if (String(element.value || '').trim() === '') {
                         isValid = false;
                         break;
                     }
                 }
             }
-            return isValid;
 
             // validatePage() 内で既存チェックの後に:
             if (!validateOtherTextFields(currentPage)) return false;
 
-            // 追加：各 "その他" チェックが選ばれているのにテキストが空なら invalid とする
-            function validateOtherTextFields(currentPage) {
-              const otherCheckboxes = currentPage.querySelectorAll('input[type="checkbox"][data-has-other="true"]');
-              for (const cb of otherCheckboxes) {
-                const otherId = cb.dataset.otherTarget;
-                if (!otherId) continue;
-                const textEl = document.getElementById(otherId);
-                if (cb.checked) {
-                  if (!textEl || String(textEl.value || '').trim() === '') {
-                    return false;
-                  }
-                }
+            return isValid;
+        }
+
+        // 追加：各 "その他" チェックが選ばれているのにテキストが空なら invalid とする
+        function validateOtherTextFields(currentPage) {
+          const otherCheckboxes = currentPage.querySelectorAll('input[type="checkbox"][data-has-other="true"]');
+          for (const cb of otherCheckboxes) {
+            const otherId = cb.dataset.otherTarget;
+            if (!otherId) continue;
+            const textEl = document.getElementById(otherId);
+            if (cb.checked) {
+              if (!textEl || String(textEl.value || '').trim() === '') {
+                return false;
               }
-              return true;
             }
+          }
+          return true;
         }
 
         function nextPage() {
@@ -1120,27 +1111,27 @@
             updateClothingPriceAndImage();
             buyButton.disabled = false;
             dontBuyButton.disabled = false;
-            buyButton.classList.remove('hidden');
-            dontBuyButton.classList.remove('hidden');
+            if (buyButton) buyButton.classList.remove('hidden');
+            if (dontBuyButton) dontBuyButton.classList.remove('hidden');
         }
 
         function updateClothingPriceAndImage() {
-            currentPriceSpan.textContent = clothingPrice.toLocaleString();
+            if (currentPriceSpan) currentPriceSpan.textContent = (clothingPrice || 0).toLocaleString();
             if (currentSimulationData) {
-                clothingImage.src = currentSimulationData.imageUrl;
-                clothingItemTypeSpan.textContent = currentSimulationData.itemType;
-                clothingCombinationSpan.textContent = currentSimulationData.combination;
-                clothingSituationSpan.textContent = currentSimulationData.situation;
+                if (clothingImage && currentSimulationData.imageUrl) clothingImage.src = currentSimulationData.imageUrl;
+                if (clothingItemTypeSpan) clothingItemTypeSpan.textContent = currentSimulationData.itemType || '';
+                if (clothingCombinationSpan) clothingCombinationSpan.textContent = currentSimulationData.combination || '';
+                if (clothingSituationSpan) clothingSituationSpan.textContent = currentSimulationData.situation || '';
                 clothingImage.onerror = () => {
                     clothingImage.src = "https://placehold.co/300x300/ff0000/ffffff?text=Error";
                     clothingImage.alt = "Error loading image";
                 };
             } else {
-                clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Data";
-                clothingImage.alt = "No simulation data";
-                clothingItemTypeSpan.textContent = "N/A";
-                clothingCombinationSpan.textContent = "N/A";
-                clothingSituationSpan.textContent = "N/A";
+                if (clothingImage) clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Data";
+                if (clothingImage) clothingImage.alt = "No simulation data";
+                if (clothingItemTypeSpan) clothingItemTypeSpan.textContent = "N/A";
+                if (clothingCombinationSpan) clothingCombinationSpan.textContent = "N/A";
+                if (clothingSituationSpan) clothingSituationSpan.textContent = "N/A";
             }
         }
 
@@ -1157,10 +1148,10 @@
             if (currentHundredsDigit === 5) {
                 const finalChoiceText = (choice === 'buy') ? '買う' : '買わない';
                 surveyAnswers[`${currentSimulationData.id}_最終結果`] = `${currentPrice}円で${finalChoiceText}`;
-                buyButton.disabled = true;
-                dontBuyButton.disabled = true;
-                buyButton.classList.add('hidden');
-                dontBuyButton.classList.add('hidden');
+                if (buyButton) buyButton.disabled = true;
+                if (dontBuyButton) dontBuyButton.disabled = true;
+                if (buyButton) buyButton.classList.add('hidden');
+                if (dontBuyButton) dontBuyButton.classList.add('hidden');
                 finished = true;
                 // 次へ（少し遅延して次セット or 終了）
                 if (currentSimulationRoundIndex < allClothingSimulationsData.length - 1) {
@@ -1345,7 +1336,7 @@
               document.querySelectorAll('input[type="checkbox"][data-has-other="true"]').forEach(cb => {
                 const otherTargetId = cb.dataset.otherTarget;
                 if (!otherTargetId) return;
-                const container = document.getElementById(otherTargetId + '_container') || document.getElementById(otherTargetId + '_container') /*fallback*/;
+                const container = document.getElementById(otherTargetId + '_container');
                 const textInput = document.getElementById(otherTargetId);
             
                 // 初期表示: チェックされていれば見せる
