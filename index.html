@@ -571,8 +571,8 @@
                 currentSimulationRoundIndex = 0;
             }
             currentSimulationData = shuffledClothingSimulations[currentSimulationRoundIndex];
-            initialPrice = (currentSimulationData.itemType === "カジュアルなジャケット") ? 20000;
-                            (currentSimulationData.itemType === "フォーマルなジャケット") ? 40000 : 1000;
+            initialPrice = currentSimulationData.itemType === "カジュアルなジャケット" ? 20000 :
+                            (currentSimulationData.itemType === "フォーマルなジャケット" ? 40000 : 1000);
             clothingPrice = initialPrice;
             finished = false;
             lastChoice = null;
