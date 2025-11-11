@@ -231,7 +231,7 @@
                       <input id="parent_edu_other" name="親の教育" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="parent_edu_other_text">
                       <label for="parent_edu_other" class="ml-3 block text-sm text-gray-700">その他</label>
                     </div>
-                    <div id="parent_edu_other_container" class="mt-2 ml-6 hidden">
+                    <div id="parent_edu_other_text_container" class="mt-2 ml-6 hidden">
                       <input id="parent_edu_other_text" name="親の教育_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
                     </div>
                   </div>
@@ -264,7 +264,7 @@
                       <input id="school_edu_other" name="学校の教育" type="checkbox" value="その他" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" data-has-other="true" data-other-target="school_edu_other_text">
                       <label for="school_edu_other" class="ml-3 block text-sm text-gray-700">その他</label>
                     </div>
-                    <div id="school_edu_other_container" class="mt-2 ml-6 hidden">
+                    <div id="school_edu_other_text_container" class="mt-2 ml-6 hidden">
                       <input id="school_edu_other_text" name="学校の教育_その他" type="text" placeholder="具体的にご記入ください" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3" />
                     </div>
                   </div>
@@ -1273,6 +1273,53 @@
                 seenKeys.add(key);
                 const values = formData.getAll(key);
                 data[key] = (values.length > 1) ? values : values[0];
+            }
+            // --- 「その他」テキストを該当チェック群に結合する処理 ---
+            // data のキー名はフォーム内の name 属性に合わせてください
+            const otherGroups = [
+              { groupKey: '親の教育', otherInputName: '親の教育_その他', otherInputId: 'parent_edu_other_text' },
+              { groupKey: '学校の教育', otherInputName: '学校の教育_その他', otherInputId: 'school_edu_other_text' },
+              { groupKey: '親の支援', otherInputName: '親の支援_その他', otherInputId: 'parent_support_other_text' },
+              // 他にも "その他" があればここに追加
+            ];
+            
+            for (const g of otherGroups) {
+              // まず data オブジェクト内に otherInputName があれば取る（FormData から入っている可能性）
+              let otherText = '';
+              if (data[g.otherInputName] !== undefined) {
+                otherText = String(data[g.otherInputName] || '').trim();
+              } else {
+                // 無ければ DOM から直接取得（初期表示/JS制御で DOM にある場合）
+                const el = document.getElementById(g.otherInputId);
+                otherText = el ? String(el.value || '').trim() : '';
+              }
+            
+              const groupVal = data[g.groupKey];
+            
+              if (otherText) {
+                const otherLabel = `その他: ${otherText}`;
+                if (Array.isArray(groupVal)) {
+                  // 既に "その他" 要素があるか置き換え、無ければ追加
+                  const idx = groupVal.findIndex(v => String(v).startsWith('その他'));
+                  if (idx >= 0) groupVal[idx] = otherLabel;
+                  else groupVal.push(otherLabel);
+                  data[g.groupKey] = groupVal;
+                } else if (typeof groupVal === 'string' && groupVal !== '') {
+                  // 単一文字列の場合は配列にして追加
+                  if (groupVal.startsWith('その他')) data[g.groupKey] = otherLabel;
+                  else data[g.groupKey] = [groupVal, otherLabel];
+                } else {
+                  // group が未定義なら その他のみの配列を作成
+                  data[g.groupKey] = [otherLabel];
+                }
+                // （任意）個別フィールドを削除して重複を避けたい場合は次を有効化
+                // delete data[g.otherInputName];
+              } else {
+                // otherText が空で、配列内に "その他: ..." が残っている場合は削除しておく（オプション）
+                if (Array.isArray(data[g.groupKey])) {
+                  data[g.groupKey] = data[g.groupKey].join('; ');
+                }
+              }
             }
             // 例：data['parent_education_expense_support'] は配列になる（選択が複数ある場合）
             try {
