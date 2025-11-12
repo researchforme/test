@@ -871,10 +871,13 @@
         function isLandscape() {
             return window.innerWidth >= window.innerHeight;
         }
-        const PORTRAIT_FROM_PAGE = 6;
-
+        
+        // 縦画面を要求するページの集合（必要ならここにページ番号を追加）
+        const PORTRAIT_PAGES = new Set([6]);
+        
         function checkOrientationRequirement() {
             if (!isSmartphone()) {
+                // デスクトップ（スマホでない）では基本的に横向き（全画面）を推奨する既存の動作を維持
                 if (isLandscape()) {
                     orientationMessage.style.display = 'none';
                     surveyContainer.style.display = 'block';
@@ -885,11 +888,15 @@
                 }
                 return;
             }
-
-            const requiresPortrait = currentPageIndex >= PORTRAIT_FROM_PAGE;
+        
+            // スマホの場合：現在のページが PORTRAIT_PAGES に含まれるなら縦を要求、
+            // 含まれなければ横を要求する（ページごとに個別制御）
+            const requiresPortrait = PORTRAIT_PAGES.has(currentPageIndex);
+        
             if (requiresPortrait) {
+                // このページは縦向きで回答して欲しい
                 if (isLandscape()) {
-                    orientationText.innerHTML = '次のセクションは<span class="text-yellow-400">縦画面</span>で回答してください。スマホを縦向きにしてください。';
+                    orientationText.innerHTML = 'この先は<span class="text-yellow-400">縦画面</span>で回答してください。スマホを縦向きにしてください。';
                     orientationMessage.style.display = 'flex';
                     surveyContainer.style.display = 'none';
                 } else {
@@ -897,6 +904,7 @@
                     surveyContainer.style.display = 'block';
                 }
             } else {
+                // このページは横向きで回答して欲しい
                 if (isLandscape()) {
                     orientationMessage.style.display = 'none';
                     surveyContainer.style.display = 'block';
