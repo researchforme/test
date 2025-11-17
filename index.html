@@ -473,8 +473,8 @@
                 <div class="flex flex-col items-center justify-center p-4 bg-gray-50 rounded-lg shadow-inner mb-6">
                     <img id="clothing-image" src="https://github.com/researchforme/my_survey_img/blob/main/%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true" alt="Clothing Item" class="rounded-md shadow-md mb-4 w-full max-w-sm">
                     <p class="text-xl font-medium text-gray-700 mb-2">種類: <span id="clothing-item-type" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-xl font-medium text-gray-700 mb-2">希少性: <span id="clothing-combination" class="font-semibold text-gray-900"></span></p>
-                    <p class="text-xl font-medium text-gray-700 mb-4">機能性: <span id="clothing-situation" class="font-semibold text-gray-900"></span></p>
+                    <p class="text-xl font-medium text-gray-700 mb-2">希少性: <span id="clothing-rarity" class="font-semibold text-gray-900"></span></p>
+                    <p class="text-xl font-medium text-gray-700 mb-4">機能性: <span id="clothing-function" class="font-semibold text-gray-900"></span></p>
                     <p class="text-xl font-medium text-gray-700 mb-4">品質: <span class="font-semibold text-gray-900">良い</span><p>
                     <p class="text-xl font-medium text-gray-700 mb-4">メーカーの信用度: <span class="font-semibold text-gray-900">高い</span><p>
                     <p class="text-2xl font-bold text-gray-900 mb-6">価格: <span id="current-price"></span>円</p>
@@ -736,14 +736,14 @@
         const casualJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%82%AB%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true";
 
         const allClothingSimulationsData = [
-            { id: "sim_formal_high_high", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "高い", situation: "高い" },
-            { id: "sim_formal_high_normal", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "高い", situation: "普通" },
-            { id: "sim_formal_normal_high", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "普通", situation: "高い" },
-            { id: "sim_formal_normal_normal", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", combination: "普通", situation: "普通" },
-            { id: "sim_casual_high_high", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "高い", situation: "高い" },
-            { id: "sim_casual_high_normal", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "高い", situation: "普通" },
-            { id: "sim_casual_normal_high", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "普通", situation: "高い" },
-            { id: "sim_casual_normal_normal", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", combination: "普通", situation: "普通" },
+            { id: "sim_formal_high_high", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", rarity: "高い", function: "高い" },
+            { id: "sim_formal_high_normal", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", rarity: "高い", function: "普通" },
+            { id: "sim_formal_normal_high", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", rarity: "普通", function: "高い" },
+            { id: "sim_formal_normal_normal", imageUrl: formalJacketUrl, itemType: "フォーマルなジャケット", rarity: "普通", function: "普通" },
+            { id: "sim_casual_high_high", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", rarity: "高い", function: "高い" },
+            { id: "sim_casual_high_normal", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", rarity: "高い", function: "普通" },
+            { id: "sim_casual_normal_high", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", rarity: "普通", function: "高い" },
+            { id: "sim_casual_normal_normal", imageUrl: casualJacketUrl, itemType: "カジュアルなジャケット", rarity: "普通", function: "普通" },
         ];
 
         const familyQuestionsData = [
