@@ -729,8 +729,8 @@
         const submitButtonFinal = document.getElementById('submit-button-final');
         const clothingImage = document.getElementById('clothing-image');
         const clothingItemTypeSpan = document.getElementById('clothing-item-type');
-        const clothingCombinationSpan = document.getElementById('clothing-combination');
-        const clothingSituationSpan = document.getElementById('clothing-situation');
+        const clothingRaritySpan = document.getElementById('clothing-rarity');
+        const clothingFuntionSpan = document.getElementById('clothing-function');
 
         const formalJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%882.png?raw=true";
         const casualJacketUrl = "https://github.com/researchforme/my_survey_img/blob/main/%E3%82%AB%E3%82%B8%E3%83%A5%E3%82%A2%E3%83%AB%E3%81%AA%E3%82%B8%E3%83%A3%E3%82%B1%E3%83%83%E3%83%88.png?raw=true";
@@ -1128,8 +1128,8 @@
             if (currentSimulationData) {
                 if (clothingImage && currentSimulationData.imageUrl) clothingImage.src = currentSimulationData.imageUrl;
                 if (clothingItemTypeSpan) clothingItemTypeSpan.textContent = currentSimulationData.itemType || '';
-                if (clothingCombinationSpan) clothingCombinationSpan.textContent = currentSimulationData.combination || '';
-                if (clothingSituationSpan) clothingSituationSpan.textContent = currentSimulationData.situation || '';
+                if (clothingRaritySpan) clothingRaritySpan.textContent = currentSimulationData.rarity || '';
+                if (clothingFunctionSpan) clothingFunctionSpan.textContent = currentSimulationData.function || '';
                 clothingImage.onerror = () => {
                     clothingImage.src = "https://placehold.co/300x300/ff0000/ffffff?text=Error";
                     clothingImage.alt = "Error loading image";
@@ -1138,8 +1138,8 @@
                 if (clothingImage) clothingImage.src = "https://placehold.co/300x300/e0e0e0/555555?text=No+Data";
                 if (clothingImage) clothingImage.alt = "No simulation data";
                 if (clothingItemTypeSpan) clothingItemTypeSpan.textContent = "N/A";
-                if (clothingCombinationSpan) clothingCombinationSpan.textContent = "N/A";
-                if (clothingSituationSpan) clothingSituationSpan.textContent = "N/A";
+                if (clothingRaritySpan) clothingRaritySpan.textContent = "N/A";
+                if (clothingFunctionSpan) clothingFunctionSpan.textContent = "N/A";
             }
         }
 
